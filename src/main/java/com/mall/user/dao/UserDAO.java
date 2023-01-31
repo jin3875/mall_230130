@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDAO {
 	
+	// TEST
 	public List<Map<String, Object>> selectUserListTEST();
 
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제목</title>
+<title>TEST</title>
 </head>
 <body>
 	<h1>Hello World!!!</h1>

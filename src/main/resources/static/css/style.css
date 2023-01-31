@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+a {color:#000;}
+a:hover {color:#666; text-decoration:none;}
+
+#wrap {width:1200px; margin:0 auto;}
+header {height:80px;}
+.center {min-height:500px;}
+footer {height:50px;}
