@@ -19,26 +19,16 @@
 <body>
 	<div id="wrap">
 		<nav class="d-flex justify-content-end">
-			<ul class="nav d-flex align-items-center">
-				<!-- 비로그인 상태 -->
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold">로그인</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold">회원가입</a></li>
-				
-				<!-- 로그인 상태 -->
-				<span class="d-none">000님</span>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">로그아웃</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">장바구니</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">마이페이지</a></li>
-			</ul>
+			<jsp:include page="../include/menu.jsp" />
 		</nav>
 		<header class="d-flex align-items-center">
 			<jsp:include page="../include/header.jsp" />
 		</header>
-		<div class="center d-flex">
-			<section class="contents col-10">
+		<div class="center d-flex my-4">
+			<section class="contents">
 				<jsp:include page="../${viewName}.jsp" />
 			</section>
-			<aside class="col-2 d-flex justify-content-center">
+			<aside class="d-flex justify-content-center">
 				<jsp:include page="../include/aside.jsp" />
 			</aside>
 		</div>
