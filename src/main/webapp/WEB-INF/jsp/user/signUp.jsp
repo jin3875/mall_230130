@@ -9,7 +9,6 @@
 		<input type="text" id="loginId" class="form-control col-8">
 	</div>
 	
-	<!-- 아이디 체크 -->
 	<div>
 		<div id="idCheckValidation" class="text-right small text-danger d-none">5~20자의 영문 소문자와 숫자만 사용 가능합니다.</div>
 		<div id="idCheckDuplicated" class="text-center ml-5 small text-danger d-none">이미 사용중인 아이디입니다.</div>
@@ -21,7 +20,6 @@
 		<input type="password" id="password" class="form-control col-8">
 	</div>
 	
-	<!-- 비밀번호 체크 -->
 	<div>
 		<div id="passwordCheckValidation" class="text-right mr-4 small text-danger d-none">5~20자의 비밀번호만 사용 가능합니다.</div>
 	</div>
@@ -31,7 +29,6 @@
 		<input type="password" id="confirmPassword" class="form-control col-8">
 	</div>
 	
-	<!-- 비밀번호 일치 체크 -->
 	<div>
 		<div id="passwordCheckEqual" class="text-center ml-5 small text-danger d-none">비밀번호가 일치하지 않습니다.</div>
 	</div>
@@ -41,7 +38,6 @@
 		<input type="text" id="name" class="form-control col-8">
 	</div>
 	
-	<!-- 이름 체크 -->
 	<div>
 		<div id="nameCheckValidation" class="text-right mr-5 small text-danger d-none">2자 이상의 한글만 사용 가능합니다.</div>
 	</div>
@@ -51,7 +47,6 @@
 		<input type="text" id="phoneNumber" class="form-control col-8">
 	</div>
 	
-	<!-- 휴대폰 번호 체크 -->
 	<div>
 		<div id="phoneNumberCheckValidation" class="text-center ml-4 small text-danger d-none">숫자만 사용 가능합니다.</div>
 		<div id="phoneNumberCheckLength" class="text-center ml-5 small text-danger d-none">휴대폰 번호가 올바르지 않습니다.</div>
@@ -62,7 +57,6 @@
 		<input type="text" id="email" class="form-control col-8">
 	</div>
 	
-	<!-- 이메일 체크 -->
 	<div>
 		<div id="emailCheckValidation" class="text-center ml-5 small text-danger d-none">이메일 주소가 올바르지 않습니다.</div>
 	</div>
@@ -77,7 +71,6 @@
 		<input type="text" id="address" class="form-control col-8">
 	</div>
 	
-	<!-- 주소 체크 -->
 	<div>
 		<div id="addressCheckEmpty" class="text-center small text-danger d-none">주소를 입력하세요.</div>
 		<div id="addressCheckValidation" class="text-center small text-danger d-none">주소를 확인하세요.</div>
@@ -88,7 +81,6 @@
 		<input type="text" id="detailAddress" class="form-control col-8">
 	</div>
 	
-	<!-- 상세 주소 체크 -->
 	<div>
 		<div id="detailAddressCheckEmpty" class="text-center ml-4 small text-danger d-none">상세 주소를 입력하세요.</div>
 	</div>

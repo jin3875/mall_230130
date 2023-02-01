@@ -11,7 +11,7 @@
 			`user`
 	</select>
 	
-	<!-- loginId 존재 유무 -->
+	<!-- 아이디 존재 유무 -->
 	<select id="existLoginId" parameterType="String" resultType="boolean">
 		SELECT
 			COUNT(*)

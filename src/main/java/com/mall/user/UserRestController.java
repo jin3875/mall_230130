@@ -35,7 +35,7 @@ public class UserRestController {
 		boolean isDuplicated;
 		
 		try {
-			// loginId 존재 유무
+			// 아이디 존재 유무
 			isDuplicated = userBO.existLoginId(loginId);
 		} catch(Exception e) {
 			result.put("code", 500);
@@ -44,11 +44,9 @@ public class UserRestController {
 		}
 		
 		if (isDuplicated) {
-			// 중복
 			result.put("code", 1);
 			result.put("result", true);
 		} else {
-			// 사용 가능
 			result.put("code", 1);
 			result.put("result", false);
 		}
