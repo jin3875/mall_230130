@@ -24,7 +24,7 @@ public class UserRestController {
 	private UserBO userBO;
 	
 	/**
-	 * 아이디 중복확인 API
+	 * 아이디 중복 확인 API
 	 * @param loginId
 	 * @return
 	 */
@@ -101,6 +101,42 @@ public class UserRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "회원가입 실패");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 로그인 API
+	 * @param loginId
+	 * @param password
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/sign_in")
+	public Map<String, Object> signIn(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 비밀번호 암호화
+		String hashedPassword = EncryptUtils.md5(password);
+		
+		// 유저 검색
+		User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
+		
+		if (user != null) {
+			result.put("code", 1);
+			result.put("result", "success");
+			
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userLoginId", user.getLoginId());
+			session.setAttribute("userName", user.getName());
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "아이디 또는 비밀번호가 일치하지 않습니다");
 		}
 		
 		return result;

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="sign-up-box">
+<div class="user-box">
 	<h3 class="text-center font-weight-bold">회원가입</h3>
 	
 	<div class="d-flex justify-content-between align-items-center mt-4">
@@ -72,7 +72,6 @@
 	</div>
 	
 	<div>
-		<div id="addressCheckEmpty" class="text-center small text-danger d-none">주소를 입력하세요.</div>
 		<div id="addressCheckValidation" class="text-center small text-danger d-none">주소를 확인하세요.</div>
 	</div>
 	
@@ -95,11 +94,10 @@
 		$('#address').on('click', function() {
 			new daum.Postcode({
 				oncomplete: function(data) {
-					document.getElementById("postcode").value = data.zonecode;
-					document.getElementById("address").value = data.address;
-					$('#addressCheckEmpty').addClass('d-none');
 					$('#addressCheckValidation').addClass('d-none');
-					document.getElementById("detailAddress").focus();
+					$('#postcode').val(data.zonecode);
+					$('#address').val(data.address);
+					$('#detailAddress').focus();
 				}
 			}).open();
 		});
@@ -223,7 +221,6 @@
 		
 		// 주소 체크
 		$('#address').on('change', function() {
-			$('#addressCheckEmpty').addClass('d-none');
 			$('#addressCheckValidation').removeClass('d-none');
 			return;
 		});
@@ -253,91 +250,90 @@
 			let detailAddress = $('#detailAddress').val().trim();
 			
 			if ($('#idCheckValidation').hasClass('d-none') == false || $('#idCheckDuplicated').hasClass('d-none') == false) {
-				document.getElementById("loginId").focus();
+				$('#loginId').focus();
 				return;
 			}
 			
 			if ($('#idCheckOk').hasClass('d-none')) {
 				$('#idCheckValidation').removeClass('d-none');
-				document.getElementById("loginId").focus();
+				$('#loginId').focus();
 				return;
 			}
 			
 			if (password == '') {
 				$('#passwordCheckValidation').removeClass('d-none');
-				document.getElementById("password").focus();
+				$('#password').focus();
 				return;
 			}
 			
 			if ($('#passwordCheckValidation').hasClass('d-none') == false) {
-				document.getElementById("password").focus();
+				$('#password').focus();
 				return;
 			}
 			
 			if (confirmPassword == '') {
 				$('#passwordCheckEqual').removeClass('d-none');
-				document.getElementById("confirmPassword").focus();
+				$('#confirmPassword').focus();
 				return;
 			}
 			
 			if ($('#passwordCheckEqual').hasClass('d-none') == false) {
-				document.getElementById("confirmPassword").focus();
+				$('#confirmPassword').focus();
 				return;
 			}
 			
 			if (name == '') {
 				$('#nameCheckValidation').removeClass('d-none');
-				document.getElementById("name").focus();
+				$('#name').focus();
 				return;
 			}
 			
 			if ($('#nameCheckValidation').hasClass('d-none') == false) {
-				document.getElementById("name").focus();
+				$('#name').focus();
 				return;
 			}
 			
 			if (phoneNumber == '') {
 				$('#phoneNumberCheckValidation').removeClass('d-none');
-				document.getElementById("phoneNumber").focus();
+				$('#phoneNumber').focus();
 				return;
 			}
 			
 			if ($('#phoneNumberCheckValidation').hasClass('d-none') == false || $('#phoneNumberCheckLength').hasClass('d-none') == false) {
-				document.getElementById("phoneNumber").focus();
+				$('#phoneNumber').focus();
 				return;
 			}
 			
 			if (email == '') {
 				$('#emailCheckValidation').removeClass('d-none');
-				document.getElementById("email").focus();
+				$('#email').focus();
 				return;
 			}
 			
 			if ($('#emailCheckValidation').hasClass('d-none') == false) {
-				document.getElementById("email").focus();
+				$('#email').focus();
 				return;
 			}
 			
 			if (address == '') {
-				$('#addressCheckValidation').addClass('d-none');
-				$('#addressCheckEmpty').removeClass('d-none');
-				document.getElementById("address").focus();
+				$('#addressCheckValidation').removeClass('d-none');
+				$('#address').focus();
 				return;
 			}
 			
-			if ($('#addressCheckEmpty').hasClass('d-none') == false || $('#addressCheckValidation').hasClass('d-none') == false) {
-				document.getElementById("address").focus();
+			if ($('#addressCheckValidation').hasClass('d-none') == false) {
+				$('#address').focus();
 				return;
 			}
 			
 			if (detailAddress == '') {
 				$('#detailAddressCheckEmpty').removeClass('d-none');
-				document.getElementById("detailAddress").focus();
+				$('#detailAddress').focus();
 				return;
 			}
 			
 			if ($('#detailAddressCheckEmpty').hasClass('d-none') == false) {
-				document.getElementById("detailAddress").focus();
+				$('#detailAddress').focus();
 				return;
 			}
 			
