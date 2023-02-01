@@ -3,8 +3,8 @@
 
 <ul class="nav d-flex align-items-center">
 	<!-- 비로그인 상태 -->
-	<li class="nav-item"><a href="#" class="nav-link font-weight-bold">로그인</a></li>
-	<li class="nav-item"><a href="#" class="nav-link font-weight-bold">회원가입</a></li>
+	<li class="nav-item"><a href="/user/sign_in_view" class="nav-link font-weight-bold">로그인</a></li>
+	<li class="nav-item"><a href="/user/sign_up_view" class="nav-link font-weight-bold">회원가입</a></li>
 	
 	<!-- 로그인 상태 -->
 	<span class="d-none">000님</span>

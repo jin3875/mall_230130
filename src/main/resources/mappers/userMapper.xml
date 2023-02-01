@@ -10,4 +10,46 @@
 		FROM
 			`user`
 	</select>
+	
+	<!-- loginId 존재 유무 -->
+	<select id="existLoginId" parameterType="String" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+	</select>
+	
+	<!-- 유저 추가 -->
+	<insert id="insertUser" parameterType="map">
+		INSERT INTO `user`
+		(
+			`loginId`
+			,`password`
+			,`name`
+			,`phoneNumber`
+			,`email`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{loginId}
+			, #{password}
+			, #{name}
+			, #{phoneNumber}
+			, #{email}
+			, #{postcode}
+			, #{address}
+			, #{detailAddress}
+			, 0
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>

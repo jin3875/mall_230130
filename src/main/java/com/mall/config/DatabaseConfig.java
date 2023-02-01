@@ -1,4 +1,4 @@
-package com.mall.common;
+package com.mall.config;
 
 import javax.sql.DataSource;
 
