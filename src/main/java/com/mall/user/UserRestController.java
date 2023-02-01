@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mall.common.EncryptUtils;
 import com.mall.user.bo.UserBO;
+import com.mall.user.model.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
 @RestController
@@ -63,6 +66,7 @@ public class UserRestController {
 	 * @param postcode
 	 * @param address
 	 * @param detailAddress
+	 * @param session
 	 * @return
 	 */
 	@PostMapping("/sign_up")
@@ -74,7 +78,8 @@ public class UserRestController {
 			@RequestParam("email") String email,
 			@RequestParam("postcode") int postcode,
 			@RequestParam("address") String address,
-			@RequestParam("detailAddress") String detailAddress
+			@RequestParam("detailAddress") String detailAddress,
+			HttpSession session
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
@@ -82,11 +87,19 @@ public class UserRestController {
 		String hashedPassword = EncryptUtils.md5(password);
 		
 		// 유저 추가
-		int rowCount = userBO.addUser(loginId, hashedPassword, name, phoneNumber, email, postcode, address, detailAddress);
+		int rowCount = userBO.addUser(loginId, hashedPassword, name, phoneNumber,
+				email, postcode, address, detailAddress);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
 			result.put("result", "success");
+			
+			// 유저 검색
+			User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
+			
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userLoginId", user.getLoginId());
+			session.setAttribute("userName", user.getName());
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "회원가입 실패");

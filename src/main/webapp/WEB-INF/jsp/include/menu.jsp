@@ -1,14 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <ul class="nav d-flex align-items-center">
-	<!-- ºñ·Î±×ÀÎ »óÅÂ -->
-	<li class="nav-item"><a href="/user/sign_in_view" class="nav-link font-weight-bold">·Î±×ÀÎ</a></li>
-	<li class="nav-item"><a href="/user/sign_up_view" class="nav-link font-weight-bold">È¸¿ø°¡ÀÔ</a></li>
-	
-	<!-- ·Î±×ÀÎ »óÅÂ -->
-	<span class="d-none">000´Ô</span>
-	<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">·Î±×¾Æ¿ô</a></li>
-	<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">Àå¹Ù±¸´Ï</a></li>
-	<li class="nav-item"><a href="#" class="nav-link font-weight-bold d-none">¸¶ÀÌÆäÀÌÁö</a></li>
+	<c:choose>
+		<c:when test="${empty userId}">
+			<li class="nav-item"><a href="/user/sign_in_view" class="nav-link font-weight-bold">ë¡œê·¸ì¸</a></li>
+			<li class="nav-item"><a href="/user/sign_up_view" class="nav-link font-weight-bold">íšŒì›ê°€ìž…</a></li>
+		</c:when>
+		
+		<c:otherwise>
+			<span class="text-secondary font-weight-bold">${userName}ë‹˜</span>
+			<li class="nav-item"><a href="#" class="nav-link font-weight-bold">ë¡œê·¸ì•„ì›ƒ</a></li>
+			<li class="nav-item"><a href="#" class="nav-link font-weight-bold">ìž¥ë°”êµ¬ë‹ˆ</a></li>
+			<li class="nav-item"><a href="#" class="nav-link font-weight-bold">ë§ˆì´íŽ˜ì´ì§€</a></li>
+		</c:otherwise>
+	</c:choose>
 </ul>

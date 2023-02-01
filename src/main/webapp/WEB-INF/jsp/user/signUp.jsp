@@ -358,7 +358,7 @@
 				, success:function(data) {
 					if (data.code == 1) {
 						alert("회원가입이 완료되었습니다.");
-						location.href="/user/sign_in_view";
+						location.href="/product/product_main_view";
 					} else {
 						alert(data.errorMessage);
 					}

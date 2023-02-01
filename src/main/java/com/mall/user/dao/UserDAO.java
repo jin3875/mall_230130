@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.mall.user.model.User;
+
 @Repository
 public interface UserDAO {
 	
@@ -25,5 +27,10 @@ public interface UserDAO {
 			@Param("postcode") int postcode,
 			@Param("address") String address,
 			@Param("detailAddress") String detailAddress);
+	
+	// 유저 검색
+	public User selectUserByLoginIdPassword(
+			@Param("loginId") String loginId,
+			@Param("password") String password);
 
 }
