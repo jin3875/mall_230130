@@ -3,7 +3,7 @@
 
 <!-- logo -->
 <div class="col-3">
-	<a href="#"><div class="display-4">GirlFit</div></a>
+	<a href="#" class="logo"><span class="display-4">GirlFit</span></a>
 </div>
 
 <!-- category -->

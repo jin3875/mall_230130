@@ -10,4 +10,6 @@ header {height:80px;}
 aside {width:100px;}
 footer {height:50px;}
 
+.logo:hover {color:#000;}
+
 .sign-up-box {width:400px; margin:0 auto;}
