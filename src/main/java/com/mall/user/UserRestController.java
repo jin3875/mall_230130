@@ -141,5 +141,34 @@ public class UserRestController {
 		
 		return result;
 	}
+	
+	/**
+	 * 아이디 찾기 API
+	 * @param name
+	 * @param phoneNumber
+	 * @return
+	 */
+	@PostMapping("/search_id")
+	public Map<String, Object> searchId(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 아이디 검색
+		User user = userBO.getUserByNamePhoneNumber(name, phoneNumber);
+		
+		if (user != null) {
+			result.put("code", 1);
+			result.put("result", "success");
+			result.put("userName", user.getName());
+			result.put("userLoginId", user.getLoginId());
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "해당 정보를 가진 유저가 없습니다");
+		}
+		
+		return result;
+	}
 
 }

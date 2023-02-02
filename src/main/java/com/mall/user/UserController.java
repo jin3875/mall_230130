@@ -46,5 +46,38 @@ public class UserController {
 		
 		return "redirect:/product/product_main_view";
 	}
+	
+	/**
+	 * 아이디 찾기 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/search_id_view")
+	public String searchIdView(Model model) {
+		model.addAttribute("viewName", "user/searchId");
+		return "template/layout";
+	}
+	
+	/**
+	 * 아이디 찾기 결과 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/search_id_result_view")
+	public String searchIdResultView(Model model) {
+		model.addAttribute("viewName", "user/searchIdResult");
+		return "template/layout";
+	}
+	
+	/**
+	 * 비밀번호 찾기 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("search_password_view")
+	public String searchPasswordView(Model model) {
+		model.addAttribute("viewName", "user/searchPassword");
+		return "template/layout";
+	}
 
 }

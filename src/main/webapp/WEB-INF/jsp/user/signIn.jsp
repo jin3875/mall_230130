@@ -23,6 +23,12 @@
 	</div>
 	
 	<button type="button" id="signInBtn" class="btn btn-secondary btn-block mt-4">로그인</button>
+	
+	<div class="d-flex justify-content-between mt-4">
+		<a href="/user/search_id_view" class="col-3 btn btn-sm btn-light"><small>아이디 찾기</small></a>
+		<a href="/user/search_password_view" class="col-3 btn btn-sm btn-light"><small>비밀번호 찾기</small></a>
+		<a href="/user/sign_up_view" class="col-3 btn btn-sm btn-light"><small>회원가입</small></a>
+	</div>
 </div>
 
 <script>
@@ -52,7 +58,7 @@
 				return;
 			}
 			
-			if(password == '') {
+			if (password == '') {
 				$('#passwordCheckEmpty').removeClass('d-none');
 				$('#password').focus();
 				return;

@@ -74,4 +74,26 @@
 			`loginId` = #{loginId}
 			AND `password` = #{password}
 	</select>
+	
+	<!-- 아이디 검색 -->
+	<select id="selectUserByNamePhoneNumber" parameterType="map" resultType="com.mall.user.model.User">
+		SELECT
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`phoneNumber`
+			,`email`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`name` = #{name}
+			AND `phoneNumber` = #{phoneNumber}
+	</select>
 </mapper>

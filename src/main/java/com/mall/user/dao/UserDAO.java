@@ -32,5 +32,10 @@ public interface UserDAO {
 	public User selectUserByLoginIdPassword(
 			@Param("loginId") String loginId,
 			@Param("password") String password);
+	
+	// 아이디 검색
+	public User selectUserByNamePhoneNumber(
+			@Param("name") String name,
+			@Param("phoneNumber") String phoneNumber);
 
 }

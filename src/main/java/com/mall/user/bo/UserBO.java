@@ -28,5 +28,10 @@ public class UserBO {
 	public User getUserByLoginIdPassword(String loginId, String password) {
 		return userDAO.selectUserByLoginIdPassword(loginId, password);
 	}
+	
+	// 아이디 검색
+	public User getUserByNamePhoneNumber(String name, String phoneNumber) {
+		return userDAO.selectUserByNamePhoneNumber(name, phoneNumber);
+	}
 
 }
