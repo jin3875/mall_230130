@@ -28,12 +28,12 @@ public interface UserDAO {
 			@Param("address") String address,
 			@Param("detailAddress") String detailAddress);
 	
-	// 유저 검색 (로그인)
-	public User selectUserByLoginIdPassword(
+	// 유저 검색
+	public User selectUserByLoginIdOrPassword(
 			@Param("loginId") String loginId,
 			@Param("password") String password);
 	
-	// 유저 검색 (아이디/비밀번호)
+	// 유저 검색
 	public User selectUserByNamePhoneNumberOrLoginId(
 			@Param("loginId") String loginId,
 			@Param("name") String name,

@@ -53,8 +53,8 @@
 		)
 	</insert>
 	
-	<!-- 유저 검색 (로그인) -->
-	<select id="selectUserByLoginIdPassword" parameterType="map" resultType="com.mall.user.model.User">
+	<!-- 유저 검색 -->
+	<select id="selectUserByLoginIdOrPassword" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`
 			,`loginId`
@@ -72,10 +72,13 @@
 			`user`
 		WHERE
 			`loginId` = #{loginId}
+			
+			<if test="password != null">
 			AND `password` = #{password}
+			</if>
 	</select>
 	
-	<!-- 유저 검색 (아이디/비밀번호) -->
+	<!-- 유저 검색 -->
 	<select id="selectUserByNamePhoneNumberOrLoginId" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`

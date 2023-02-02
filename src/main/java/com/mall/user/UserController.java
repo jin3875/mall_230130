@@ -1,15 +1,22 @@
 package com.mall.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mall.user.bo.UserBO;
+import com.mall.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserBO userBO;
 	
 	/**
 	 * 회원가입 화면
@@ -63,9 +70,22 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("search_password_view")
+	@GetMapping("/search_password_view")
 	public String searchPasswordView(Model model) {
 		model.addAttribute("viewName", "user/searchPassword");
+		return "template/layout";
+	}
+	
+	// 회원 정보 화면
+	@GetMapping("/user_info_view")
+	public String userInfoView(
+			HttpSession session,
+			Model model
+	) {
+		User user = userBO.getUserByLoginIdOrPassword((String)session.getAttribute("userLoginId"), null);
+		model.addAttribute("user", user);
+		
+		model.addAttribute("viewName", "user/userInfo");
 		return "template/layout";
 	}
 

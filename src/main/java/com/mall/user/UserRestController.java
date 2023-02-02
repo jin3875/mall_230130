@@ -94,7 +94,7 @@ public class UserRestController {
 			result.put("result", "success");
 			
 			// 유저 검색 (로그인)
-			User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
+			User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
@@ -126,7 +126,7 @@ public class UserRestController {
 		String hashedPassword = EncryptUtils.md5(password);
 		
 		// 유저 검색 (로그인)
-		User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
+		User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 		
 		if (user != null) {
 			result.put("code", 1);
