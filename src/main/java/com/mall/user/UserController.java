@@ -59,17 +59,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 아이디 찾기 결과 화면
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/search_id_result_view")
-	public String searchIdResultView(Model model) {
-		model.addAttribute("viewName", "user/searchIdResult");
-		return "template/layout";
-	}
-	
-	/**
 	 * 비밀번호 찾기 화면
 	 * @param model
 	 * @return

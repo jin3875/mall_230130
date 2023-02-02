@@ -65,7 +65,8 @@
 				
 				, success:function(data) {
 					if (data.code == 1) {
-						location.href="/user/search_id_result_view?userName="+data.userName+"&userLoginId="+data.userLoginId;
+						alert(data.userName + "님의 아이디는 " + data.userLoginId + "입니다");
+						location.href="/user/sign_in_view";
 					} else {
 						alert(data.errorMessage);
 					}

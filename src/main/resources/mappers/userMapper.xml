@@ -53,7 +53,7 @@
 		)
 	</insert>
 	
-	<!-- 유저 검색 -->
+	<!-- 유저 검색 (로그인) -->
 	<select id="selectUserByLoginIdPassword" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`
@@ -75,8 +75,8 @@
 			AND `password` = #{password}
 	</select>
 	
-	<!-- 아이디 검색 -->
-	<select id="selectUserByNamePhoneNumber" parameterType="map" resultType="com.mall.user.model.User">
+	<!-- 유저 검색 (아이디/비밀번호) -->
+	<select id="selectUserByNamePhoneNumberOrLoginId" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`
 			,`loginId`
@@ -95,5 +95,18 @@
 		WHERE
 			`name` = #{name}
 			AND `phoneNumber` = #{phoneNumber}
+			
+			<if test="loginId != null">
+			AND `loginId` = #{loginId}
+			</if>
 	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updateUserPasswordById" parameterType="map">
+		UPDATE `user`
+		SET
+			`password` = #{password}
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

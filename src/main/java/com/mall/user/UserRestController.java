@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mall.common.EncryptUtils;
+import com.mall.common.MakePassword;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
 
@@ -92,7 +93,7 @@ public class UserRestController {
 			result.put("code", 1);
 			result.put("result", "success");
 			
-			// 유저 검색
+			// 유저 검색 (로그인)
 			User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
 			
 			session.setAttribute("userId", user.getId());
@@ -124,7 +125,7 @@ public class UserRestController {
 		// 비밀번호 암호화
 		String hashedPassword = EncryptUtils.md5(password);
 		
-		// 유저 검색
+		// 유저 검색 (로그인)
 		User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
 		
 		if (user != null) {
@@ -155,14 +156,59 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 아이디 검색
-		User user = userBO.getUserByNamePhoneNumber(name, phoneNumber);
+		// 유저 검색 (아이디)
+		User user = userBO.getUserByNamePhoneNumberOrLoginId(null, name, phoneNumber);
 		
 		if (user != null) {
 			result.put("code", 1);
 			result.put("result", "success");
 			result.put("userName", user.getName());
 			result.put("userLoginId", user.getLoginId());
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "해당 정보를 가진 유저가 없습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 임시 비밀번호 발급 API
+	 * @param loginId
+	 * @param name
+	 * @param phoneNumber
+	 * @return
+	 */
+	@PostMapping("/search_password")
+	public Map<String, Object> searchPassword(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 유저 검색 (비밀번호)
+		User user = userBO.getUserByNamePhoneNumberOrLoginId(loginId, name, phoneNumber);
+		
+		if (user != null) {
+			// 임시 비밀번호 생성
+			String tempPassword = MakePassword.randomPassword(10);
+			
+			// 비밀번호 암호화
+			String hashedPassword = EncryptUtils.md5(tempPassword);
+			
+			// 비밀번호 변경
+			int rowCount = userBO.updateUserPasswordById(user.getId(), hashedPassword);
+			
+			if (rowCount > 0) {
+				result.put("code", 1);
+				result.put("result", "success");
+				result.put("userName", user.getName());
+				result.put("userPassword", tempPassword);
+			} else {
+				result.put("code", 500);
+				result.put("errorMessage", "임시 비밀번호 생성에 실패했습니다");
+			}
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "해당 정보를 가진 유저가 없습니다");

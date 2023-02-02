@@ -24,14 +24,19 @@ public class UserBO {
 				email, postcode, address, detailAddress);
 	}
 	
-	// 유저 검색
+	// 유저 검색 (로그인)
 	public User getUserByLoginIdPassword(String loginId, String password) {
 		return userDAO.selectUserByLoginIdPassword(loginId, password);
 	}
 	
-	// 아이디 검색
-	public User getUserByNamePhoneNumber(String name, String phoneNumber) {
-		return userDAO.selectUserByNamePhoneNumber(name, phoneNumber);
+	// 유저 검색 (아이디/비밀번호)
+	public User getUserByNamePhoneNumberOrLoginId(String loginId, String name, String phoneNumber) {
+		return userDAO.selectUserByNamePhoneNumberOrLoginId(loginId, name, phoneNumber);
+	}
+	
+	// 비밀번호 변경
+	public int updateUserPasswordById(int id, String password) {
+		return userDAO.updateUserPasswordById(id, password);
 	}
 
 }
