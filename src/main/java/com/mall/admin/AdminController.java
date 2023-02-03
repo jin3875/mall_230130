@@ -1,0 +1,61 @@
+package com.mall.admin;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mall.product.bo.ProductBO;
+import com.mall.product.model.Product;
+
+@RequestMapping("/admin")
+@Controller
+public class AdminController {
+	
+	@Autowired
+	private ProductBO productBO;
+	
+	/**
+	 * 관리자 - 상품 목록 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_product_list_view")
+	public String adminProductListView(Model model) {
+		// 상품 목록
+		List<Product> productList = productBO.getProductList();
+		model.addAttribute("productList", productList);
+		
+		model.addAttribute("title", "상품 목록");
+		model.addAttribute("viewName", "admin/adminProductList");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 상품 등록 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_product_create_view")
+	public String adminProductCreateView(Model model) {
+		model.addAttribute("title", "상품 등록");
+		model.addAttribute("viewName", "admin/adminProductCreate");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 상품 수정 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_product_update_view")
+	public String adminProductUpdateView(Model model) {
+		model.addAttribute("title", "상품 수정");
+		model.addAttribute("viewName", "admin/adminProductUpdate");
+		return "template/layout2";
+	}
+
+}

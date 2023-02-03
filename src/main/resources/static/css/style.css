@@ -5,10 +5,10 @@ a:hover {color:#666; text-decoration:none;}
 
 #wrap {width:1200px; margin:0 auto;}
 header {height:80px;}
-.center {min-height:500px;}
+.center{height:auto;}
 .contents {width:1100px;}
 aside {width:100px;}
-footer {height:50px;}
+footer {height:80px;}
 
 .logo:hover {color:#000;}
 
@@ -16,4 +16,7 @@ footer {height:50px;}
 .input-small-box {width:350px;}
 .input-big-box {width:800px; margin:0 auto;}
 
-.my-page-box{width:150px;}
+.my-page-box {width:150px;}
+
+.admin-box {width:800px; margin:0 auto;}
+.admin-small-box {width:350px;}

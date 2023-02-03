@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GirlFit</title>
+<title>GirlFit - admin</title>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
@@ -18,20 +18,12 @@
 </head>
 <body>
 	<div id="wrap">
-		<nav class="d-flex justify-content-end">
-			<jsp:include page="../include/menu.jsp" />
-		</nav>
-		<header class="d-flex align-items-center">
-			<jsp:include page="../include/header.jsp" />
+		<header class="d-flex justify-content-between mt-5">
+			<jsp:include page="../include/header2.jsp" />
 		</header>
-		<div class="center d-flex my-5">
-			<section class="contents">
-				<jsp:include page="../${viewName}.jsp" />
-			</section>
-			<aside class="d-flex justify-content-center">
-				<jsp:include page="../include/aside.jsp" />
-			</aside>
-		</div>
+		<section class="center my-5">
+			<jsp:include page="../${viewName}.jsp" />
+		</section>
 		<footer class="d-flex justify-content-center align-items-end">
 			<jsp:include page="../include/footer.jsp" />
 		</footer>
