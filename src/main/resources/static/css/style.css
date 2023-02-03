@@ -12,5 +12,8 @@ footer {height:50px;}
 
 .logo:hover {color:#000;}
 
-.input-small-box {width:400px; margin:0 auto;}
-.input-big-box {width:900px; margin:0 auto;}
+.input-box {width:400px; margin:0 auto;}
+.input-small-box {width:350px;}
+.input-big-box {width:800px; margin:0 auto;}
+
+.my-page-box{width:150px;}

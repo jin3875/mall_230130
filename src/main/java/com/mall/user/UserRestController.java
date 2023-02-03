@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +42,7 @@ public class UserRestController {
 			isDuplicated = userBO.existLoginId(loginId);
 		} catch(Exception e) {
 			result.put("code", 500);
-			result.put("errorMessage", "아이디 중복확인 실패");
+			result.put("errorMessage", "아이디 중복확인에 실패했습니다");
 			return result;
 		}
 		
@@ -93,7 +95,7 @@ public class UserRestController {
 			result.put("code", 1);
 			result.put("result", "success");
 			
-			// 유저 검색 (로그인)
+			// 유저 검색 (아이디, 비밀번호)
 			User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 			
 			session.setAttribute("userId", user.getId());
@@ -101,7 +103,7 @@ public class UserRestController {
 			session.setAttribute("userName", user.getName());
 		} else {
 			result.put("code", 500);
-			result.put("errorMessage", "회원가입 실패");
+			result.put("errorMessage", "회원가입에 실패했습니다");
 		}
 		
 		return result;
@@ -125,7 +127,7 @@ public class UserRestController {
 		// 비밀번호 암호화
 		String hashedPassword = EncryptUtils.md5(password);
 		
-		// 유저 검색 (로그인)
+		// 유저 검색 (아이디, 비밀번호)
 		User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 		
 		if (user != null) {
@@ -156,7 +158,7 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 유저 검색 (아이디)
+		// 유저 검색 (아이디, 이름, 휴대폰 번호)
 		User user = userBO.getUserByNamePhoneNumberOrLoginId(null, name, phoneNumber);
 		
 		if (user != null) {
@@ -187,7 +189,7 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 유저 검색 (비밀번호)
+		// 유저 검색 (아이디, 이름, 휴대폰 번호)
 		User user = userBO.getUserByNamePhoneNumberOrLoginId(loginId, name, phoneNumber);
 		
 		if (user != null) {
@@ -212,6 +214,108 @@ public class UserRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "해당 정보를 가진 유저가 없습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 비밀번호 변경 API
+	 * @param password
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/user_password_update")
+	public Map<String, Object> userPasswordUpdate(
+			@RequestParam("password") String password,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 비밀번호 암호화
+		String hashedPassword = EncryptUtils.md5(password);
+		
+		// 비밀번호 변경
+		int rowCount = userBO.updateUserPasswordById((int)session.getAttribute("userId"), hashedPassword);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "비밀번호 변경에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 회원 정보 수정 API
+	 * @param phoneNumber
+	 * @param email
+	 * @param postcode
+	 * @param address
+	 * @param detailAddress
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/user_info_update")
+	public Map<String, Object> userInfoUpdate(
+			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("email") String email,
+			@RequestParam("postcode") int postcode,
+			@RequestParam("address") String address,
+			@RequestParam("detailAddress") String detailAddress,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 회원 정보 수정
+		int rowCount = userBO.updateUserInfoById((int)session.getAttribute("userId"), phoneNumber,
+				email, postcode, address, detailAddress);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "회원 정보 수정에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 회원 탈퇴 API
+	 * @param loginId
+	 * @param password
+	 * @param session
+	 * @return
+	 */
+	@DeleteMapping("/user_sign_out")
+	public Map<String, Object> userSignOut(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 비밀번호 암호화
+		String hashedPassword = EncryptUtils.md5(password);
+		
+		// 회원 탈퇴
+		int rowCount = userBO.deleteUserByIdLoginIdPassword((int)session.getAttribute("userId"), loginId, hashedPassword);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+			
+			session.removeAttribute("userId");
+			session.removeAttribute("userLoginId");
+			session.removeAttribute("userName");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "아이디 또는 비밀번호가 일치하지 않습니다");
 		}
 		
 		return result;

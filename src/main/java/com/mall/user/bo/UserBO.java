@@ -24,12 +24,12 @@ public class UserBO {
 				email, postcode, address, detailAddress);
 	}
 	
-	// 유저 검색
+	// 유저 검색 (아이디, 비밀번호)
 	public User getUserByLoginIdOrPassword(String loginId, String password) {
 		return userDAO.selectUserByLoginIdOrPassword(loginId, password);
 	}
 	
-	// 유저 검색
+	// 유저 검색 (아이디, 이름, 휴대폰 번호)
 	public User getUserByNamePhoneNumberOrLoginId(String loginId, String name, String phoneNumber) {
 		return userDAO.selectUserByNamePhoneNumberOrLoginId(loginId, name, phoneNumber);
 	}
@@ -37,6 +37,17 @@ public class UserBO {
 	// 비밀번호 변경
 	public int updateUserPasswordById(int id, String password) {
 		return userDAO.updateUserPasswordById(id, password);
+	}
+	
+	// 회원 정보 수정
+	public int updateUserInfoById(int id, String phoneNumber, String email,
+			int postcode, String address, String detailAddress) {
+		return userDAO.updateUserInfoById(id, phoneNumber, email, postcode, address, detailAddress);
+	}
+	
+	// 회원 탈퇴
+	public int deleteUserByIdLoginIdPassword(int id, String loginId, String password) {
+		return userDAO.deleteUserByIdLoginIdPassword(id, loginId, password);
 	}
 
 }

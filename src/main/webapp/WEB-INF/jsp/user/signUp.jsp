@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="input-small-box">
+<div class="input-box">
 	<h3 class="text-center font-weight-bold">회원가입</h3>
 	
 	<div class="d-flex justify-content-between align-items-center mt-4">

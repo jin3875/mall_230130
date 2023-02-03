@@ -76,16 +76,29 @@ public class UserController {
 		return "template/layout";
 	}
 	
-	// 회원 정보 화면
+	/**
+	 * 회원 정보 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user_info_view")
-	public String userInfoView(
-			HttpSession session,
-			Model model
-	) {
+	public String userInfoView(HttpSession session, Model model) {
 		User user = userBO.getUserByLoginIdOrPassword((String)session.getAttribute("userLoginId"), null);
 		model.addAttribute("user", user);
 		
 		model.addAttribute("viewName", "user/userInfo");
+		return "template/layout";
+	}
+	
+	/**
+	 * 회원 탈퇴 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/user_sign_out_view")
+	public String userSignOutView(Model model) {
+		model.addAttribute("viewName", "user/userSignOut");
 		return "template/layout";
 	}
 

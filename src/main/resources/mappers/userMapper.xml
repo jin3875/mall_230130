@@ -53,7 +53,7 @@
 		)
 	</insert>
 	
-	<!-- 유저 검색 -->
+	<!-- 유저 검색 (아이디, 비밀번호) -->
 	<select id="selectUserByLoginIdOrPassword" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`
@@ -78,7 +78,7 @@
 			</if>
 	</select>
 	
-	<!-- 유저 검색 -->
+	<!-- 유저 검색 (아이디, 이름, 휴대폰 번호) -->
 	<select id="selectUserByNamePhoneNumberOrLoginId" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT
 			`id`
@@ -113,4 +113,28 @@
 		WHERE
 			`id` = #{id}
 	</update>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUserInfoById" parameterType="map">
+		UPDATE `user`
+		SET
+			`phoneNumber` = #{phoneNumber}
+			,`email` = #{email}
+			,`postcode` = #{postcode}
+			,`address` = #{address}
+			,`detailAddress` = #{detailAddress}
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteUserByIdLoginIdPassword">
+		DELETE FROM
+			`user`
+		WHERE
+			`id` = #{id}
+			AND `loginId` = #{loginId}
+			AND `password` = #{password}
+	</delete>
 </mapper>
