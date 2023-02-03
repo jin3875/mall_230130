@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="user-box mt-5">
+<div class="input-small-box mt-5">
 	<h3 class="text-center font-weight-bold">비밀번호 찾기</h3>
 	<h6 class="text-center mt-3">회원 정보 확인 후 임시 비밀번호를 제공합니다.</h6>
 	

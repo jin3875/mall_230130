@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="user-box mt-5">
+<div class="input-small-box mt-5">
 	<h3 class="text-center font-weight-bold">로그인</h3>
 	
 	<div class="d-flex justify-content-between align-items-center mt-5">

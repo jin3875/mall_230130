@@ -109,6 +109,7 @@
 		UPDATE `user`
 		SET
 			`password` = #{password}
+			,`updatedAt` = NOW()
 		WHERE
 			`id` = #{id}
 	</update>

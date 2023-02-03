@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="user-box">
+<div class="input-small-box">
 	<h3 class="text-center font-weight-bold">회원가입</h3>
 	
 	<div class="d-flex justify-content-between align-items-center mt-4">
@@ -84,7 +84,7 @@
 		<div id="detailAddressCheckEmpty" class="text-center ml-4 small text-danger d-none">상세 주소를 입력하세요.</div>
 	</div>
 	
-	<button type="button" id="signUpBtn" class="btn btn-secondary btn-block mt-3">회원가입</button>
+	<button type="button" id="signUpBtn" class="btn btn-secondary btn-block mt-4">회원가입</button>
 </div>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
