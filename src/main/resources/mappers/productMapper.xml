@@ -18,4 +18,28 @@
 			`product`
 		ORDER BY `id` DESC
 	</select>
+	
+	<!-- 상품 추가 -->
+	<insert id="insertProduct" parameterType="com.mall.product.model.Product" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `product`
+		(
+			`category`
+			,`name`
+			,`price`
+			,`detail`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{category}
+			, #{name}
+			, #{price}
+			, #{detail}
+			, #{state}
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>

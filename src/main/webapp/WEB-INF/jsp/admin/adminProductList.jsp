@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <table class="table text-center">
 	<thead>
@@ -22,10 +23,19 @@
 				<td>${product.id}</td>
 				<td>${product.category}</td>
 				<td><a href="#" class="text-primary">${product.name}</a></td>
-				<td>${product.price}</td>
-				<td>${product.state}</td>
-				<td>${product.createdAt}</td>
-				<td>${product.updatedAt}</td>
+				<td>${product.price}원</td>
+				<td>
+					<c:choose>
+						<c:when test="${product.state eq 1}">
+							<span class="text-success">판매중</span>
+						</c:when>
+						<c:otherwise>
+							<span class="text-danger">판매 대기</span>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				<td><fmt:formatDate value="${product.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				<td><button class="edit-btn btn btn-sm btn-info">수정</button></td>
 				<td><button class="delete-btn btn btn-sm btn-danger">삭제</button></td>
 			</tr>
@@ -33,4 +43,4 @@
 	</tbody>
 </table>
 
-<a href="/admin/admin_product_create_view" class="btn btn-secondary">상품 등록</a>
+<a href="/admin/admin_product_create_view" class="btn btn-secondary mt-4">상품 등록</a>

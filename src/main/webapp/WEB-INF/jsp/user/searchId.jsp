@@ -27,6 +27,7 @@
 
 <script>
 	$(document).ready(function() {
+		// 엔터키 작동
 		$("#name").on('keydown', function(e) {
 			if (e.keyCode == 13) {
 				$('#searchIdBtn').trigger('click');
@@ -39,6 +40,7 @@
 			}
 		});
 		
+		// 확인 버튼
 		$('#searchIdBtn').on('click', function() {
 			$('#nameCheckEmpty').addClass('d-none');
 			$('#phoneNumberCheckEmpty').addClass('d-none');

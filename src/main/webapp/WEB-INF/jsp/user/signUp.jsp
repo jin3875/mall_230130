@@ -294,6 +294,7 @@
 			}
 			
 			if (phoneNumber == '') {
+				$('#phoneNumberCheckLength').addClass('d-none');
 				$('#phoneNumberCheckValidation').removeClass('d-none');
 				$('#phoneNumber').focus();
 				return;

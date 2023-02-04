@@ -33,6 +33,7 @@
 
 <script>
 	$(document).ready(function() {
+		// 엔터키 작동
 		$("#loginId").on('keydown', function(e) {
 			if (e.keyCode == 13) {
 				$('#signInBtn').trigger('click');
@@ -45,6 +46,7 @@
 			}
 		});
 		
+		// 로그인 버튼
 		$('#signInBtn').on('click', function() {
 			$('#idCheckEmpty').addClass('d-none');
 			$('#passwordCheckEmpty').addClass('d-none');

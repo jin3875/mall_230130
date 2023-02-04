@@ -18,5 +18,10 @@ public class ProductBO {
 	public List<Product> getProductList() {
 		return productDAO.selectProductList();
 	}
+	
+	// 상품 추가
+	public void addProduct(Product product) {
+		productDAO.insertProduct(product);
+	}
 
 }

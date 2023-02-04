@@ -11,5 +11,8 @@ public interface ProductDAO {
 	
 	// 상품 목록
 	public List<Product> selectProductList();
+	
+	// 상품 추가
+	public void insertProduct(Product product);
 
 }

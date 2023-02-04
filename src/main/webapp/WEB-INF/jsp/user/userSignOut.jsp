@@ -27,6 +27,7 @@
 
 <script>
 	$(document).ready(function() {
+		// 회원 탈퇴 버튼
 		$('#signOutBtn').on('click', function() {
 			$('#idCheckEmpty').addClass('d-none');
 			$('#passwordCheckEmpty').addClass('d-none');
