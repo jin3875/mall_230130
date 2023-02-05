@@ -22,7 +22,7 @@
 			<tr>
 				<td class="align-middle">${product.id}</td>
 				<td class="align-middle">${product.category}</td>
-				<td class="align-middle"><a href="#" class="text-primary">${product.name}</a></td>
+				<td class="align-middle"><a href="/admin/admin_detail_list_view?productId=${product.id}" class="text-primary">${product.name}</a></td>
 				<td class="align-middle">${product.price}원</td>
 				<td class="align-middle">
 					<c:choose>
@@ -43,7 +43,9 @@
 	</tbody>
 </table>
 
-<a href="/admin/admin_product_create_view" class="btn btn-secondary mt-4">상품 등록</a>
+<div class="d-flex justify-content-end mt-5 mr-3">
+	<a href="/admin/admin_product_create_view" class="btn btn-secondary">상품 등록</a>
+</div>
 
 <script>
 	$(document).ready(function() {

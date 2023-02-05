@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.product.bo.ProductBO;
+import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.Product;
+import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductView;
 
 @RequestMapping("/admin")
@@ -23,6 +25,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductViewBO productViewBO;
+	
+	@Autowired
+	private ProductDetailBO productDetailBO;
 	
 	/**
 	 * 관리자 - 상품 목록 화면
@@ -69,6 +74,50 @@ public class AdminController {
 		
 		model.addAttribute("title", "상품 수정");
 		model.addAttribute("viewName", "admin/adminProductUpdate");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 상품 상세 목록 화면
+	 * @param productId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_detail_list_view")
+	public String adminDetailListView(
+			@RequestParam("productId") int productId,
+			Model model
+	) {
+		// 상품 조회
+		Product product = productBO.getProductById(productId);
+		model.addAttribute("product", product);
+		
+		// 상품 상세 목록
+		List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(productId);
+		model.addAttribute("productDetailList", productDetailList);
+		
+		model.addAttribute("title", "상품 상세 목록");
+		model.addAttribute("viewName", "admin/adminDetailList");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 상품 상세 등록 화면
+	 * @param productId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_detail_create_view")
+	public String adminDetailCreateView(
+			@RequestParam("productId") int productId,
+			Model model
+	) {
+		// 상품 조회
+		Product product = productBO.getProductById(productId);
+		model.addAttribute("product", product);
+		
+		model.addAttribute("title", "상품 상세 등록");
+		model.addAttribute("viewName", "admin/adminDetailCreate");
 		return "template/layout2";
 	}
 

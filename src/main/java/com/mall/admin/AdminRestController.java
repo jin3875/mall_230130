@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductBO;
+import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.bo.ProductPictureBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductPicture;
@@ -29,6 +30,9 @@ public class AdminRestController {
 	
 	@Autowired
 	private ProductPictureBO productPictureBO;
+	
+	@Autowired
+	private ProductDetailBO productDetailBO;
 	
 	/**
 	 * 상품 등록 API
@@ -216,6 +220,37 @@ public class AdminRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 삭제에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 상품 상세 등록 API
+	 * @param productId
+	 * @param color
+	 * @param size
+	 * @param amount
+	 * @return
+	 */
+	@PostMapping("/admin_detail_create")
+	public Map<String, Object> adminDetailCreate(
+			@RequestParam("productId") int productId,
+			@RequestParam("color") String color,
+			@RequestParam("size") String size,
+			@RequestParam("amount") int amount
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 상품 상세 추가
+		int rowCount = productDetailBO.addProductDetail(productId, color, size, amount);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상품 상세 등록에 실패했습니다");
 		}
 		
 		return result;
