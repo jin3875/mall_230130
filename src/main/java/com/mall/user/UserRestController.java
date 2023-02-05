@@ -95,7 +95,7 @@ public class UserRestController {
 			result.put("code", 1);
 			result.put("result", "success");
 			
-			// 유저 검색 (아이디, 비밀번호)
+			// 유저 조회 (아이디, 비밀번호)
 			User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 			
 			session.setAttribute("userId", user.getId());
@@ -127,7 +127,7 @@ public class UserRestController {
 		// 비밀번호 암호화
 		String hashedPassword = EncryptUtils.md5(password);
 		
-		// 유저 검색 (아이디, 비밀번호)
+		// 유저 조회 (아이디, 비밀번호)
 		User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
 		
 		if (user != null) {
@@ -137,6 +137,12 @@ public class UserRestController {
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName", user.getName());
+			
+			if (user.getType() == 0) {
+				result.put("type", "user");
+			} else {
+				result.put("type", "admin");
+			}
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "아이디 또는 비밀번호가 일치하지 않습니다");
@@ -158,7 +164,7 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 유저 검색 (아이디, 이름, 휴대폰 번호)
+		// 유저 조회 (아이디, 이름, 휴대폰 번호)
 		User user = userBO.getUserByNamePhoneNumberOrLoginId(null, name, phoneNumber);
 		
 		if (user != null) {
@@ -189,7 +195,7 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 유저 검색 (아이디, 이름, 휴대폰 번호)
+		// 유저 조회 (아이디, 이름, 휴대폰 번호)
 		User user = userBO.getUserByNamePhoneNumberOrLoginId(loginId, name, phoneNumber);
 		
 		if (user != null) {
@@ -199,7 +205,7 @@ public class UserRestController {
 			// 비밀번호 암호화
 			String hashedPassword = EncryptUtils.md5(tempPassword);
 			
-			// 비밀번호 변경
+			// 비밀번호 수정
 			int rowCount = userBO.updateUserPasswordById(user.getId(), hashedPassword);
 			
 			if (rowCount > 0) {
@@ -220,7 +226,7 @@ public class UserRestController {
 	}
 	
 	/**
-	 * 비밀번호 변경 API
+	 * 비밀번호 수정 API
 	 * @param password
 	 * @param session
 	 * @return
@@ -235,7 +241,7 @@ public class UserRestController {
 		// 비밀번호 암호화
 		String hashedPassword = EncryptUtils.md5(password);
 		
-		// 비밀번호 변경
+		// 비밀번호 수정
 		int rowCount = userBO.updateUserPasswordById((int)session.getAttribute("userId"), hashedPassword);
 		
 		if (rowCount > 0) {

@@ -1,4 +1,4 @@
-package com.mall.productPicture.model;
+package com.mall.product.model;
 
 import java.util.Date;
 

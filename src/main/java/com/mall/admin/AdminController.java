@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.product.bo.ProductBO;
+import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.Product;
+import com.mall.product.model.ProductView;
 
 @RequestMapping("/admin")
 @Controller
@@ -17,6 +20,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductBO productBO;
+	
+	@Autowired
+	private ProductViewBO productViewBO;
 	
 	/**
 	 * 관리자 - 상품 목록 화면
@@ -48,11 +54,19 @@ public class AdminController {
 	
 	/**
 	 * 관리자 - 상품 수정 화면
+	 * @param productId
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/admin_product_update_view")
-	public String adminProductUpdateView(Model model) {
+	public String adminProductUpdateView(
+			@RequestParam("productId") int productId,
+			Model model
+	) {
+		// 상품 + 상품 사진 조회
+		ProductView productView = productViewBO.generateProductView(productId);
+		model.addAttribute("productView", productView);
+		
 		model.addAttribute("title", "상품 수정");
 		model.addAttribute("viewName", "admin/adminProductUpdate");
 		return "template/layout2";

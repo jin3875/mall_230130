@@ -53,7 +53,7 @@
 	</div>
 	
 	<div class="admin-small-box">
-		<div class="d-flex justify-content-between">
+		<div class="d-flex justify-content-between align-items-center">
 			<span>상품 사진</span>
 			<input type="file" id="file" class="d-none" accept=".gif, .png, .jpg, .jpeg">
 			<a href="#" id="fileUploadBtn"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" alt="fileUpload" width="30"></a>
@@ -61,7 +61,7 @@
 		
 		<div id="fileList"></div>
 		
-		<div class="d-flex justify-content-between mt-3">
+		<div class="d-flex justify-content-between mt-4">
 			<span class="mt-2">상품 상세 설명</span>
 			<textarea id="detail" class="form-control col-8" rows="4"></textarea>
 		</div>
@@ -113,7 +113,7 @@
 				
 				let data = '';
 				data += '<div id="file' + fileNo + '" class="d-flex col-11 justify-content-between">';
-				data += '	<span>' + file.name + '</span>';
+				data += '	<div>' + file.name + '</div>';
 				data += '	<a href="#" onclick="deleteFile(' + fileNo + ');"><img src="https://cdn-icons-png.flaticon.com/512/657/657059.png" alt="delete" width="10"></a>';
 				data += '</div>';
 				

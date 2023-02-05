@@ -25,7 +25,7 @@ public class FileManagerService {
 		
 		File directory = new File(filePath);
 		
-		// 폴더 만들기 실패
+		// 디렉토리(폴더) 만들기 실패
 		if (directory.mkdir() == false) {
 			return null;
 		}
@@ -36,7 +36,7 @@ public class FileManagerService {
 			Path path = Paths.get(filePath + file.getOriginalFilename());
 			Files.write(path, bytes);
 		} catch (IOException e) {
-			logger.error("[파일 업로드] 파일 업로드 실패. filePath : {}", filePath);
+			logger.error("[file upload] 파일 업로드 실패. filePath : {}", filePath);
 			return null;
 		}
 		
@@ -53,17 +53,17 @@ public class FileManagerService {
 				// 이미지 삭제
 				Files.delete(path);
 			} catch (IOException e) {
-				logger.error("[이미지 삭제] 이미지 삭제 실패. imagePath : {}", imagePath);
+				logger.error("[delete image] 이미지 삭제 실패. imagePath : {}", imagePath);
 			}
 			
-			path = path.getParent(); // 디렉토리(폴더)
+			path = path.getParent();
 			
 			if (Files.exists(path)) {
 				try {
 					// 디렉토리(폴더) 삭제
 					Files.delete(path);
 				} catch (IOException e) {
-					logger.error("[이미지 삭제] 디렉토리 삭제 실패. imagePath : {}", imagePath);
+					logger.error("[delete image] 디렉토리 삭제 실패. imagePath : {}", imagePath);
 				}
 			}
 		}

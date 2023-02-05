@@ -19,6 +19,23 @@
 		ORDER BY `id` DESC
 	</select>
 	
+	<!-- 상품 조회 -->
+	<select id="selectProductById" parameterType="int" resultType="com.mall.product.model.Product">
+		SELECT
+			`id`
+			,`category`
+			,`name`
+			,`price`
+			,`detail`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`id` = #{id}
+	</select>
+	
 	<!-- 상품 추가 -->
 	<insert id="insertProduct" parameterType="com.mall.product.model.Product" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `product`
@@ -42,4 +59,27 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 상품 수정 -->
+	<update id="updateProduct" parameterType="map">
+		UPDATE `product`
+		SET
+			`category` = #{category}
+			,`name` = #{name}
+			,`price` = #{price}
+			,`detail` = #{detail}
+			,`state` = #{state}
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="int">
+		DELETE
+		FROM
+			`product`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

@@ -21,6 +21,57 @@
 			`loginId` = #{loginId}
 	</select>
 	
+	<!-- 유저 조회 (아이디, 비밀번호) -->
+	<select id="selectUserByLoginIdOrPassword" parameterType="map" resultType="com.mall.user.model.User">
+		SELECT
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`phoneNumber`
+			,`email`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			
+			<if test="password != null">
+			AND `password` = #{password}
+			</if>
+	</select>
+	
+	<!-- 유저 조회 (아이디, 이름, 휴대폰 번호) -->
+	<select id="selectUserByNamePhoneNumberOrLoginId" parameterType="map" resultType="com.mall.user.model.User">
+		SELECT
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`phoneNumber`
+			,`email`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`name` = #{name}
+			AND `phoneNumber` = #{phoneNumber}
+			
+			<if test="loginId != null">
+			AND `loginId` = #{loginId}
+			</if>
+	</select>
+	
 	<!-- 유저 추가 -->
 	<insert id="insertUser" parameterType="map">
 		INSERT INTO `user`
@@ -53,58 +104,7 @@
 		)
 	</insert>
 	
-	<!-- 유저 검색 (아이디, 비밀번호) -->
-	<select id="selectUserByLoginIdOrPassword" parameterType="map" resultType="com.mall.user.model.User">
-		SELECT
-			`id`
-			,`loginId`
-			,`password`
-			,`name`
-			,`phoneNumber`
-			,`email`
-			,`postcode`
-			,`address`
-			,`detailAddress`
-			,`type`
-			,`createdAt`
-			,`updatedAt`
-		FROM
-			`user`
-		WHERE
-			`loginId` = #{loginId}
-			
-			<if test="password != null">
-			AND `password` = #{password}
-			</if>
-	</select>
-	
-	<!-- 유저 검색 (아이디, 이름, 휴대폰 번호) -->
-	<select id="selectUserByNamePhoneNumberOrLoginId" parameterType="map" resultType="com.mall.user.model.User">
-		SELECT
-			`id`
-			,`loginId`
-			,`password`
-			,`name`
-			,`phoneNumber`
-			,`email`
-			,`postcode`
-			,`address`
-			,`detailAddress`
-			,`type`
-			,`createdAt`
-			,`updatedAt`
-		FROM
-			`user`
-		WHERE
-			`name` = #{name}
-			AND `phoneNumber` = #{phoneNumber}
-			
-			<if test="loginId != null">
-			AND `loginId` = #{loginId}
-			</if>
-	</select>
-	
-	<!-- 비밀번호 변경 -->
+	<!-- 비밀번호 수정 -->
 	<update id="updateUserPasswordById" parameterType="map">
 		UPDATE `user`
 		SET

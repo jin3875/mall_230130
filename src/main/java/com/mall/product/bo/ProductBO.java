@@ -19,9 +19,24 @@ public class ProductBO {
 		return productDAO.selectProductList();
 	}
 	
+	// 상품 조회
+	public Product getProductById(int id) {
+		return productDAO.selectProductById(id);
+	}
+	
 	// 상품 추가
 	public void addProduct(Product product) {
 		productDAO.insertProduct(product);
+	}
+	
+	// 상품 수정
+	public int updateProduct(int id, String category, String name, int price, String detail, int state) {
+		return productDAO.updateProduct(id, category, name, price, detail, state);
+	}
+	
+	// 상품 삭제
+	public int deleteProduct(int id) {
+		return productDAO.deleteProduct(id);
 	}
 
 }

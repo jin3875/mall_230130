@@ -73,7 +73,11 @@
 				
 				, success:function(data) {
 					if (data.code == 1) {
-						location.href="/product/product_main_view";
+						if (data.type == "user") {
+							location.href="/product/product_main_view";
+						} else {
+							location.href="/admin/admin_product_list_view";
+						}
 					} else {
 						alert(data.errorMessage);
 					}

@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mall.productPicture.dao.ProductPictureDAO">
+<mapper namespace="com.mall.product.dao.ProductPictureDAO">
+	<!-- 상품 사진 조회 -->
+	<select id="selectProductPictureListByProductId" parameterType="int" resultType="com.mall.product.model.ProductPicture">
+		SELECT
+			`id`
+			,`productId`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_picture`
+		WHERE
+			`productId` = #{productId}
+	</select>
+	
 	<!-- 상품 사진 추가 -->
 	<insert id="insertProductPicture" parameterType="map">
 		INSERT INTO `product_picture`
@@ -20,4 +34,13 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 상품 사진 삭제 -->
+	<delete id="deleteProductPicture" parameterType="int">
+		DELETE
+		FROM
+			`product_picture`
+		WHERE
+			`productId` = #{productId}
+	</delete>
 </mapper>

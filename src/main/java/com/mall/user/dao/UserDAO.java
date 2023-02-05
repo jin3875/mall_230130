@@ -17,6 +17,17 @@ public interface UserDAO {
 	// 아이디 존재 유무
 	public boolean existLoginId(String LoginId);
 	
+	// 유저 조회 (아이디, 비밀번호)
+	public User selectUserByLoginIdOrPassword(
+			@Param("loginId") String loginId,
+			@Param("password") String password);
+	
+	// 유저 조회 (아이디, 이름, 휴대폰 번호)
+	public User selectUserByNamePhoneNumberOrLoginId(
+			@Param("loginId") String loginId,
+			@Param("name") String name,
+			@Param("phoneNumber") String phoneNumber);
+	
 	// 유저 추가
 	public int insertUser(
 			@Param("loginId") String loginId,
@@ -28,18 +39,7 @@ public interface UserDAO {
 			@Param("address") String address,
 			@Param("detailAddress") String detailAddress);
 	
-	// 유저 검색 (아이디, 비밀번호)
-	public User selectUserByLoginIdOrPassword(
-			@Param("loginId") String loginId,
-			@Param("password") String password);
-	
-	// 유저 검색 (아이디, 이름, 휴대폰 번호)
-	public User selectUserByNamePhoneNumberOrLoginId(
-			@Param("loginId") String loginId,
-			@Param("name") String name,
-			@Param("phoneNumber") String phoneNumber);
-	
-	// 비밀번호 변경
+	// 비밀번호 수정
 	public int updateUserPasswordById(
 			@Param("id") int id,
 			@Param("password") String password);
