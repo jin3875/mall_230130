@@ -13,8 +13,11 @@ public interface ProductDAO {
 	// 상품 목록
 	public List<Product> selectProductList();
 	
-	// 상품 목록 (카테고리)
-	public List<Product> selectProductListByCategory(String category);
+	// 상품 목록 (판매 중)
+	public List<Product> selectProductListOnSale();
+	
+	// 카테고리 상품 목록 (판매 중)
+	public List<Product> selectProductListOnSaleByCategory(String category);
 	
 	// 상품 조회
 	public Product selectProductById(int id);

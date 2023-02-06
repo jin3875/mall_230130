@@ -19,8 +19,26 @@
 		ORDER BY `id` DESC
 	</select>
 	
-	<!-- 상품 목록 (카테고리) -->
-	<select id="selectProductListByCategory" parameterType="String" resultType="com.mall.product.model.Product">
+	<!-- 상품 목록 (판매 중) -->
+	<select id="selectProductListOnSale" resultType="com.mall.product.model.Product">
+		SELECT
+			`id`
+			,`category`
+			,`name`
+			,`price`
+			,`detail`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`state` = 1
+		ORDER BY `id` DESC
+	</select>
+	
+	<!-- 카테고리 상품 목록 (판매 중) -->
+	<select id="selectProductListOnSaleByCategory" parameterType="String" resultType="com.mall.product.model.Product">
 		SELECT
 			`id`
 			,`category`
@@ -34,6 +52,7 @@
 			`product`
 		WHERE
 			`category` = #{category}
+			AND `state` = 1
 		ORDER BY `id` DESC
 	</select>
 	

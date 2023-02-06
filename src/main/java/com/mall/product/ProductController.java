@@ -26,7 +26,7 @@ public class ProductController {
 	 */
 	@GetMapping("/product_main_view")
 	public String productMainView(Model model) {
-		// 상품 + 상품 사진 목록
+		// 상품 + 상품 사진 목록 (판매 중)
 		List<ProductView> productViewList = productViewBO.generateProductViewList();
 		model.addAttribute("productViewList", productViewList);
 		
@@ -40,10 +40,11 @@ public class ProductController {
 			@RequestParam("category") String category,
 			Model model
 	) {
-		// 상품 + 상품 사진 (카테고리)
+		// 카테고리 상품 + 상품 사진 목록 (판매 중)
 		List<ProductView> productViewList = productViewBO.generateProductViewListByCategory(category);
 		model.addAttribute("productViewList", productViewList);
 		
+		model.addAttribute("category", category);
 		model.addAttribute("viewName", "product/productCategory");
 		return "template/layout";
 	}

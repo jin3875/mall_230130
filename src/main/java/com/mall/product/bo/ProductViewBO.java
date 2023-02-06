@@ -19,12 +19,12 @@ public class ProductViewBO {
 	@Autowired
 	private ProductPictureBO productPictureBO;
 	
-	// 상품 + 상품 사진 목록
+	// 상품 + 상품 사진 목록 (판매 중)
 	public List<ProductView> generateProductViewList() {
 		List<ProductView> productViewList = new ArrayList<>();
 		
-		// 상품 목록
-		List<Product> productList = productBO.getProductList();
+		// 상품 목록 (판매 중)
+		List<Product> productList = productBO.getProductListOnSale();
 		
 		for (Product product : productList) {
 			ProductView productView = new ProductView();
@@ -41,12 +41,12 @@ public class ProductViewBO {
 		return productViewList;
 	}
 	
-	// 상품 + 상품 사진 (카테고리)
+	// 카테고리 상품 + 상품 사진 목록 (판매 중)
 	public List<ProductView> generateProductViewListByCategory(String category) {
 		List<ProductView> productViewList = new ArrayList<>();
 		
-		// 상품 목록 (카테고리)
-		List<Product> productList = productBO.getProductListByCategory(category);
+		// 카테고리 상품 목록 (판매 중)
+		List<Product> productList = productBO.getProductListOnSaleByCategory(category);
 		
 		for (Product product : productList) {
 			ProductView productView = new ProductView();
