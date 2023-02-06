@@ -130,7 +130,8 @@
 	
 	<!-- 회원 탈퇴 -->
 	<delete id="deleteUserByIdLoginIdPassword">
-		DELETE FROM
+		DELETE
+		FROM
 			`user`
 		WHERE
 			`id` = #{id}

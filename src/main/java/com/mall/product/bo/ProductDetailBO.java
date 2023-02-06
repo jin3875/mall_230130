@@ -20,11 +20,23 @@ public class ProductDetailBO {
 	}
 	
 	// 상품 상세 조회
-	
+	public ProductDetail getProductDetailById(int id) {
+		return productDetailDAO.selectProductDetailById(id);
+	}
 	
 	// 상품 상세 추가
 	public int addProductDetail(int productId, String color, String size, int amount) {
 		return productDetailDAO.insertProductDetail(productId, color, size, amount);
+	}
+	
+	// 상품 상세 수정
+	public int updateProductDetail(int id, String color, String size, int amount) {
+		return productDetailDAO.updateProductDetail(id, color, size, amount);
+	}
+	
+	// 상품 상세 삭제
+	public int deleteProductDetail(int id) {
+		return productDetailDAO.deleteProductDetail(id);
 	}
 
 }

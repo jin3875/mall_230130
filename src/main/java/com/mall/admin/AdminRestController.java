@@ -17,6 +17,7 @@ import com.mall.product.bo.ProductBO;
 import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.bo.ProductPictureBO;
 import com.mall.product.model.Product;
+import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductPicture;
 
 import jakarta.servlet.http.HttpSession;
@@ -193,8 +194,15 @@ public class AdminRestController {
 			// 상품 사진 조회
 			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(productId);
 			
-			if (productPictureList != null) {
+			// 상품 상세 목록
+			List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(productId);
+			
+			if (productPictureList != null || productDetailList != null) {
+				int checkCount = 0;
 				int count = 0;
+				
+				checkCount += productPictureList.size();
+				checkCount += productDetailList.size();
 				
 				for (ProductPicture productPicture : productPictureList) {
 					// 상품 사진 삭제
@@ -202,17 +210,22 @@ public class AdminRestController {
 					count += rowCount2;
 				}
 				
-				if (count == productPictureList.size()) {
+				for (ProductDetail productDetail : productDetailList) {
+					// 상품 상세 삭제
+					int rowCount2 = productDetailBO.deleteProductDetail(productDetail.getId());
+					count += rowCount2;
+				}
+				
+				if (count == checkCount) {
 					result.put("code", 1);
 					result.put("result", "success");
 				} else if (count == 0) {
 					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 삭제에 전체 실패했습니다");
+					result.put("errorMessage", "상품 사진 삭제와 상품 상세 삭제에 전체 실패했습니다");
 				} else {
 					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 삭제에 일부 실패했습니다");
+					result.put("errorMessage", "상품 사진 삭제와 상품 상세 삭제에 일부 실패했습니다");
 				}
-				
 			} else {
 				result.put("code", 1);
 				result.put("result", "success");
@@ -251,6 +264,60 @@ public class AdminRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 상세 등록에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 상품 상세 수정 API
+	 * @param detailId
+	 * @param color
+	 * @param size
+	 * @param amount
+	 * @return
+	 */
+	@PutMapping("/admin_detail_update")
+	public Map<String, Object> adminDetailUpdate(
+			@RequestParam("detailId") int detailId,
+			@RequestParam("color") String color,
+			@RequestParam("size") String size,
+			@RequestParam("amount") int amount
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 상품 상세 수정
+		int rowCount = productDetailBO.updateProductDetail(detailId, color, size, amount);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상품 상세 수정에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 상품 상세 삭제 API
+	 * @param detailId
+	 * @return
+	 */
+	@DeleteMapping("/admin_detail_delete")
+	public Map<String, Object> adminDetailDelete(@RequestParam("detailId") int detailId) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 상품 상세 삭제
+		int rowCount = productDetailBO.deleteProductDetail(detailId);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상품 상세 삭제에 실패했습니다");
 		}
 		
 		return result;

@@ -21,7 +21,20 @@
 	</select>
 	
 	<!-- 상품 상세 조회 -->
-	
+	<select id="selectProductDetailById" parameterType="int" resultType="com.mall.product.model.ProductDetail">
+		SELECT
+			`id`
+			,`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_detail`
+		WHERE
+			`id` = #{id}
+	</select>
 	
 	<!-- 상품 상세 추가 -->
 	<insert id="insertProductDetail" parameterType="map">
@@ -44,4 +57,25 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 상품 상세 수정 -->
+	<update id="updateProductDetail" parameterType="map">
+		UPDATE `product_detail`
+		SET
+			color = #{color}
+			,size = #{size}
+			,amount = #{amount}
+			,updatedAt = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 상품 상세 삭제 -->
+	<delete id="deleteProductDetail" parameterType="int">
+		DELETE
+		FROM
+			`product_detail`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

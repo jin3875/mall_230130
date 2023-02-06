@@ -14,7 +14,7 @@ public interface ProductDetailDAO {
 	public List<ProductDetail> selectProductDetailList(int productId);
 	
 	// 상품 상세 조회
-	
+	public ProductDetail selectProductDetailById(int id);
 	
 	// 상품 상세 추가
 	public int insertProductDetail(
@@ -22,5 +22,15 @@ public interface ProductDetailDAO {
 			@Param("color") String color,
 			@Param("size") String size,
 			@Param("amount") int amount);
+	
+	// 상품 상세 수정
+	public int updateProductDetail(
+			@Param("id") int id,
+			@Param("color") String color,
+			@Param("size") String size,
+			@Param("amount") int amount);
+	
+	// 상품 상세 삭제
+	public int deleteProductDetail(int id);
 
 }

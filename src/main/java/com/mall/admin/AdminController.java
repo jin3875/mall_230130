@@ -120,5 +120,31 @@ public class AdminController {
 		model.addAttribute("viewName", "admin/adminDetailCreate");
 		return "template/layout2";
 	}
+	
+	/**
+	 * 관리자 - 상품 상세 수정 화면
+	 * @param productId
+	 * @param detailId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_detail_update_view")
+	public String adminDetailUpdateView(
+			@RequestParam("productId") int productId,
+			@RequestParam("detailId") int detailId,
+			Model model
+	) {
+		// 상품 조회
+		Product product = productBO.getProductById(productId);
+		model.addAttribute("product", product);
+		
+		// 상품 상세 조회
+		ProductDetail productDetail = productDetailBO.getProductDetailById(detailId);
+		model.addAttribute("productDetail", productDetail);
+		
+		model.addAttribute("title", "상품 상세 수정");
+		model.addAttribute("viewName", "admin/adminDetailUpdate");
+		return "template/layout2";
+	}
 
 }
