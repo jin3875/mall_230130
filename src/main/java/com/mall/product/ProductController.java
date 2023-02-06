@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mall.product.bo.ProductCardViewBO;
 import com.mall.product.bo.ProductViewBO;
+import com.mall.product.model.ProductCardView;
 import com.mall.product.model.ProductView;
 
 @RequestMapping("/product")
@@ -18,6 +20,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductViewBO productViewBO;
+	
+	@Autowired
+	private ProductCardViewBO productCardViewBO;
 	
 	/**
 	 * 메인 화면
@@ -41,8 +46,8 @@ public class ProductController {
 			Model model
 	) {
 		// 카테고리 상품 + 상품 사진 목록 (판매 중)
-		List<ProductView> productViewList = productViewBO.generateProductViewListByCategory(category);
-		model.addAttribute("productViewList", productViewList);
+		List<ProductCardView> productCardViewList = productCardViewBO.generateProductCardViewListByCategory(category);
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		model.addAttribute("category", category);
 		model.addAttribute("viewName", "product/productCategory");

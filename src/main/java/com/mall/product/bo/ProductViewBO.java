@@ -31,29 +31,7 @@ public class ProductViewBO {
 			
 			productView.setProduct(product);
 			
-			// 상품 사진 조회
-			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
-			productView.setProductPictureList(productPictureList);
-			
-			productViewList.add(productView);
-		}
-		
-		return productViewList;
-	}
-	
-	// 카테고리 상품 + 상품 사진 목록 (판매 중)
-	public List<ProductView> generateProductViewListByCategory(String category) {
-		List<ProductView> productViewList = new ArrayList<>();
-		
-		// 카테고리 상품 목록 (판매 중)
-		List<Product> productList = productBO.getProductListOnSaleByCategory(category);
-		
-		for (Product product : productList) {
-			ProductView productView = new ProductView();
-			
-			productView.setProduct(product);
-			
-			// 상품 사진 조회
+			// 상품 사진 목록
 			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
 			productView.setProductPictureList(productPictureList);
 			
@@ -71,7 +49,7 @@ public class ProductViewBO {
 		Product product = productBO.getProductById(id);
 		productView.setProduct(product);
 		
-		// 상품 사진 조회
+		// 상품 사진 목록
 		List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(id);
 		productView.setProductPictureList(productPictureList);
 		

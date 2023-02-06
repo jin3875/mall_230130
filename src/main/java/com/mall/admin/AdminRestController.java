@@ -134,7 +134,7 @@ public class AdminRestController {
 				int checkCount = 0;
 				int count = 0;
 				
-				// 상품 사진 조회
+				// 상품 사진 목록
 				List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(productId);
 				checkCount += productPictureList.size();
 				
@@ -191,7 +191,7 @@ public class AdminRestController {
 		int rowCount = productBO.deleteProduct(productId);
 		
 		if (rowCount > 0) {
-			// 상품 사진 조회
+			// 상품 사진 목록
 			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(productId);
 			
 			// 상품 상세 목록

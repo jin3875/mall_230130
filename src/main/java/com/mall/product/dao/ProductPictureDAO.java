@@ -10,7 +10,7 @@ import com.mall.product.model.ProductPicture;
 @Repository
 public interface ProductPictureDAO {
 	
-	// 상품 사진 조회
+	// 상품 사진 목록
 	public List<ProductPicture> selectProductPictureListByProductId(int productId);
 	
 	// 상품 사진 추가

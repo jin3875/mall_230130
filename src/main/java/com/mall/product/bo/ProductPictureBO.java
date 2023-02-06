@@ -19,7 +19,7 @@ public class ProductPictureBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
-	// 상품 사진 조회
+	// 상품 사진 목록
 	public List<ProductPicture> getProductPictureListByProductId(int productId) {
 		return productPictureDAO.selectProductPictureListByProductId(productId);
 	}
