@@ -13,6 +13,9 @@ public interface ProductDAO {
 	// 상품 목록
 	public List<Product> selectProductList();
 	
+	// 상품 목록 (카테고리)
+	public List<Product> selectProductListByCategory(String category);
+	
 	// 상품 조회
 	public Product selectProductById(int id);
 	

@@ -19,6 +19,24 @@
 		ORDER BY `id` DESC
 	</select>
 	
+	<!-- 상품 목록 (카테고리) -->
+	<select id="selectProductListByCategory" parameterType="String" resultType="com.mall.product.model.Product">
+		SELECT
+			`id`
+			,`category`
+			,`name`
+			,`price`
+			,`detail`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`category` = #{category}
+		ORDER BY `id` DESC
+	</select>
+	
 	<!-- 상품 조회 -->
 	<select id="selectProductById" parameterType="int" resultType="com.mall.product.model.Product">
 		SELECT

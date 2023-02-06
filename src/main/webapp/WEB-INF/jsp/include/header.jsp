@@ -9,11 +9,11 @@
 <!-- category -->
 <nav class="col-7">
 	<ul class="nav">
-		<li class="nav-item"><a href="#" class="nav-link font-weight-bold">Outer</a></li>
-		<li class="nav-item"><a href="#" class="nav-link font-weight-bold">Top</a></li>
-		<li class="nav-item"><a href="#" class="nav-link font-weight-bold">Pants</a></li>
-		<li class="nav-item"><a href="#" class="nav-link font-weight-bold">Skirt</a></li>
-		<li class="nav-item"><a href="#" class="nav-link font-weight-bold">Shoes</a></li>
+		<li class="nav-item"><a href="/product/product_category_view?category=Outer" class="nav-link font-weight-bold">Outer</a></li>
+		<li class="nav-item"><a href="/product/product_category_view?category=Top" class="nav-link font-weight-bold">Top</a></li>
+		<li class="nav-item"><a href="/product/product_category_view?category=Pants" class="nav-link font-weight-bold">Pants</a></li>
+		<li class="nav-item"><a href="/product/product_category_view?category=Skirt" class="nav-link font-weight-bold">Skirt</a></li>
+		<li class="nav-item"><a href="/product/product_category_view?category=Shoes" class="nav-link font-weight-bold">Shoes</a></li>
 	</ul>
 </nav>
 

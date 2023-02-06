@@ -19,6 +19,11 @@ public class ProductBO {
 		return productDAO.selectProductList();
 	}
 	
+	// 상품 목록 (카테고리)
+	public List<Product> getProductListByCategory(String category) {
+		return productDAO.selectProductListByCategory(category);
+	}
+	
 	// 상품 조회
 	public Product getProductById(int id) {
 		return productDAO.selectProductById(id);

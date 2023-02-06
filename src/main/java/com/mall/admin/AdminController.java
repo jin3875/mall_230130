@@ -69,7 +69,7 @@ public class AdminController {
 			Model model
 	) {
 		// 상품 + 상품 사진 조회
-		ProductView productView = productViewBO.generateProductView(productId);
+		ProductView productView = productViewBO.generateProductViewById(productId);
 		model.addAttribute("productView", productView);
 		
 		model.addAttribute("title", "상품 수정");
