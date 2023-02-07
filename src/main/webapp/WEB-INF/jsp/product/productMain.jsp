@@ -6,7 +6,7 @@
 <div class="product-main-box">
 	<c:forEach var="productView" items="${productViewList}">
 		<div class="product-small-box mt-4">
-			<a href="#">
+			<a href="/product/product_detail_view/${productView.product.id}">
 				<div class="text-center">
 					<img src="${productView.productPictureList[0].imagePath}" alt="product" width="200" height="200">
 				</div>

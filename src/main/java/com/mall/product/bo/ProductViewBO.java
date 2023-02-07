@@ -93,5 +93,56 @@ public class ProductViewBO {
 		
 		return productView;
 	}
+	
+	// 상품 + 상품 사진 + 상품 상세 검색
+	public List<ProductView> generateProductViewListBySearch(String keyword, Integer minPrice, Integer maxPrice) {
+		List<ProductView> productViewList = new ArrayList<>();
+		
+		if (minPrice == null && maxPrice == null) {
+			// 상품 목록 (판매 중)
+			List<Product> productList = productBO.getProductListOnSale();
+			
+			for (Product product : productList) {
+				if (product.getName().contains(keyword)) {
+					ProductView productView = new ProductView();
+					
+					productView.setProduct(product);
+					
+					// 상품 사진 목록
+					List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+					productView.setProductPictureList(productPictureList);
+					
+					// 상품 상세 목록
+					List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+					productView.setProductDetailList(productDetailList);
+					
+					productViewList.add(productView);
+				}
+			}
+		} else {
+			// 상품 목록 (판매 중 & 가격대)
+			List<Product> productList = productBO.getProductListOnSaleByMinPriceMaxPrice(minPrice, maxPrice);
+			
+			for (Product product : productList) {
+				if (product.getName().contains(keyword)) {
+					ProductView productView = new ProductView();
+					
+					productView.setProduct(product);
+					
+					// 상품 사진 목록
+					List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+					productView.setProductPictureList(productPictureList);
+					
+					// 상품 상세 목록
+					List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+					productView.setProductDetailList(productDetailList);
+					
+					productViewList.add(productView);
+				}
+			}
+		}
+		
+		return productViewList;
+	}
 
 }

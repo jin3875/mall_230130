@@ -24,6 +24,11 @@ public class ProductBO {
 		return productDAO.selectProductListOnSale();
 	}
 	
+	// 상품 목록 (판매 중 & 가격대)
+	public List<Product> getProductListOnSaleByMinPriceMaxPrice(Integer minPrice, Integer maxPrice) {
+		return productDAO.selectProductListOnSaleByMinPriceMaxPrice(minPrice, maxPrice);
+	}
+	
 	// 카테고리 상품 목록 (판매 중)
 	public List<Product> getProductListOnSaleByCategory(String category) {
 		return productDAO.selectProductListOnSaleByCategory(category);

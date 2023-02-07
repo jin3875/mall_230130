@@ -16,6 +16,11 @@ public interface ProductDAO {
 	// 상품 목록 (판매 중)
 	public List<Product> selectProductListOnSale();
 	
+	// 상품 목록 (판매 중 & 가격대)
+	public List<Product> selectProductListOnSaleByMinPriceMaxPrice(
+			@Param("minPrice") Integer minPrice,
+			@Param("maxPrice") Integer maxPrice);
+	
 	// 카테고리 상품 목록 (판매 중)
 	public List<Product> selectProductListOnSaleByCategory(String category);
 	

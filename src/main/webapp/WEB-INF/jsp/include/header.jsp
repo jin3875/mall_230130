@@ -19,6 +19,29 @@
 
 <!-- search -->
 <div class="col-2 d-flex align-items-center">
-	<input type="text" class="col-9 border-dark border-top-0 border-left-0 border-right-0 mr-3">
-	<a href="#"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="search" width="20" height="20"></a>
+	<input type="text" id="keyword" class="col-9 border-dark border-top-0 border-left-0 border-right-0 mr-3">
+	<a href="#" id="searchBtn"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="search" width="20" height="20"></a>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 엔터키 작동
+		$("#keyword").on('keydown', function(e) {
+			if (e.keyCode == 13) {
+				$('#searchBtn').trigger('click');
+			}
+		});
+		
+		// 검색 버튼
+		$('#searchBtn').on('click', function() {
+			let keyword = $('#keyword').val().trim();
+			
+			if (keyword == '') {
+				alert('검색어를 입력하세요');
+				return;
+			}
+			
+			location.href="/product/product_search_view?keyword=" + keyword;
+		});
+	});
+</script>

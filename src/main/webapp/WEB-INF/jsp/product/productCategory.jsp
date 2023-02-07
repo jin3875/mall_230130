@@ -8,7 +8,7 @@
 <div class="product-main-box">
 	<c:forEach var="productView" items="${productViewList}">
 		<div class="product-big-box mt-4">
-			<a href="#">
+			<a href="/product/product_detail_view/${productView.product.id}">
 				<div class="text-center">
 					<img src="${productView.productPictureList[0].imagePath}" alt="product" width="250" height="250">
 				</div>
@@ -20,11 +20,11 @@
 						<c:forEach var="productDetail" items="${productView.productDetailList}">
 							<c:choose>
 								<c:when test="${productDetail.amount ne 0}">
-									<div>${productDetail.color} - ${productDetail.size}</div>
+									<div>${productDetail.color} / ${productDetail.size}</div>
 								</c:when>
 								<c:otherwise>
 									<div class="d-flex justify-content-between text-secondary">
-										<div>${productDetail.color} - ${productDetail.size}</div>
+										<div>${productDetail.color} / ${productDetail.size}</div>
 										<div>* SOLD OUT *</div>
 									</div>
 								</c:otherwise>
