@@ -17,13 +17,13 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td class="align-middle">${product.id}</td>
-			<td class="align-middle">${product.category}</td>
-			<td class="align-middle">${product.name}</td>
-			<td class="align-middle">${product.price}원</td>
+			<td class="align-middle">${productView.product.id}</td>
+			<td class="align-middle">${productView.product.category}</td>
+			<td class="align-middle">${productView.product.name}</td>
+			<td class="align-middle">${productView.product.price}원</td>
 			<td class="align-middle">
 				<c:choose>
-					<c:when test="${product.state eq 1}">
+					<c:when test="${productView.product.state eq 1}">
 						<span class="text-success">판매 중</span>
 					</c:when>
 					<c:otherwise>
@@ -31,8 +31,8 @@
 					</c:otherwise>
 				</c:choose>
 			</td>
-			<td class="align-middle"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-			<td class="align-middle"><fmt:formatDate value="${product.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+			<td class="align-middle"><fmt:formatDate value="${productView.product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+			<td class="align-middle"><fmt:formatDate value="${productView.product.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		</tr>
 	</tbody>
 </table>
@@ -51,7 +51,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="productDetail" items="${productDetailList}">
+		<c:forEach var="productDetail" items="${productView.productDetailList}">
 			<tr>
 				<td class="align-middle">${productDetail.id}</td>
 				<td class="align-middle">${productDetail.color}</td>
@@ -68,7 +68,7 @@
 
 <div class="d-flex justify-content-between mt-5 mx-3">
 	<a href="/admin/admin_product_list_view" class="btn btn-light">상품 목록</a>
-	<a href="/admin/admin_detail_create_view?productId=${product.id}" class="btn btn-secondary">상품 상세 등록</a>
+	<a href="/admin/admin_detail_create_view?productId=${productView.product.id}" class="btn btn-secondary">상품 상세 등록</a>
 </div>
 
 <script>

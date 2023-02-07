@@ -24,10 +24,10 @@ public class AdminController {
 	private ProductBO productBO;
 	
 	@Autowired
-	private ProductViewBO productViewBO;
+	private ProductDetailBO productDetailBO;
 	
 	@Autowired
-	private ProductDetailBO productDetailBO;
+	private ProductViewBO productViewBO;
 	
 	/**
 	 * 관리자 - 상품 목록 화면
@@ -68,7 +68,7 @@ public class AdminController {
 			@RequestParam("productId") int productId,
 			Model model
 	) {
-		// 상품 + 상품 사진 조회
+		// 상품 + 상품 사진 + 상품 상세 조회
 		ProductView productView = productViewBO.generateProductViewById(productId);
 		model.addAttribute("productView", productView);
 		
@@ -88,13 +88,9 @@ public class AdminController {
 			@RequestParam("productId") int productId,
 			Model model
 	) {
-		// 상품 조회
-		Product product = productBO.getProductById(productId);
-		model.addAttribute("product", product);
-		
-		// 상품 상세 목록
-		List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(productId);
-		model.addAttribute("productDetailList", productDetailList);
+		// 상품 + 상품 사진 + 상품 상세 조회
+		ProductView productView = productViewBO.generateProductViewById(productId);
+		model.addAttribute("productView", productView);
 		
 		model.addAttribute("title", "상품 상세 목록");
 		model.addAttribute("viewName", "admin/adminDetailList");
