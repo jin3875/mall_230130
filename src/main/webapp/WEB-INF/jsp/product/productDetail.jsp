@@ -42,8 +42,8 @@
 		</div>
 		
 		<div class="d-flex justify-content-between mt-5">
-			<button type="button" id="wishListButton" class="btn btn-light" data-product-id="${productView.product.id}">장바구니</button>
-			<button type="button" id="purchaseButton" class="btn btn-secondary" data-product-id="${productView.product.id}">구매하기</button>
+			<button type="button" id="wishListBtn" class="btn btn-light" data-product-id="${productView.product.id}">장바구니</button>
+			<button type="button" id="purchaseBtn" class="btn btn-secondary" data-product-id="${productView.product.id}">구매하기</button>
 		</div>
 	</div>
 </div>
@@ -70,7 +70,7 @@
 <script>
 	$(document).ready(function() {
 		// 장바구니 버튼
-		$('#wishListButton').on('click', function() {
+		$('#wishListBtn').on('click', function() {
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
@@ -103,8 +103,6 @@
 					} else if (data.code == 100) {
 						if (confirm(data.errorMessage)) {
 							location.href="/user/sign_in_view";
-						} else {
-							location.reload();
 						}
 					} else {
 						alert(data.errorMessage);
@@ -118,7 +116,7 @@
 		});
 		
 		// 구매하기 버튼
-		$('#purchaseButton').on('click', function() {
+		$('#purchaseBtn').on('click', function() {
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();

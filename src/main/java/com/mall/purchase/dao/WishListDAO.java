@@ -19,5 +19,10 @@ public interface WishListDAO {
 			@Param("productId") int productId,
 			@Param("productDetailId") int productDetailId,
 			@Param("amount") int amount);
+	
+	// 장바구니 삭제
+	public int deleteWishList(
+			@Param("userId") int userId,
+			@Param("idList") List<Integer> idList);
 
 }

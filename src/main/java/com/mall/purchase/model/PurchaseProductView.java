@@ -10,6 +10,7 @@ public class PurchaseProductView {
 	private ProductPicture productPicture;
 	private ProductDetail productDetail;
 	private int amount;
+	public Integer wishListId;
 	
 	public Product getProduct() {
 		return product;
@@ -34,6 +35,12 @@ public class PurchaseProductView {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public Integer getWishListId() {
+		return wishListId;
+	}
+	public void setWishListId(Integer wishListId) {
+		this.wishListId = wishListId;
 	}
 
 }

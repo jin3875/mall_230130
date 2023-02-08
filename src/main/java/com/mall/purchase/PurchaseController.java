@@ -23,9 +23,6 @@ import jakarta.servlet.http.HttpSession;
 public class PurchaseController {
 	
 	@Autowired
-	private WishListBO wishListBO;
-	
-	@Autowired
 	private ProductBO productBO;
 	
 	@Autowired
@@ -34,13 +31,23 @@ public class PurchaseController {
 	@Autowired
 	private ProductDetailBO productDetailBO;
 	
-	// 장바구니 화면
+	@Autowired
+	private WishListBO wishListBO;
+	
+	/**
+	 * 장바구니 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/wish_list_view")
 	public String wishListView(HttpSession session, Model model) {
-		// 장바구니 목록
-		List<WishList> wishListList = wishListBO.getWishListList((int)session.getAttribute("userId"));
+		int userId = (int)session.getAttribute("userId");
 		
 		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
+		
+		// 장바구니 목록
+		List<WishList> wishListList = wishListBO.getWishListList(userId);
 		
 		for (WishList wishList : wishListList) {
 			PurchaseProductView purchaseProductView = new PurchaseProductView();
@@ -49,6 +56,7 @@ public class PurchaseController {
 			purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(wishList.getProductId()).get(0));
 			purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(wishList.getProductDetailId()));
 			purchaseProductView.setAmount(wishList.getAmount());
+			purchaseProductView.setWishListId(wishList.getId());
 			
 			purchaseProductViewList.add(purchaseProductView);
 		}

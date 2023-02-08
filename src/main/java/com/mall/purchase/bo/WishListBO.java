@@ -23,5 +23,10 @@ public class WishListBO {
 	public int addWishList(int userId, int productId, int productDetailId, int amount) {
 		return wishListDAO.insertWishList(userId, productId, productDetailId, amount);
 	}
+	
+	// 장바구니 삭제
+	public int deleteWishList(int userId, List<Integer> idList) {
+		return wishListDAO.deleteWishList(userId, idList);
+	}
 
 }

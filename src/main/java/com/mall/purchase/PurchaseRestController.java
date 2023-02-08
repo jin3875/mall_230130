@@ -1,9 +1,11 @@
 package com.mall.purchase;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +66,30 @@ public class PurchaseRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "장바구니 추가에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	// 장바구니 삭제
+	@DeleteMapping("/wish_list_delete")
+	public Map<String, Object> wishListDelete(
+			@RequestParam(value="idList[]") List<Integer> idList,
+			HttpSession session
+		) {
+		Map<String, Object> result = new HashMap<>();
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		// 장바구니 삭제
+		int rowCount = wishListBO.deleteWishList(userId, idList);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "장바구니 삭제에 실패했습니다");
 		}
 		
 		return result;

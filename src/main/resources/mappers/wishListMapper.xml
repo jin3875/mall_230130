@@ -40,4 +40,16 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteWishList" parameterType="map">
+		<foreach item="id" collection="idList" separator=";" close=";">
+		DELETE
+		FROM
+			`wish_list`
+		WHERE
+			`id` = #{id}
+			AND `userId` = #{userId}
+		</foreach>
+	</delete>
 </mapper>
