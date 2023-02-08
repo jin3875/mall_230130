@@ -24,6 +24,11 @@ public class ProductDetailBO {
 		return productDetailDAO.selectProductDetailById(id);
 	}
 	
+	// 상품 상세 조회 (색상, 사이즈)
+	public ProductDetail getProductDetailByProductIdColorSize(int productId, String color, String size) {
+		return productDetailDAO.selectProductDetailByProductIdColorSize(productId, color, size);
+	}
+	
 	// 상품 상세 추가
 	public int addProductDetail(int productId, String color, String size, int amount) {
 		return productDetailDAO.insertProductDetail(productId, color, size, amount);

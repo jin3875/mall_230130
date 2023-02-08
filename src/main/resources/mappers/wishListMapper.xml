@@ -3,4 +3,41 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mall.purchase.dao.WishListDAO">
+	<!-- 장바구니 목록 -->
+	<select id="selectWishListList" parameterType="int" resultType="com.mall.purchase.model.WishList">
+		SELECT
+			`id`
+			,`userId`
+			,`productId`
+			,`productDetailId`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`wish_list`
+		WHERE
+			`userId` = #{userId}
+	</select>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="insertWishList" parameterType="map">
+		INSERT INTO `wish_list`
+		(
+			`userId`
+			,`productId`
+			,`productDetailId`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{productId}
+			, #{productDetailId}
+			, #{amount}
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>

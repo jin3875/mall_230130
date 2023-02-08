@@ -42,8 +42,8 @@
 		</div>
 		
 		<div class="d-flex justify-content-between mt-5">
-			<button type="button" id="wishListButton" class="btn btn-light">장바구니</button>
-			<button type="button" id="purchaseButton" class="btn btn-secondary">구매하기</button>
+			<button type="button" id="wishListButton" class="btn btn-light" data-product-id="${productView.product.id}">장바구니</button>
+			<button type="button" id="purchaseButton" class="btn btn-secondary" data-product-id="${productView.product.id}">구매하기</button>
 		</div>
 	</div>
 </div>
@@ -71,16 +71,9 @@
 	$(document).ready(function() {
 		// 장바구니 버튼
 		$('#wishListButton').on('click', function() {
-			
-		});
-		
-		// 구매하기 버튼
-		$('#purchaseButton').on('click', function() {
+			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
-			
-			let color = colorAndSize.split('/')[0].trim();
-			let size = colorAndSize.split('/')[1].trim();
 			
 			if (colorAndSize == '') {
 				alert('옵션을 선택하세요');
@@ -92,6 +85,56 @@
 				return;
 			}
 			
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
+			
+			$.ajax({
+				type:"POST"
+				, url:"/purchase/wish_list_create"
+				, data:{"productId":productId, "color":color, "size":size, "amount":amount}
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						if (confirm("장바구니 추가가 완료되었습니다. 장바구니 화면으로 이동하시겠습니까?")) {
+							location.href="/purchase/wish_list_view";
+						} else {
+							location.reload();
+						}
+					} else if (data.code == 100) {
+						if (confirm(data.errorMessage)) {
+							location.href="/user/sign_in_view";
+						} else {
+							location.reload();
+						}
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(jqXHR, textStatus, errorThrown) {
+					let errorMsg = jqXHR.responseJSON.status;
+					alert(errorMsg + ":" + textStatus);
+				}
+			});
+		});
+		
+		// 구매하기 버튼
+		$('#purchaseButton').on('click', function() {
+			let productId = $(this).data('product-id');
+			let colorAndSize = $('#colorAndSize').val();
+			let amount = $('#amount').val();
+			
+			if (colorAndSize == '') {
+				alert('옵션을 선택하세요');
+				return;
+			}
+			
+			if (amount == '') {
+				alert('수량을 선택하세요');
+				return;
+			}
+			
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
 			
 		});
 	});

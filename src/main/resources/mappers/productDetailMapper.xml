@@ -36,6 +36,24 @@
 			`id` = #{id}
 	</select>
 	
+	<!-- 상품 상세 조회 (색상, 사이즈) -->
+	<select id="selectProductDetailByProductIdColorSize" parameterType="map" resultType="com.mall.product.model.ProductDetail">
+		SELECT
+			`id`
+			,`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_detail`
+		WHERE
+			`productId` = #{productId}
+			AND `color` = #{color}
+			AND `size` = #{size}
+	</select>
+	
 	<!-- 상품 상세 추가 -->
 	<insert id="insertProductDetail" parameterType="map">
 		INSERT INTO `product_detail`

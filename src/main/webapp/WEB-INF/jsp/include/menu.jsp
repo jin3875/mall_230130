@@ -12,7 +12,7 @@
 		<c:otherwise>
 			<span class="text-secondary font-weight-bold mr-4">${userName}님</span>
 			<li class="nav-item"><a href="/user/sign_out" class="nav-link font-weight-bold">로그아웃</a></li>
-			<li class="nav-item"><a href="#" class="nav-link font-weight-bold">장바구니</a></li>
+			<li class="nav-item"><a href="/purchase/wish_list_view" class="nav-link font-weight-bold">장바구니</a></li>
 			<li class="nav-item"><a href="#" class="nav-link font-weight-bold">마이페이지</a></li>
 		</c:otherwise>
 	</c:choose>

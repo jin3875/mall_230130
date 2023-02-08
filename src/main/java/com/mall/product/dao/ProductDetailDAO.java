@@ -16,6 +16,12 @@ public interface ProductDetailDAO {
 	// 상품 상세 조회
 	public ProductDetail selectProductDetailById(int id);
 	
+	// 상품 상세 조회 (색상, 사이즈)
+	public ProductDetail selectProductDetailByProductIdColorSize(
+			@Param("productId") int productId,
+			@Param("color") String color,
+			@Param("size") String size);
+	
 	// 상품 상세 추가
 	public int insertProductDetail(
 			@Param("productId") int productId,
