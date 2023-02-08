@@ -95,7 +95,7 @@
 				
 				, success:function(data) {
 					if (data.code == 1) {
-						if (confirm("장바구니 추가가 완료되었습니다. 장바구니 화면으로 이동하시겠습니까?")) {
+						if (confirm("장바구니 추가가 완료되었습니다. 장바구니 목록으로 이동하시겠습니까?")) {
 							location.href="/purchase/wish_list_view";
 						} else {
 							location.reload();

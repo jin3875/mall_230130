@@ -71,7 +71,12 @@ public class PurchaseRestController {
 		return result;
 	}
 	
-	// 장바구니 삭제
+	/**
+	 * 장바구니 삭제
+	 * @param idList
+	 * @param session
+	 * @return
+	 */
 	@DeleteMapping("/wish_list_delete")
 	public Map<String, Object> wishListDelete(
 			@RequestParam(value="idList[]") List<Integer> idList,
