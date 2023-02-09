@@ -17,17 +17,12 @@ import com.mall.purchase.bo.PurchaseBO;
 import com.mall.purchase.bo.PurchaseProductBO;
 import com.mall.purchase.bo.WishListBO;
 import com.mall.purchase.model.Purchase;
-import com.mall.user.bo.UserBO;
-import com.mall.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/purchase")
 @RestController
 public class PurchaseRestController {
-	
-	@Autowired
-	private UserBO userBO;
 	
 	@Autowired
 	private ProductDetailBO productDetailBO;
@@ -127,26 +122,15 @@ public class PurchaseRestController {
 			@RequestParam(value="wishList[]", required=false) List<Integer> wishList,
 			@RequestParam("productList[]") List<String> productList,
 			@RequestParam("totalPrice") int totalPrice,
-			@RequestParam(value="name", required=false) String name,
-			@RequestParam(value="phoneNumber", required=false) String phoneNumber,
-			@RequestParam(value="postcode", required=false) String postcode,
-			@RequestParam(value="address", required=false) String address,
-			@RequestParam(value="detailAddress", required=false) String detailAddress,
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("postcode") String postcode,
+			@RequestParam("address") String address,
+			@RequestParam("detailAddress") String detailAddress,
 			@RequestParam(value="message", required=false) String message,
 			HttpSession session
 	) {
 		Map<String, Object> result = new HashMap<>();
-		
-		if (name == "") {
-			// 유저 조회
-			User user = userBO.getUserById((int)session.getAttribute("userId"));
-			
-			name = user.getName();
-			phoneNumber = user.getPhoneNumber();
-			postcode = user.getPostcode();
-			address = user.getAddress();
-			detailAddress = user.getDetailAddress();
-		}
 		
 		Purchase purchase = new Purchase();
 		purchase.setUserId((int)session.getAttribute("userId"));
@@ -176,8 +160,10 @@ public class PurchaseRestController {
 			}
 			
 			if (count == productList.size()) {
-				// 장바구니 삭제
-				wishListBO.deleteWishList((int)session.getAttribute("userId"), wishList);
+				if (wishList != null) {
+					// 장바구니 삭제
+					wishListBO.deleteWishList((int)session.getAttribute("userId"), wishList);
+				}
 				
 				result.put("code", 1);
 				result.put("result", "success");

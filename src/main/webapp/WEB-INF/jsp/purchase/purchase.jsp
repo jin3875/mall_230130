@@ -53,7 +53,7 @@
 	
 	<button type="button" id="checkBtn" class="btn btn-sm btn-light mt-3">구매자 정보와 동일</button>
 	
-	<div id="info">
+	<div id="newInfo">
 		<div class="d-flex justify-content-between align-items-center mt-3">
 			<span>받는 사람</span>
 			<input type="text" id="name" class="form-control col-8">
@@ -97,6 +97,33 @@
 		</div>
 	</div>
 	
+	<div id="userInfo" class="d-none">
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<span>받는 사람</span>
+			<div id="userName" class="form-control col-8 bg-light">${user.name}</div>
+		</div>
+		
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<span>휴대폰 번호</span>
+			<div id="userPhoneNumber" class="form-control col-8 bg-light">${user.phoneNumber}</div>
+		</div>
+		
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<span>우편번호</span>
+			<div id="userPostcode" class="form-control col-8 bg-light">${user.postcode}</div>
+		</div>
+		
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<span>주소</span>
+			<div id="userAddress" class="form-control col-8 bg-light">${user.address}</div>
+		</div>
+		
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<span>상세 주소</span>
+			<div id="userDetailAddress" class="form-control col-8 bg-light">${user.detailAddress}</div>
+		</div>
+	</div>
+	
 	<div class="d-flex justify-content-between align-items-center mt-3">
 		<span>배송 메세지</span>
 		<textarea id="message" class="form-control col-8"></textarea>
@@ -122,10 +149,12 @@
 		
 		// 구매자 정보와 동일 버튼
 		$('#checkBtn').on('click', function() {
-			if ($('#info').hasClass('d-none')) {
-				$('#info').removeClass('d-none');
+			if ($('#newInfo').hasClass('d-none')) {
+				$('#userInfo').addClass('d-none');
+				$('#newInfo').removeClass('d-none');
 			} else {
-				$('#info').addClass('d-none');
+				$('#newInfo').addClass('d-none');
+				$('#userInfo').removeClass('d-none');
 			}
 		});
 		
@@ -188,11 +217,11 @@
 			let wishList = [];
 			let productList = [];
 			let totalPrice = $('#totalPrice').data('total-price');
-			let name = $('#name').val().trim();
-			let phoneNumber = $('#phoneNumber').val().trim();
-			let postcode = $('#postcode').val().trim();
-			let address = $('#address').val().trim();
-			let detailAddress = $('#detailAddress').val().trim();
+			let name = "";
+			let phoneNumber = "";
+			let postcode = "";
+			let address = "";
+			let detailAddress = "";
 			let message = $('#message').val();
 			
 			$('.wish-list-id').each(function() {
@@ -210,13 +239,13 @@
 				productList.push(product);
 			});
 			
-			if ($('#info').hasClass('d-none')) {
-				let name = '';
-				let phoneNumber = '';
-				let postcode = '';
-				let address = '';
-				let detailAddress = '';
-			} else {
+			if ($('#userInfo').hasClass('d-none')) {
+				name = $('#name').val().trim();
+				phoneNumber = $('#phoneNumber').val().trim();
+				postcode = $('#postcode').val().trim();
+				address = $('#address').val().trim();
+				detailAddress = $('#detailAddress').val().trim();
+				
 				if (name == '') {
 					$('#nameCheckEmpty').removeClass('d-none');
 					$('#name').focus();
@@ -256,6 +285,12 @@
 					$('#detailAddress').focus();
 					return;
 				}
+			} else {
+				name = $('#userName').text();
+				phoneNumber = $('#userPhoneNumber').text();
+				postcode = $('#userPostcode').text();
+				address = $('#userAddress').text();
+				detailAddress = $('#userDetailAddress').text();
 			}
 			
 			$.ajax({

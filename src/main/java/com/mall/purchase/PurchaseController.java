@@ -16,12 +16,17 @@ import com.mall.product.bo.ProductPictureBO;
 import com.mall.purchase.bo.WishListBO;
 import com.mall.purchase.model.PurchaseProductView;
 import com.mall.purchase.model.WishList;
+import com.mall.user.bo.UserBO;
+import com.mall.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/purchase")
 @Controller
 public class PurchaseController {
+	
+	@Autowired
+	private UserBO userBO;
 	
 	@Autowired
 	private ProductBO productBO;
@@ -75,6 +80,7 @@ public class PurchaseController {
 	 * @param size
 	 * @param amount
 	 * @param idList
+	 * @param session
 	 * @param model
 	 * @return
 	 */
@@ -85,6 +91,7 @@ public class PurchaseController {
 			@RequestParam(value="size", required=false) String size,
 			@RequestParam(value="amount", required=false) Integer amount,
 			@RequestParam(value="wishListId", required=false) List<Integer> idList,
+			HttpSession session,
 			Model model
 	) {
 		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
@@ -116,6 +123,10 @@ public class PurchaseController {
 		}
 		
 		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		
+		// 유저 조회
+		User user = userBO.getUserById((int)session.getAttribute("userId"));
+		model.addAttribute("user", user);
 		
 		model.addAttribute("viewName", "purchase/purchase");
 		return "template/layout";
