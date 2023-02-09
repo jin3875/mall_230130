@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.product.bo.ProductBO;
 import com.mall.product.bo.ProductDetailBO;
@@ -64,6 +65,58 @@ public class PurchaseController {
 		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
 		
 		model.addAttribute("viewName", "purchase/wishList");
+		return "template/layout";
+	}
+	
+	/**
+	 * 구매하기 화면
+	 * @param productId
+	 * @param color
+	 * @param size
+	 * @param amount
+	 * @param idList
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/purchase_view")
+	public String purchaseView(
+			@RequestParam(value="productId", required=false) Integer productId,
+			@RequestParam(value="color", required=false) String color,
+			@RequestParam(value="size", required=false) String size,
+			@RequestParam(value="amount", required=false) Integer amount,
+			@RequestParam(value="wishListId", required=false) List<Integer> idList,
+			Model model
+	) {
+		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
+		
+		if (idList == null) {
+			PurchaseProductView purchaseProductView = new PurchaseProductView();
+			
+			purchaseProductView.setProduct(productBO.getProductById(productId));
+			purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(productId).get(0));
+			purchaseProductView.setProductDetail(productDetailBO.getProductDetailByProductIdColorSize(productId, color, size));
+			purchaseProductView.setAmount(amount);
+			
+			purchaseProductViewList.add(purchaseProductView);
+		} else {
+			for (int id : idList) {
+				PurchaseProductView purchaseProductView = new PurchaseProductView();
+				
+				// 장바구니 조회
+				WishList wishList = wishListBO.getWishListById(id);
+				
+				purchaseProductView.setProduct(productBO.getProductById(wishList.getProductId()));
+				purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(wishList.getProductId()).get(0));
+				purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(wishList.getProductDetailId()));
+				purchaseProductView.setAmount(wishList.getAmount());
+				
+				purchaseProductViewList.add(purchaseProductView);
+			}
+		}
+		
+		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		
+		model.addAttribute("viewName", "purchase/purchase");
 		return "template/layout";
 	}
 

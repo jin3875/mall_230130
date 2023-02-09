@@ -19,6 +19,11 @@ public class WishListBO {
 		return wishListDAO.selectWishListList(userId);
 	}
 	
+	// 장바구니 조회
+	public WishList getWishListById(int id) {
+		return wishListDAO.selectWishListById(id);
+	}
+	
 	// 장바구니 추가
 	public int addWishList(int userId, int productId, int productDetailId, int amount) {
 		return wishListDAO.insertWishList(userId, productId, productDetailId, amount);

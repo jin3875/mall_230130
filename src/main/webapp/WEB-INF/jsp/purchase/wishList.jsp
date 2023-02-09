@@ -83,7 +83,20 @@
 		
 		// 구매하기 버튼
 		$('#purchaseBtn').on('click', function() {
+			let idList = [];
 			
+			$('.check').each(function() {
+				if(this.checked){
+					idList.push(this.value);
+				}
+			});
+			
+			if (idList == '') {
+				alert('상품을 선택해주세요');
+				return;
+			}
+			
+			location.href="/purchase/purchase_view?wishListId=" + idList;
 		});
 	});
 </script>

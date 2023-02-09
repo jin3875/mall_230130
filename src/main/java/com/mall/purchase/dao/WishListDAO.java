@@ -13,6 +13,9 @@ public interface WishListDAO {
 	// 장바구니 목록
 	public List<WishList> selectWishListList(int userId);
 	
+	// 장바구니 조회
+	public WishList selectWishListById(int id);
+	
 	// 장바구니 추가
 	public int insertWishList(
 			@Param("userId") int userId,

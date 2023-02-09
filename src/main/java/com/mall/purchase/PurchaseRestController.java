@@ -28,7 +28,7 @@ public class PurchaseRestController {
 	private WishListBO wishListBO;
 	
 	/**
-	 * 장바구니 추가
+	 * 장바구니 추가 API
 	 * @param productId
 	 * @param color
 	 * @param size
@@ -46,13 +46,7 @@ public class PurchaseRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		Integer userId = (Integer)session.getAttribute("userId");
-		
-		if (userId == null) {
-			result.put("code", 100);
-			result.put("errorMessage", "로그인 후 이용 가능합니다");
-			return result;
-		}
+		int userId = (int)session.getAttribute("userId");
 		
 		// 상품 상세 조회 (색상, 사이즈)
 		ProductDetail productDetail = productDetailBO.getProductDetailByProductIdColorSize(productId, color, size);
@@ -72,16 +66,16 @@ public class PurchaseRestController {
 	}
 	
 	/**
-	 * 장바구니 삭제
+	 * 장바구니 삭제 API
 	 * @param idList
 	 * @param session
 	 * @return
 	 */
 	@DeleteMapping("/wish_list_delete")
 	public Map<String, Object> wishListDelete(
-			@RequestParam(value="idList[]") List<Integer> idList,
+			@RequestParam("idList[]") List<Integer> idList,
 			HttpSession session
-		) {
+	) {
 		Map<String, Object> result = new HashMap<>();
 		
 		int userId = (int)session.getAttribute("userId");
@@ -96,6 +90,26 @@ public class PurchaseRestController {
 			result.put("code", 500);
 			result.put("errorMessage", "장바구니 삭제에 실패했습니다");
 		}
+		
+		return result;
+	}
+	
+	// 구매하기 API
+	@PostMapping("/purchase")
+	public Map<String, Object> purchase(
+			@RequestParam("productList[]") List<String> productList,
+			@RequestParam("totalPrice") int totalPrice,
+			@RequestParam(value="name", required=false) String name,
+			@RequestParam(value="phoneNumber", required=false) String phoneNumber,
+			@RequestParam(value="postcode", required=false) Integer postcode,
+			@RequestParam(value="address", required=false) String address,
+			@RequestParam(value="detailAddress", required=false) String detailAddress,
+			@RequestParam(value="message", required=false) String message,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		
 		
 		return result;
 	}

@@ -196,6 +196,11 @@
 			let phoneNumber = $('#phoneNumber').val().trim();
 			let phoneNumberFormat = /^(010)[0-9]{8}$/;
 			
+			if (phoneNumber == '') {
+				$('#phoneNumberCheckValidation').removeClass('d-none');
+				return;
+			}
+			
 			if (isNaN(phoneNumber)) {
 				$('#phoneNumberCheckValidation').removeClass('d-none');
 				return;

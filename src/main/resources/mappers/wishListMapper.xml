@@ -19,6 +19,22 @@
 			`userId` = #{userId}
 	</select>
 	
+	<!-- 장바구니 조회 -->
+	<select id="selectWishListById" parameterType="int" resultType="com.mall.purchase.model.WishList">
+		SELECT
+			`id`
+			,`userId`
+			,`productId`
+			,`productDetailId`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`wish_list`
+		WHERE
+			`id` = #{id}
+	</select>
+	
 	<!-- 장바구니 추가 -->
 	<insert id="insertWishList" parameterType="map">
 		INSERT INTO `wish_list`

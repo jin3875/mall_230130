@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<div id="userCheck" class="d-none">${userId}</div>
 <div class="d-flex ml-3">
 	<div><img src="${productView.productPictureList[0].imagePath}" width="400" height="400"></div>
 	<div class="col-4 mt-3 ml-5">
@@ -88,31 +89,33 @@
 			let color = colorAndSize.split('/')[0].trim();
 			let size = colorAndSize.split('/')[1].trim();
 			
-			$.ajax({
-				type:"POST"
-				, url:"/purchase/wish_list_create"
-				, data:{"productId":productId, "color":color, "size":size, "amount":amount}
-				
-				, success:function(data) {
-					if (data.code == 1) {
-						if (confirm("장바구니 추가가 완료되었습니다. 장바구니 목록으로 이동하시겠습니까?")) {
-							location.href="/purchase/wish_list_view";
+			if ($('#userCheck').text() == '') {
+				if (confirm("로그인 후 이용 가능합니다")) {
+					location.href="/user/sign_in_view";
+				}
+			} else {
+				$.ajax({
+					type:"POST"
+					, url:"/purchase/wish_list_create"
+					, data:{"productId":productId, "color":color, "size":size, "amount":amount}
+					
+					, success:function(data) {
+						if (data.code == 1) {
+							if (confirm("장바구니 추가가 완료되었습니다. 장바구니 목록으로 이동하시겠습니까?")) {
+								location.href="/purchase/wish_list_view";
+							} else {
+								location.reload();
+							}
 						} else {
-							location.reload();
+							alert(data.errorMessage);
 						}
-					} else if (data.code == 100) {
-						if (confirm(data.errorMessage)) {
-							location.href="/user/sign_in_view";
-						}
-					} else {
-						alert(data.errorMessage);
 					}
-				}
-				, error:function(jqXHR, textStatus, errorThrown) {
-					let errorMsg = jqXHR.responseJSON.status;
-					alert(errorMsg + ":" + textStatus);
-				}
-			});
+					, error:function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+			}
 		});
 		
 		// 구매하기 버튼
@@ -134,6 +137,13 @@
 			let color = colorAndSize.split('/')[0].trim();
 			let size = colorAndSize.split('/')[1].trim();
 			
+			if ($('#userCheck').text() == '') {
+				if (confirm("로그인 후 이용 가능합니다")) {
+					location.href="/user/sign_in_view";
+				}
+			} else {
+				location.href="/purchase/purchase_view?productId=" + productId + "&color=" + color + "&size=" + size + "&amount=" + amount;
+			}
 		});
 	});
 </script>
