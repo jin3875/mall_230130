@@ -6,12 +6,14 @@
 <h3 class="font-weight-bold">구매하기</h3>
 
 <c:set var="totalPrice" value="0" />
-<c:forEach var="purchaseProductView" items="${purchaseProductViewList}">
+<c:forEach var="purchaseProductView" items="${purchaseProductViewList}" varStatus="status">
 	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light" data-product-id="${purchaseProductView.product.id}" data-detail-id="${purchaseProductView.productDetail.id}" data-amount="${purchaseProductView.amount}">
+		<div class="wish-list-id d-none">${purchaseProductView.wishListId}</div>
+		<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
 		<div class="col-3">
 			<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
 		</div>
-		<div class="col-7">
+		<div class="col-6">
 			<big class="font-weight-bold">${purchaseProductView.product.name}</big>
 			<div class="text-secondary mt-3">
 				<div class="col-4 d-flex justify-content-between p-0">
@@ -100,7 +102,7 @@
 		<textarea id="message" class="form-control col-8"></textarea>
 	</div>
 	
-	<button type="button" id="payBtn" class="btn btn-secondary btn-block mt-4">결제하기</button>
+	<button type="button" id="purchaseBtn" class="btn btn-secondary btn-block mt-4">구매하기</button>
 </div>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -181,8 +183,9 @@
 			}
 		});
 		
-		// 결제하기 버튼
-		$('#payBtn').on('click', function() {
+		// 구매하기 버튼
+		$('#purchaseBtn').on('click', function() {
+			let wishList = [];
 			let productList = [];
 			let totalPrice = $('#totalPrice').data('total-price');
 			let name = $('#name').val().trim();
@@ -191,6 +194,12 @@
 			let address = $('#address').val().trim();
 			let detailAddress = $('#detailAddress').val().trim();
 			let message = $('#message').val();
+			
+			$('.wish-list-id').each(function() {
+				if ($(this).text() != '') {
+					wishList.push($(this).text());
+				}
+			});
 			
 			$('.purchase-box').each(function() {
 				let productId = $(this).data('product-id');
@@ -252,13 +261,13 @@
 			$.ajax({
 				type:"POST"
 				, url:"/purchase/purchase"
-				, data:{"productList":productList, "totalPrice":totalPrice,
+				, data:{"wishList":wishList, "productList":productList, "totalPrice":totalPrice,
 					"name":name, "phoneNumber":phoneNumber, "postcode":postcode,
 					"address":address, "detailAddress":detailAddress, "message":message}
 				
 				, success:function(data) {
 					if (data.code == 1) {
-						alert('결제가 완료되었습니다');
+						alert('구매가 완료되었습니다');
 						location.href="/user/user_purchase_list_view";
 					}
 				}

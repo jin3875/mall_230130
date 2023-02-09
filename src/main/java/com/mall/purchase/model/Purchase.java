@@ -9,7 +9,7 @@ public class Purchase {
 	private int totalPrice;
 	private String name;
 	private String phoneNumber;
-	private int postcode;
+	private String postcode;
 	private String address;
 	private String detailAddress;
 	private String message;
@@ -47,10 +47,10 @@ public class Purchase {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 	public String getAddress() {

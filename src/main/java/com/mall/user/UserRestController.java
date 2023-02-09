@@ -77,7 +77,7 @@ public class UserRestController {
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber,
 			@RequestParam("email") String email,
-			@RequestParam("postcode") int postcode,
+			@RequestParam("postcode") String postcode,
 			@RequestParam("address") String address,
 			@RequestParam("detailAddress") String detailAddress,
 			HttpSession session
@@ -269,7 +269,7 @@ public class UserRestController {
 	public Map<String, Object> userInfoUpdate(
 			@RequestParam("phoneNumber") String phoneNumber,
 			@RequestParam("email") String email,
-			@RequestParam("postcode") int postcode,
+			@RequestParam("postcode") String postcode,
 			@RequestParam("address") String address,
 			@RequestParam("detailAddress") String detailAddress,
 			HttpSession session

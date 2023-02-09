@@ -5,12 +5,13 @@
 
 <h3 class="font-weight-bold">장바구니</h3>
 
-<c:forEach var="purchaseProductView" items="${purchaseProductViewList}">
+<c:forEach var="purchaseProductView" items="${purchaseProductViewList}" varStatus="status">
 	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
+		<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
 		<div class="col-3">
 			<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
 		</div>
-		<div class="col-5">
+		<div class="col-4">
 			<big class="font-weight-bold">${purchaseProductView.product.name}</big>
 			<div class="text-secondary mt-3">
 				<div class="col-4 d-flex justify-content-between p-0">

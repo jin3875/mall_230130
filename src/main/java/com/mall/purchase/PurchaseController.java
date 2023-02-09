@@ -109,6 +109,7 @@ public class PurchaseController {
 				purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(wishList.getProductId()).get(0));
 				purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(wishList.getProductDetailId()));
 				purchaseProductView.setAmount(wishList.getAmount());
+				purchaseProductView.setWishListId(id);
 				
 				purchaseProductViewList.add(purchaseProductView);
 			}

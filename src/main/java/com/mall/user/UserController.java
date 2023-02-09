@@ -101,5 +101,12 @@ public class UserController {
 		model.addAttribute("viewName", "user/userSignOut");
 		return "template/layout";
 	}
+	
+	// 구매 목록
+	@GetMapping("/user_purchase_list_view")
+	public String userPurchaseListView(Model model) {
+		model.addAttribute("viewName", "user/userPurchaseList");
+		return "template/layout";
+	}
 
 }

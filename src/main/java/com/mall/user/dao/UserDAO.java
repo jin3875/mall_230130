@@ -17,6 +17,9 @@ public interface UserDAO {
 	// 아이디 존재 유무
 	public boolean existLoginId(String LoginId);
 	
+	// 유저 조회
+	public User selectUserById(int id);
+	
 	// 유저 조회 (아이디, 비밀번호)
 	public User selectUserByLoginIdOrPassword(
 			@Param("loginId") String loginId,
@@ -35,7 +38,7 @@ public interface UserDAO {
 			@Param("name") String name,
 			@Param("phoneNumber") String phoneNumber,
 			@Param("email") String email,
-			@Param("postcode") int postcode,
+			@Param("postcode") String postcode,
 			@Param("address") String address,
 			@Param("detailAddress") String detailAddress);
 	
@@ -49,7 +52,7 @@ public interface UserDAO {
 			@Param("id") int id,
 			@Param("phoneNumber") String phoneNumber,
 			@Param("email") String email,
-			@Param("postcode") int postcode,
+			@Param("postcode") String postcode,
 			@Param("address") String address,
 			@Param("detailAddress") String detailAddress);
 	

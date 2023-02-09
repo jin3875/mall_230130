@@ -10,7 +10,7 @@ public class User {
 	private String name;
 	private String phoneNumber;
 	private String email;
-	private int postcode;
+	private String postcode;
 	private String address;
 	private String detailAddress;
 	private int type;
@@ -53,10 +53,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 	public String getAddress() {

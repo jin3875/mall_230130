@@ -21,6 +21,27 @@
 			`loginId` = #{loginId}
 	</select>
 	
+	<!-- 유저 조회 -->
+	<select id="selectUserById" parameterType="int" resultType="com.mall.user.model.User">
+		SELECT
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`phoneNumber`
+			,`email`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
+	
 	<!-- 유저 조회 (아이디, 비밀번호) -->
 	<select id="selectUserByLoginIdOrPassword" parameterType="map" resultType="com.mall.user.model.User">
 		SELECT

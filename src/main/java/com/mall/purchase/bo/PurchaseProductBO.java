@@ -10,5 +10,10 @@ public class PurchaseProductBO {
 	
 	@Autowired
 	private PurchaseProductDAO purchaseProductDAO;
+	
+	// 구매 상품 추가
+	public int addPurchaseProduct(int userId, int purchaseId, int productId, int productDetailId, int amount) {
+		return purchaseProductDAO.insertPurchaseProduct(userId, purchaseId, productId, productDetailId, amount);
+	}
 
 }
