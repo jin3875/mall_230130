@@ -17,6 +17,7 @@
 			`wish_list`
 		WHERE
 			`userId` = #{userId}
+		ORDER BY `id` DESC
 	</select>
 	
 	<!-- 장바구니 조회 -->

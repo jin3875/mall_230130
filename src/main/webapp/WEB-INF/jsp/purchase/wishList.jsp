@@ -5,38 +5,37 @@
 
 <h3 class="font-weight-bold">장바구니</h3>
 
-<c:forEach var="purchaseProductView" items="${purchaseProductViewList}" varStatus="status">
+<c:forEach var="beforePurchaseView" items="${beforePurchaseViewList}">
 	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
-		<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
 		<div class="col-3">
-			<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
+			<img src="${beforePurchaseView.productPicture.imagePath}" alt="product" width="150" height="150">
 		</div>
-		<div class="col-4">
-			<big class="font-weight-bold">${purchaseProductView.product.name}</big>
+		<div class="col-5">
+			<big class="font-weight-bold">${beforePurchaseView.product.name}</big>
 			<div class="text-secondary mt-3">
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>가격</span>
-					<span><fmt:formatNumber value="${purchaseProductView.product.price}" type="number" />원</span>
+					<span><fmt:formatNumber value="${beforePurchaseView.product.price}" type="number" />원</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>색상</span>
-					<span>${purchaseProductView.productDetail.color}</span>
+					<span>${beforePurchaseView.productDetail.color}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>사이즈</span>
-					<span>${purchaseProductView.productDetail.size}</span>
+					<span>${beforePurchaseView.productDetail.size}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>수량</span>
-					<span>${purchaseProductView.amount}</span>
+					<span>${beforePurchaseView.amount}</span>
 				</div>
 			</div>
 		</div>
-		<h4 class="col-3"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.amount}" type="number" />원</h4>
-		<input type="checkbox" class="check col-1" value="${purchaseProductView.wishListId}">
+		<h4 class="col-3"><fmt:formatNumber value="${beforePurchaseView.product.price * beforePurchaseView.amount}" type="number" />원</h4>
+		<input type="checkbox" class="check col-1" value="${beforePurchaseView.wishListId}">
 	</div>
 </c:forEach>
 
