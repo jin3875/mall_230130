@@ -13,6 +13,8 @@ public class Purchase {
 	private String address;
 	private String detailAddress;
 	private String message;
+	private String courier;
+	private String trackingNumber;
 	private int cancellation;
 	private Date createdAt;
 	private Date updatedAt;
@@ -70,6 +72,18 @@ public class Purchase {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public String getCourier() {
+		return courier;
+	}
+	public void setCourier(String courier) {
+		this.courier = courier;
+	}
+	public String getTrackingNumber() {
+		return trackingNumber;
+	}
+	public void setTrackingNumber(String trackingNumber) {
+		this.trackingNumber = trackingNumber;
 	}
 	public int getCancellation() {
 		return cancellation;

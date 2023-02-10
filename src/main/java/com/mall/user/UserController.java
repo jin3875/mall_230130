@@ -1,11 +1,15 @@
 package com.mall.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mall.purchase.bo.PurchaseViewBO;
+import com.mall.purchase.model.PurchaseView;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
 
@@ -17,6 +21,9 @@ public class UserController {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private PurchaseViewBO purchaseViewBO;
 	
 	/**
 	 * 회원가입 화면
@@ -102,9 +109,18 @@ public class UserController {
 		return "template/layout";
 	}
 	
-	// 구매 목록
+	/**
+	 * 구매 목록 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user_purchase_list_view")
-	public String userPurchaseListView(Model model) {
+	public String userPurchaseListView(HttpSession session, Model model) {
+		// 구매 + 구매 상품 목록
+		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewList((int)session.getAttribute("userId"));
+		model.addAttribute("purchaseViewList", purchaseViewList);
+		
 		model.addAttribute("viewName", "user/userPurchaseList");
 		return "template/layout";
 	}

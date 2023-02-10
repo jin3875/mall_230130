@@ -4,8 +4,8 @@ import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductPicture;
 
-// 구매할 상품 + 상품 사진 + 상품 상세 + 수량 (+ 장바구니 번호)
-public class BeforePurchaseView {
+// 상품 + 상품 사진 + 상품 상세 + 수량 (+ 장바구니 번호)
+public class PurchaseProductView {
 	
 	private Product product;
 	private ProductPicture productPicture;

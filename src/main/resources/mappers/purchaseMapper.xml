@@ -3,6 +3,29 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mall.purchase.dao.PurchaseDAO">
+	<!-- 구매 목록 -->
+	<select id="selectPurchaseList" parameterType="int" resultType="com.mall.purchase.model.Purchase">
+		SELECT
+			`id`
+			,`userId`
+			,`totalPrice`
+			,`name`
+			,`phoneNumber`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`message`
+			,`courier`
+			,`trackingNumber`
+			,`cancellation`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`purchase`
+		WHERE
+			`userId` = #{userId}
+	</select>
+	
 	<!-- 구매 추가 -->
 	<insert id="insertPurchase" parameterType="com.mall.purchase.model.Purchase" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `purchase`

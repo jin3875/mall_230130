@@ -10,8 +10,6 @@ public class PurchaseProduct {
 	private int productId;
 	private int productDetailId;
 	private int amount;
-	private String courier;
-	private Integer trackingNumber;
 	private int exchange;
 	private int refund;
 	private int completion;
@@ -56,18 +54,6 @@ public class PurchaseProduct {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
-	}
-	public String getCourier() {
-		return courier;
-	}
-	public void setCourier(String courier) {
-		this.courier = courier;
-	}
-	public Integer getTrackingNumber() {
-		return trackingNumber;
-	}
-	public void setTrackingNumber(Integer trackingNumber) {
-		this.trackingNumber = trackingNumber;
 	}
 	public int getExchange() {
 		return exchange;
