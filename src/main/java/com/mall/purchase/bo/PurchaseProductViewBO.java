@@ -27,7 +27,7 @@ public class PurchaseProductViewBO {
 	@Autowired
 	private PurchaseProductBO purchaseProductBO;
 	
-	// 상품 뷰 목록
+	// 구매 상품 카드 목록
 	public List<PurchaseProductView> generatePurchaseProductViewList(int purchaseId) {
 		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
 		
@@ -35,37 +35,17 @@ public class PurchaseProductViewBO {
 		List<PurchaseProduct> purchaseProductList = purchaseProductBO.getPurchaseProductList(purchaseId);
 		
 		for (PurchaseProduct purchaseProduct : purchaseProductList) {
-			// 상품 뷰 추가 (상품 상세 id)
-			purchaseProductViewList.add(generatePurchaseProductViewByDetailId(purchaseProduct.getProductId(), purchaseProduct.getProductDetailId(), purchaseProduct.getAmount(), null));
+			PurchaseProductView purchaseProductView = new PurchaseProductView();
 			
+			purchaseProductView.setPurchaseProduct(purchaseProduct);
+			purchaseProductView.setProduct(productBO.getProductById(purchaseProduct.getProductId()));
+			purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
+			purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(purchaseProduct.getProductDetailId()));
+			
+			purchaseProductViewList.add(purchaseProductView);
 		}
 		
 		return purchaseProductViewList;
-	}
-	
-	// 상품 뷰 추가 (상품 상세 id)
-	public PurchaseProductView generatePurchaseProductViewByDetailId(int productId, int detailId, int amount, Integer wishListId) {
-		PurchaseProductView purchaseProductView = new PurchaseProductView();
-		
-		purchaseProductView.setProduct(productBO.getProductById(productId));
-		purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(productId).get(0));
-		purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(detailId));
-		purchaseProductView.setAmount(amount);
-		purchaseProductView.setWishListId(wishListId);
-		
-		return purchaseProductView;
-	}
-	
-	// 상품 뷰 추가 (상품 상세 색상, 사이즈)
-	public PurchaseProductView generatePurchaseProductViewByColorSize(int productId, String color, String size, int amount) {
-		PurchaseProductView purchaseProductView = new PurchaseProductView();
-		
-		purchaseProductView.setProduct(productBO.getProductById(productId));
-		purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(productId).get(0));
-		purchaseProductView.setProductDetail(productDetailBO.getProductDetailByProductIdColorSize(productId, color, size));
-		purchaseProductView.setAmount(amount);
-		
-		return purchaseProductView;
 	}
 
 }

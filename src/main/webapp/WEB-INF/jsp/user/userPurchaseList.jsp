@@ -29,7 +29,8 @@
 						</div>
 						<div class="col-5">
 							<big class="font-weight-bold">${purchaseView.purchaseProductViewList[0].product.name}</big>
-							<c:if test="${fn:length(purchaseView.purchaseProductViewList) != 1}">
+							<br>
+							<c:if test="${fn:length(purchaseView.purchaseProductViewList) > 1}">
 								<small>( + 상품 ${fn:length(purchaseView.purchaseProductViewList) - 1}개 )</small>
 							</c:if>
 							<div class="text-secondary mt-3">
@@ -50,11 +51,14 @@
 								
 								<div class="col-4 d-flex justify-content-between p-0">
 									<span>수량</span>
-									<span>${purchaseView.purchaseProductViewList[0].amount}</span>
+									<span>${purchaseView.purchaseProductViewList[0].purchaseProduct.amount}</span>
 								</div>
 							</div>
 						</div>
-						<h4 class="col-2"><fmt:formatNumber value="${purchaseView.purchaseProductViewList[0].product.price * purchaseView.purchaseProductViewList[0].amount}" type="number" />원</h4>
+						<div class="col-2">
+							<div>합계</div>
+							<h4><fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</h4>
+						</div>
 						<div class="col-2 text-right">
 							<button type="button" class="btn btn-secondary">구매 취소</button>
 						</div>
@@ -86,25 +90,31 @@
 									
 									<div class="col-4 d-flex justify-content-between p-0">
 										<span>수량</span>
-										<span>${purchaseProductView.amount}</span>
+										<span>${purchaseProductView.purchaseProduct.amount}</span>
 									</div>
 								</div>
 							</div>
-							<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.amount}" type="number" />원</h4>
-							<div class="col-2 text-right">
-								<button type="button" class="btn btn-secondary">배송 조회</button>
-								<button type="button" class="btn btn-secondary mt-2">환불 신청</button>
-								<button type="button" class="btn btn-secondary mt-2">교환 신청</button>
-								<button type="button" class="btn btn-secondary mt-2">구매 확정</button>
-							</div>
-							
-							<div class="col-2 text-right d-none">
-								<button type="button" class="btn btn-secondary">후기 작성</button>
-							</div>
-							
-							<div class="col-2 text-right d-none">
-								<button type="button" class="btn btn-secondary">후기 수정</button>
-							</div>
+							<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.purchaseProduct.amount}" type="number" />원</h4>
+							<c:choose>
+								<c:when test="${purchaseProductView.purchaseProduct.completion eq 0}">
+									<div class="col-2 text-right">
+										<button type="button" class="btn btn-secondary">배송 조회</button>
+										<button type="button" class="btn btn-secondary mt-2">환불 신청</button>
+										<button type="button" class="btn btn-secondary mt-2">교환 신청</button>
+										<button type="button" class="btn btn-secondary mt-2">구매 확정</button>
+									</div>
+								</c:when>
+								<c:when test="${empty purchaseProductView.purchaseProduct.review}">
+									<div class="col-2 text-right">
+										<button type="button" class="btn btn-secondary">후기 작성</button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="col-2 text-right">
+										<button type="button" class="btn btn-secondary">후기 수정</button>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</c:forEach>
 				</c:otherwise>

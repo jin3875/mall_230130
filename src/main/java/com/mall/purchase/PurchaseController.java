@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mall.purchase.bo.PurchaseProductViewBO;
+import com.mall.purchase.bo.ProductCardViewBO;
 import com.mall.purchase.bo.WishListBO;
-import com.mall.purchase.model.PurchaseProductView;
+import com.mall.purchase.model.ProductCardView;
 import com.mall.purchase.model.WishList;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
@@ -30,7 +30,7 @@ public class PurchaseController {
 	private WishListBO wishListBO;
 	
 	@Autowired
-	private PurchaseProductViewBO beforePurchaseViewBO;
+	private ProductCardViewBO productCardViewBO;
 	
 	/**
 	 * 장바구니 화면
@@ -40,17 +40,17 @@ public class PurchaseController {
 	 */
 	@GetMapping("/wish_list_view")
 	public String wishListView(HttpSession session, Model model) {
-		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
+		List<ProductCardView> productCardViewList = new ArrayList<>();
 		
 		// 장바구니 목록
 		List<WishList> wishListList = wishListBO.getWishListList((int)session.getAttribute("userId"));
 		
 		for (WishList wishList : wishListList) {
-			// 구매할 상품 뷰 추가 (상품 상세 id)
-			purchaseProductViewList.add(beforePurchaseViewBO.generatePurchaseProductViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), wishList.getId()));
+			// 상품 카드 생성 (상품 상세 id)
+			productCardViewList.add(productCardViewBO.generateProductCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), wishList.getId()));
 		}
 		
-		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		model.addAttribute("viewName", "purchase/wishList");
 		return "template/layout";
@@ -77,22 +77,22 @@ public class PurchaseController {
 			HttpSession session,
 			Model model
 	) {
-		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
+		List<ProductCardView> productCardViewList = new ArrayList<>();
 		
 		if (idList == null) {
-			// 구매할 상품 뷰 추가 (상품 상세 색상, 사이즈)
-			purchaseProductViewList.add(beforePurchaseViewBO.generatePurchaseProductViewByColorSize(productId, color, size, amount));
+			// 상품 카드 생성 (상품 상세 색상, 사이즈)
+			productCardViewList.add(productCardViewBO.generateProductCardViewByColorSize(productId, color, size, amount));
 		} else {
 			for (int id : idList) {
 				// 장바구니 조회
 				WishList wishList = wishListBO.getWishListById(id);
 				
-				// 구매할 상품 뷰 추가 (상품 상세 id)
-				purchaseProductViewList.add(beforePurchaseViewBO.generatePurchaseProductViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), id));
+				// 상품 카드 생성 (상품 상세 id)
+				productCardViewList.add(productCardViewBO.generateProductCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), id));
 			}
 		}
 		
-		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		// 유저 조회
 		User user = userBO.getUserById((int)session.getAttribute("userId"));

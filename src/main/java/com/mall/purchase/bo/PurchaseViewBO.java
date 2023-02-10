@@ -30,7 +30,7 @@ public class PurchaseViewBO {
 			
 			purchaseView.setPurchase(purchase);
 			
-			// 상품 뷰 목록
+			// 구매 상품 카드 목록
 			purchaseView.setPurchaseProductViewList(purchaseProductViewBO.generatePurchaseProductViewList(purchase.getId()));
 			
 			purchaseViewList.add(purchaseView);
