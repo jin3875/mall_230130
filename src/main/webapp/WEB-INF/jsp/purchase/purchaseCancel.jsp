@@ -54,10 +54,10 @@
 		</c:forEach>
 		
 		<div class="d-flex justify-content-end mt-4 mr-5">
-			<h2 id="totalPrice" class="font-weight-bold mr-5">총 <fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</h2>
+			<h3 id="totalPrice" class="font-weight-bold">총 <fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</h3>
 		</div>
 		
-		<div class="d-flex justify-content-center mt-5 mr-5">
+		<div class="d-flex justify-content-end mt-5 mr-5">
 			<button type="button" id="cancelBtn" class="btn btn-secondary" data-purchase-id="${purchaseView.purchase.id}">취소하기</button>
 		</div>
 	</div>

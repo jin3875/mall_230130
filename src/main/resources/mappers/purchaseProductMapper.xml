@@ -26,6 +26,29 @@
 			`purchaseId` = #{purchaseId}
 	</select>
 	
+	<!-- 구매 상품 조회 -->
+	<select id="selectPurchaseProductById" parameterType="int" resultType="com.mall.purchase.model.PurchaseProduct">
+		SELECT
+			`id`
+			,`userId`
+			,`purchaseId`
+			,`productId`
+			,`productDetailId`
+			,`amount`
+			,`exchange`
+			,`refund`
+			,`completion`
+			,`star`
+			,`review`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`purchase_product`
+		WHERE
+			`id` = #{id}
+	</select>
+	
 	<!-- 구매 상품 추가 -->
 	<insert id="insertPurchaseProduct" parameterType="map">
 		INSERT INTO `purchase_product`
@@ -55,4 +78,35 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 구매 상품 환불 -->
+	<update id="updatePurchaseProductRefund" parameterType="int">
+		UPDATE `purchase_product`
+		SET
+			`refund` = 1
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 구매 상품 교환 -->
+	<update id="updatePurchaseProductExchange" parameterType="map">
+		UPDATE `purchase_product`
+		SET
+			`productDetailId` = #{productDetailId}
+			, `exchange` = 1
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 구매 상품 확정 -->
+	<update id="updatePurchaseProductComplete" parameterType="int">
+		UPDATE `purchase_product`
+		SET
+			`completion` = 1
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

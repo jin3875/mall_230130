@@ -19,9 +19,29 @@ public class PurchaseProductBO {
 		return purchaseProductDAO.selectPurchaseProductList(purchaseId);
 	}
 	
+	// 구매 상품 조회
+	public PurchaseProduct getPurchaseProductById(int id) {
+		return purchaseProductDAO.selectPurchaseProductById(id);
+	}
+	
 	// 구매 상품 추가
 	public int addPurchaseProduct(int userId, int purchaseId, int productId, int productDetailId, int amount) {
 		return purchaseProductDAO.insertPurchaseProduct(userId, purchaseId, productId, productDetailId, amount);
+	}
+	
+	// 구매 상품 환불
+	public int updatePurchaseProductRefund(int id) {
+		return purchaseProductDAO.updatePurchaseProductRefund(id);
+	}
+	
+	// 구매 상품 교환
+	public int updatePurchaseProductExchange(int id, int productDetailId) {
+		return purchaseProductDAO.updatePurchaseProductExchange(id, productDetailId);
+	}
+	
+	// 구매 상품 확정
+	public int updatePurchaseProductComplete(int id) {
+		return purchaseProductDAO.updatePurchaseProductComplete(id);
 	}
 
 }

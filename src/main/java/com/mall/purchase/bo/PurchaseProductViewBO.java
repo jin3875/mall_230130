@@ -47,5 +47,20 @@ public class PurchaseProductViewBO {
 		
 		return purchaseProductViewList;
 	}
+	
+	// 구매 상품 카드 조회
+	public PurchaseProductView generatePurchaseProductViewById(int purchaseProductId) {
+		PurchaseProductView purchaseProductView = new PurchaseProductView();
+		
+		// 구매 상품 조회
+		PurchaseProduct purchaseProduct = purchaseProductBO.getPurchaseProductById(purchaseProductId);
+		
+		purchaseProductView.setPurchaseProduct(purchaseProduct);
+		purchaseProductView.setProduct(productBO.getProductById(purchaseProduct.getProductId()));
+		purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
+		purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(purchaseProduct.getProductDetailId()));
+		
+		return purchaseProductView;
+	}
 
 }

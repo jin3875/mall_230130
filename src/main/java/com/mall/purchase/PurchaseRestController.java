@@ -186,18 +186,14 @@ public class PurchaseRestController {
 	/**
 	 * 구매 취소 API
 	 * @param purchaseId
-	 * @param session
 	 * @return
 	 */
 	@PutMapping("/purchase_cancel")
-	public Map<String, Object> purchaseCancel(
-			@RequestParam("purchaseId") int purchaseId,
-			HttpSession session
-	) {
+	public Map<String, Object> purchaseCancel(@RequestParam("purchaseId") int purchaseId) {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 취소
-		int rowCount = purchaseBO.updatePurchase(purchaseId, (int)session.getAttribute("userId"));
+		int rowCount = purchaseBO.updatePurchase(purchaseId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -205,6 +201,86 @@ public class PurchaseRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "구매 취소에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 환불 신청 API
+	 * @param purchaseProductId
+	 * @return
+	 */
+	@PutMapping("/product_refund")
+	public Map<String, Object> productRefund(@RequestParam("purchaseProductId") int purchaseProductId) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 환불
+		int rowCount = purchaseProductBO.updatePurchaseProductRefund(purchaseProductId);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "환불 신청에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 교환 신청 API
+	 * @param purchaseProductId
+	 * @param productId
+	 * @param color
+	 * @param size
+	 * @return
+	 */
+	@PutMapping("/product_exchange")
+	public Map<String, Object> productExchange(
+			@RequestParam("purchaseProductId") int purchaseProductId,
+			@RequestParam("productId") int productId,
+			@RequestParam("color") String color,
+			@RequestParam("size") String size
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 상품 상세 조회 (색상, 사이즈)
+		ProductDetail productDetail = productDetailBO.getProductDetailByProductIdColorSize(productId, color, size);
+		
+		// 구매 상품 교환
+		int rowCount = purchaseProductBO.updatePurchaseProductExchange(purchaseProductId, productDetail.getId());
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "교환 신청에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 구매 확정 API
+	 * @param purchaseProductId
+	 * @return
+	 */
+	@PutMapping("/product_complete")
+	public Map<String, Object> productComplete(@RequestParam("purchaseProductId") int purchaseProductId) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 확정
+		int rowCount = purchaseProductBO.updatePurchaseProductComplete(purchaseProductId);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "구매 확정에 실패했습니다");
 		}
 		
 		return result;

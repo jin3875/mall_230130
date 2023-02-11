@@ -22,8 +22,6 @@ public interface PurchaseDAO {
 	public void insertPurchase(Purchase purchase);
 	
 	// 구매 취소
-	public int updatePurchase(
-			@Param("id") int id,
-			@Param("userId") int userId);
+	public int updatePurchase(int id);
 
 }

@@ -30,8 +30,8 @@ public class PurchaseBO {
 	}
 	
 	// 구매 취소
-	public int updatePurchase(int id, int userId) {
-		return purchaseDAO.updatePurchase(id, userId);
+	public int updatePurchase(int id) {
+		return purchaseDAO.updatePurchase(id);
 	}
 
 }

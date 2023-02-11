@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mall.product.bo.ProductDetailBO;
+import com.mall.product.model.ProductDetail;
 import com.mall.purchase.bo.ProductCardViewBO;
+import com.mall.purchase.bo.PurchaseProductViewBO;
 import com.mall.purchase.bo.PurchaseViewBO;
 import com.mall.purchase.bo.WishListBO;
 import com.mall.purchase.model.ProductCardView;
+import com.mall.purchase.model.PurchaseProductView;
 import com.mall.purchase.model.PurchaseView;
 import com.mall.purchase.model.WishList;
 import com.mall.user.bo.UserBO;
@@ -30,10 +34,16 @@ public class PurchaseController {
 	private UserBO userBO;
 	
 	@Autowired
+	private ProductDetailBO productDetailBO;
+	
+	@Autowired
 	private WishListBO wishListBO;
 	
 	@Autowired
 	private ProductCardViewBO productCardViewBO;
+	
+	@Autowired
+	private PurchaseProductViewBO purchaseProductViewBO;
 	
 	@Autowired
 	private PurchaseViewBO purchaseViewBO;
@@ -126,6 +136,48 @@ public class PurchaseController {
 		model.addAttribute("purchaseView", purchaseView);
 		
 		model.addAttribute("viewName", "purchase/purchaseCancel");
+		return "template/layout";
+	}
+	
+	/**
+	 * 환불 신청 화면
+	 * @param purchaseProductId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/product_refund_view/{purchaseProductId}")
+	public String productRefundView(
+			@PathVariable("purchaseProductId") int purchaseProductId,
+			Model model
+	) {
+		// 구매 상품 카드 조회
+		PurchaseProductView purchaseProductView = purchaseProductViewBO.generatePurchaseProductViewById(purchaseProductId);
+		model.addAttribute("purchaseProductView", purchaseProductView);
+		
+		model.addAttribute("viewName", "purchase/productRefund");
+		return "template/layout";
+	}
+	
+	/**
+	 * 교환 신청 화면
+	 * @param purchaseProductId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/product_exchange_view/{purchaseProductId}")
+	public String productExchangeView(
+			@PathVariable("purchaseProductId") int purchaseProductId,
+			Model model
+	) {
+		// 구매 상품 카드 조회
+		PurchaseProductView purchaseProductView = purchaseProductViewBO.generatePurchaseProductViewById(purchaseProductId);
+		model.addAttribute("purchaseProductView", purchaseProductView);
+		
+		// 상품 상세 목록
+		List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(purchaseProductView.getProduct().getId());
+		model.addAttribute("productDetailList", productDetailList);
+		
+		model.addAttribute("viewName", "purchase/productExchange");
 		return "template/layout";
 	}
 

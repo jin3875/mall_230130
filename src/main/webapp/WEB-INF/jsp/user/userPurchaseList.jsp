@@ -65,6 +65,11 @@
 									<button type="button" class="cancel-btn btn btn-outline-secondary" data-purchase-id="${purchaseView.purchase.id}">구매 취소</button>
 								</div>
 							</c:when>
+							<c:when test="${purchaseView.purchase.cancellation eq 1}">
+								<div class="col-2 text-right">
+									<div class="btn btn-secondary disabled">취소 중</div>
+								</div>
+							</c:when>
 							<c:otherwise>
 								<div class="col-2 text-right">
 									<div class="btn btn-secondary disabled">취소 완료</div>
@@ -105,22 +110,59 @@
 							</div>
 							<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.purchaseProduct.amount}" type="number" />원</h4>
 							<c:choose>
-								<c:when test="${purchaseProductView.purchaseProduct.completion eq 0}">
+								<%-- 구매 확정 --%>
+								<c:when test="${purchaseProductView.purchaseProduct.completion eq 1}">
+									<c:choose>
+										<c:when test="${empty purchaseProductView.purchaseProduct.star}">
+											<div class="col-2 text-right">
+												<button type="button" class="add-review-btn btn btn-outline-secondary" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">후기 작성</button>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="col-2 text-right">
+												<button type="button" class="edit-review-btn btn btn-secondary" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">후기 수정</button>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								
+								<%-- 환불 --%>
+								<c:when test="${purchaseProductView.purchaseProduct.refund eq 1}">
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-outline-secondary">배송 조회</button>
-										<button type="button" class="btn btn-outline-secondary mt-2">환불 신청</button>
-										<button type="button" class="btn btn-outline-secondary mt-2">교환 신청</button>
-										<button type="button" class="btn btn-outline-secondary mt-2">구매 확정</button>
+										<div class="btn btn-secondary disabled">환불 중</div>
 									</div>
 								</c:when>
-								<c:when test="${empty purchaseProductView.purchaseProduct.review}">
+								
+								<c:when test="${purchaseProductView.purchaseProduct.refund eq 2}">
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-outline-secondary">후기 작성</button>
+										<div class="btn btn-secondary disabled">환불 완료</div>
 									</div>
 								</c:when>
+								
+								<%-- 교환 --%>
+								<c:when test="${purchaseProductView.purchaseProduct.exchange eq 1}">
+									<div class="col-2 text-right">
+										<div class="btn btn-secondary disabled">교환 중</div>
+										<button type="button" class="btn btn-outline-secondary mt-3">배송 조회</button>
+									</div>
+								</c:when>
+								
+								<c:when test="${purchaseProductView.purchaseProduct.exchange eq 2}">
+									<div class="col-2 text-right">
+										<div class="btn btn-secondary disabled">교환 완료</div>
+										<button type="button" class="refund-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">환불 신청</button>
+										<button type="button" class="exchange-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">교환 신청</button>
+										<button type="button" class="complete-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">구매 확정</button>
+									</div>
+								</c:when>
+								
+								<%-- 초기 세팅 --%>
 								<c:otherwise>
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-outline-secondary">후기 수정</button>
+										<button type="button" class="btn btn-outline-secondary">배송 조회</button>
+										<button type="button" class="refund-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">환불 신청</button>
+										<button type="button" class="exchange-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">교환 신청</button>
+										<button type="button" class="complete-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">구매 확정</button>
 									</div>
 								</c:otherwise>
 							</c:choose>
@@ -137,7 +179,55 @@
 		// 구매 취소 버튼
 		$('.cancel-btn').on('click', function() {
 			let purchaseId = $(this).data('purchase-id');
-			location.href="/purchase/purchase_cancel_view/" + purchaseId;
+			location.href = "/purchase/purchase_cancel_view/" + purchaseId;
+		});
+		
+		// 환불 신청 버튼
+		$('.refund-btn').on('click', function() {
+			let purchaseProductId = $(this).data('purchase-product-id');
+			location.href = "/purchase/product_refund_view/" + purchaseProductId;
+		});
+		
+		// 교환 신청 버튼
+		$('.exchange-btn').on('click', function() {
+			let purchaseProductId = $(this).data('purchase-product-id');
+			location.href = "/purchase/product_exchange_view/" + purchaseProductId;
+		});
+		
+		// 구매 확정 버튼
+		$('.complete-btn').on('click', function() {
+			let purchaseProductId = $(this).data('purchase-product-id');
+			
+			$.ajax({
+				type:"PUT"
+				, url:"/purchase/product_complete"
+				, data:{"purchaseProductId":purchaseProductId}
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("구매 확정이 완료되었습니다");
+						location.reload();
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(jqXHR, textStatus, errorThrown) {
+					let errorMsg = jqXHR.responseJSON.status;
+					alert(errorMsg + ":" + textStatus);
+				}
+			});
+		});
+		
+		// 후기 작성 버튼
+		$('.add-review-btn').on('click', function() {
+			let purchaseProductId = $(this).data('purchase-product-id');
+			location.href = "/purchase/product_review_create_view" + purchaseProductId;
+		});
+		
+		// 후기 수정 버튼
+		$('.edit-review-btn').on('click', function() {
+			let purchaseProductId = $(this).data('purchase-product-id');
+			location.href = "/purchase/product_review_update_view" + purchaseProductId;
 		});
 	});
 </script>

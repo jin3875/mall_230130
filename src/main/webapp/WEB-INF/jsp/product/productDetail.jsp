@@ -75,6 +75,8 @@
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
 			
 			if (colorAndSize == '') {
 				alert('옵션을 선택하세요');
@@ -85,9 +87,6 @@
 				alert('수량을 선택하세요');
 				return;
 			}
-			
-			let color = colorAndSize.split('/')[0].trim();
-			let size = colorAndSize.split('/')[1].trim();
 			
 			if ($('#userCheck').text() == '') {
 				if (confirm("로그인 후 이용 가능합니다")) {
@@ -123,6 +122,8 @@
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
 			
 			if (colorAndSize == '') {
 				alert('옵션을 선택하세요');
@@ -133,9 +134,6 @@
 				alert('수량을 선택하세요');
 				return;
 			}
-			
-			let color = colorAndSize.split('/')[0].trim();
-			let size = colorAndSize.split('/')[1].trim();
 			
 			if ($('#userCheck').text() == '') {
 				if (confirm("로그인 후 이용 가능합니다")) {
