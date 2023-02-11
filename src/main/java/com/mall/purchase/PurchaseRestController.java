@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -177,6 +178,33 @@ public class PurchaseRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "구매에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 구매 취소 API
+	 * @param purchaseId
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/purchase_cancel")
+	public Map<String, Object> purchaseCancel(
+			@RequestParam("purchaseId") int purchaseId,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 취소
+		int rowCount = purchaseBO.updatePurchase(purchaseId, (int)session.getAttribute("userId"));
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "구매 취소에 실패했습니다");
 		}
 		
 		return result;

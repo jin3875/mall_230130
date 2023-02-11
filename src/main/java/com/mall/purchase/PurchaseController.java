@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.purchase.bo.ProductCardViewBO;
+import com.mall.purchase.bo.PurchaseViewBO;
 import com.mall.purchase.bo.WishListBO;
 import com.mall.purchase.model.ProductCardView;
+import com.mall.purchase.model.PurchaseView;
 import com.mall.purchase.model.WishList;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
@@ -31,6 +34,9 @@ public class PurchaseController {
 	
 	@Autowired
 	private ProductCardViewBO productCardViewBO;
+	
+	@Autowired
+	private PurchaseViewBO purchaseViewBO;
 	
 	/**
 	 * 장바구니 화면
@@ -99,6 +105,27 @@ public class PurchaseController {
 		model.addAttribute("user", user);
 		
 		model.addAttribute("viewName", "purchase/purchase");
+		return "template/layout";
+	}
+	
+	/**
+	 * 구매 취소 화면
+	 * @param purchaseId
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/purchase_cancel_view/{purchaseId}")
+	public String purchaseCancelView(
+			@PathVariable("purchaseId") int purchaseId,
+			HttpSession session,
+			Model model
+	) {
+		// 구매 + 구매 상품 목록 조회
+		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId, (int)session.getAttribute("userId"));
+		model.addAttribute("purchaseView", purchaseView);
+		
+		model.addAttribute("viewName", "purchase/purchaseCancel");
 		return "template/layout";
 	}
 

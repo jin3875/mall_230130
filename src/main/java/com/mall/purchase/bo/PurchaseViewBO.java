@@ -38,5 +38,18 @@ public class PurchaseViewBO {
 		
 		return purchaseViewList;
 	}
+	
+	// 구매 + 구매 상품 목록 조회
+	public PurchaseView generatePurchaseViewByPurchaseId(int purchaseId, int userId) {
+		PurchaseView purchaseView = new PurchaseView();
+		
+		// 구매 조회
+		purchaseView.setPurchase(purchaseBO.getPurchaseById(purchaseId, userId));
+		
+		// 구매 상품 카드 목록
+		purchaseView.setPurchaseProductViewList(purchaseProductViewBO.generatePurchaseProductViewList(purchaseId));
+		
+		return purchaseView;
+	}
 
 }

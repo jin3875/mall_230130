@@ -24,6 +24,31 @@
 			`purchase`
 		WHERE
 			`userId` = #{userId}
+		ORDER BY `id` DESC
+	</select>
+	
+	<!-- 구매 조회 -->
+	<select id="selectPurchaseById" parameterType="map" resultType="com.mall.purchase.model.Purchase">
+		SELECT
+			`id`
+			,`userId`
+			,`totalPrice`
+			,`name`
+			,`phoneNumber`
+			,`postcode`
+			,`address`
+			,`detailAddress`
+			,`message`
+			,`courier`
+			,`trackingNumber`
+			,`cancellation`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`purchase`
+		WHERE
+			`id` = #{id}
+			AND `userId` = #{userId}
 	</select>
 	
 	<!-- 구매 추가 -->
@@ -57,4 +82,15 @@
 			, NOW()
 		)
 	</insert>
+	
+	<!-- 구매 취소 -->
+	<update id="updatePurchase" parameterType="map">
+		UPDATE `purchase`
+		SET
+			`cancellation` = 1
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+			AND `userId` = #{userId}
+	</update>
 </mapper>

@@ -19,9 +19,19 @@ public class PurchaseBO {
 		return purchaseDAO.selectPurchaseList(userId);
 	}
 	
+	// 구매 조회
+	public Purchase getPurchaseById(int id, int userId) {
+		return purchaseDAO.selectPurchaseById(id, userId);
+	}
+	
 	// 구매 추가
 	public void addPurchase(Purchase purchase) {
 		purchaseDAO.insertPurchase(purchase);
+	}
+	
+	// 구매 취소
+	public int updatePurchase(int id, int userId) {
+		return purchaseDAO.updatePurchase(id, userId);
 	}
 
 }

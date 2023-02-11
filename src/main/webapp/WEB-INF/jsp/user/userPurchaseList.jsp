@@ -59,9 +59,18 @@
 							<div>합계</div>
 							<h4><fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</h4>
 						</div>
-						<div class="col-2 text-right">
-							<button type="button" class="btn btn-secondary">구매 취소</button>
-						</div>
+						<c:choose>
+							<c:when test="${purchaseView.purchase.cancellation eq 0}">
+								<div class="col-2 text-right">
+									<button type="button" class="cancel-btn btn btn-outline-secondary" data-purchase-id="${purchaseView.purchase.id}">구매 취소</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="col-2 text-right">
+									<div class="btn btn-secondary disabled">취소 완료</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -98,20 +107,20 @@
 							<c:choose>
 								<c:when test="${purchaseProductView.purchaseProduct.completion eq 0}">
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-secondary">배송 조회</button>
-										<button type="button" class="btn btn-secondary mt-2">환불 신청</button>
-										<button type="button" class="btn btn-secondary mt-2">교환 신청</button>
-										<button type="button" class="btn btn-secondary mt-2">구매 확정</button>
+										<button type="button" class="btn btn-outline-secondary">배송 조회</button>
+										<button type="button" class="btn btn-outline-secondary mt-2">환불 신청</button>
+										<button type="button" class="btn btn-outline-secondary mt-2">교환 신청</button>
+										<button type="button" class="btn btn-outline-secondary mt-2">구매 확정</button>
 									</div>
 								</c:when>
 								<c:when test="${empty purchaseProductView.purchaseProduct.review}">
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-secondary">후기 작성</button>
+										<button type="button" class="btn btn-outline-secondary">후기 작성</button>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="col-2 text-right">
-										<button type="button" class="btn btn-secondary">후기 수정</button>
+										<button type="button" class="btn btn-outline-secondary">후기 수정</button>
 									</div>
 								</c:otherwise>
 							</c:choose>
@@ -122,3 +131,13 @@
 		</c:forEach>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 구매 취소 버튼
+		$('.cancel-btn').on('click', function() {
+			let purchaseId = $(this).data('purchase-id');
+			location.href="/purchase/purchase_cancel_view/" + purchaseId;
+		});
+	});
+</script>

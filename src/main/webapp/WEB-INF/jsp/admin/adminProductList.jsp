@@ -36,8 +36,8 @@
 				</td>
 				<td class="align-middle"><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				<td class="align-middle"><fmt:formatDate value="${product.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-				<td><a href="/admin/admin_product_update_view?productId=${product.id}" class="btn btn-sm btn-info">수정</a></td>
-				<td><button class="delete-btn btn btn-sm btn-danger" data-product-id="${product.id}">삭제</button></td>
+				<td><a href="/admin/admin_product_update_view?productId=${product.id}" class="btn btn-sm btn-outline-info">수정</a></td>
+				<td><button class="delete-btn btn btn-sm btn-outline-danger" data-product-id="${product.id}">삭제</button></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -53,24 +53,26 @@
 		$('.delete-btn').on('click', function() {
 			let productId = $(this).data('product-id');
 			
-			$.ajax({
-				type:"DELETE"
-				, url:"/admin/admin_product_delete"
-				, data:{"productId":productId}
-				
-				, success:function(data) {
-					if (data.code == 1) {
-						alert("삭제가 완료되었습니다");
-						location.reload();
-					} else {
-						alert(data.errorMessage);
+			if (confirm("상품을 삭제하시겠습니까?")) {
+				$.ajax({
+					type:"DELETE"
+					, url:"/admin/admin_product_delete"
+					, data:{"productId":productId}
+					
+					, success:function(data) {
+						if (data.code == 1) {
+							alert("삭제가 완료되었습니다");
+							location.reload();
+						} else {
+							alert(data.errorMessage);
+						}
 					}
-				}
-				, error:function(jqXHR, textStatus, errorThrown) {
-					let errorMsg = jqXHR.responseJSON.status;
-					alert(errorMsg + ":" + textStatus);
-				}
-			});
+					, error:function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+			}
 		});
 	});
 </script>
