@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mall.common.FileManagerService;
 import com.mall.purchase.dao.PurchaseProductDAO;
 import com.mall.purchase.model.PurchaseProduct;
 
@@ -14,9 +16,17 @@ public class PurchaseProductBO {
 	@Autowired
 	private PurchaseProductDAO purchaseProductDAO;
 	
+	@Autowired
+	private FileManagerService fileManagerService;
+	
 	// 구매 상품 목록
 	public List<PurchaseProduct> getPurchaseProductList(int purchaseId) {
 		return purchaseProductDAO.selectPurchaseProductList(purchaseId);
+	}
+	
+	// 구매 상품 목록 (상품 id)
+	public List<PurchaseProduct> getPurchaseProductListByProductId(int productId) {
+		return purchaseProductDAO.selectPurchaseProductListByProductId(productId);
 	}
 	
 	// 구매 상품 조회
@@ -42,6 +52,32 @@ public class PurchaseProductBO {
 	// 구매 상품 확정
 	public int updatePurchaseProductComplete(int id) {
 		return purchaseProductDAO.updatePurchaseProductComplete(id);
+	}
+	
+	// 구매 상품 후기 작성
+	public int updatePurchaseProductReview(String userLoginId, int id, int star, String review, MultipartFile file) {
+		String imagePath = null;
+		
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(userLoginId, file);
+		}
+		
+		return purchaseProductDAO.updatePurchaseProductReview(id, star, review, imagePath);
+	}
+	
+	// 구매 상품 후기 수정
+	public int updatePurchaseProductReviewAgain(String userLoginId, int id, int star, String review, MultipartFile file) {
+		String imagePath = null;
+		
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(userLoginId, file);
+			
+			if (imagePath != null && getPurchaseProductById(id).getImagePath() != null) {
+				fileManagerService.deleteFile(getPurchaseProductById(id).getImagePath());
+			}
+		}
+		
+		return purchaseProductDAO.updatePurchaseProductReview(id, star, review, imagePath);
 	}
 
 }

@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<div class="admin-box d-flex justify-content-between">
-	<div class="admin-small-box">
+<div class="input-big-box d-flex justify-content-between">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center">
 			<span>카테고리</span>
 			<select id="category" class="form-control col-8">
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 	
-	<div class="admin-small-box">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center">
 			<span>상품 사진</span>
 			<input type="file" id="file" class="d-none" accept=".gif, .png, .jpg, .jpeg">
@@ -83,7 +83,7 @@
 	</div>
 </div>
 
-<div class="admin-box d-flex justify-content-between mt-5">
+<div class="input-big-box d-flex justify-content-between mt-5">
 	<a href="/admin/admin_product_list_view" class="btn btn-light">상품 목록</a>
 	<button id="editBtn" class="btn btn-secondary" data-product-id="${productView.product.id}">상품 수정</button>
 </div>

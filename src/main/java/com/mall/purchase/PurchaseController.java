@@ -180,5 +180,43 @@ public class PurchaseController {
 		model.addAttribute("viewName", "purchase/productExchange");
 		return "template/layout";
 	}
+	
+	/**
+	 * 후기 작성 화면
+	 * @param purchaseProductId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/product_review_create_view/{purchaseProductId}")
+	public String productReviewCreateView(
+			@PathVariable("purchaseProductId") int purchaseProductId,
+			Model model
+	) {
+		// 구매 상품 카드 조회
+		PurchaseProductView purchaseProductView = purchaseProductViewBO.generatePurchaseProductViewById(purchaseProductId);
+		model.addAttribute("purchaseProductView", purchaseProductView);
+		
+		model.addAttribute("viewName", "purchase/productReviewCreate");
+		return "template/layout";
+	}
+	
+	/**
+	 * 후기 수정 화면
+	 * @param purchaseProductId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/product_review_update_view/{purchaseProductId}")
+	public String productReviewUpdateView(
+			@PathVariable("purchaseProductId") int purchaseProductId,
+			Model model
+	) {
+		// 구매 상품 카드 조회
+		PurchaseProductView purchaseProductView = purchaseProductViewBO.generatePurchaseProductViewById(purchaseProductId);
+		model.addAttribute("purchaseProductView", purchaseProductView);
+		
+		model.addAttribute("viewName", "purchase/productReviewUpdate");
+		return "template/layout";
+	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.model.ProductDetail;
@@ -281,6 +282,72 @@ public class PurchaseRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "구매 확정에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 후기 작성 API
+	 * @param purchaseProductId
+	 * @param star
+	 * @param review
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/product_review_create")
+	public Map<String, Object> productReviewCreate(
+			@RequestParam("purchaseProductId") int purchaseProductId,
+			@RequestParam("star") int star,
+			@RequestParam(value="review", required=false) String review,
+			@RequestParam(value="file", required=false) MultipartFile file,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 후기 작성
+		int rowCount = purchaseProductBO.updatePurchaseProductReview((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "후기 작성에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 후기 수정 API
+	 * @param purchaseProductId
+	 * @param star
+	 * @param review
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/product_review_update")
+	public Map<String, Object> productReviewUpdate(
+			@RequestParam("purchaseProductId") int purchaseProductId,
+			@RequestParam("star") int star,
+			@RequestParam(value="review", required=false) String review,
+			@RequestParam(value="file", required=false) MultipartFile file,
+			HttpSession session
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 후기 수정
+		int rowCount = purchaseProductBO.updatePurchaseProductReviewAgain((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "후기 수정에 실패했습니다");
 		}
 		
 		return result;

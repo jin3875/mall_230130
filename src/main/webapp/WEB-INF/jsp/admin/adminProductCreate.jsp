@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="admin-box d-flex justify-content-between">
-	<div class="admin-small-box">
+<div class="input-big-box d-flex justify-content-between">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center">
 			<span>카테고리</span>
 			<select id="category" class="form-control col-8">
@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	
-	<div class="admin-small-box">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center">
 			<span>상품 사진</span>
 			<input type="file" id="file" class="d-none" accept=".gif, .png, .jpg, .jpeg">
@@ -68,7 +68,7 @@
 	</div>
 </div>
 
-<div class="admin-box d-flex justify-content-between mt-5">
+<div class="input-big-box d-flex justify-content-between mt-5">
 	<a href="/admin/admin_product_list_view" class="btn btn-light">상품 목록</a>
 	<button id="createBtn" class="btn btn-secondary">상품 등록</button>
 </div>

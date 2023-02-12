@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.ProductView;
+import com.mall.purchase.bo.ProductReviewViewBO;
+import com.mall.purchase.model.ProductReviewView;
 
 @RequestMapping("/product")
 @Controller
@@ -19,6 +21,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductViewBO productViewBO;
+	
+	@Autowired
+	private ProductReviewViewBO productReviewViewBO;
 	
 	/**
 	 * 메인 화면
@@ -66,8 +71,13 @@ public class ProductController {
 			@PathVariable("productId") int productId,
 			Model model
 	) {
+		// 상품 + 상품 사진 + 상품 상세 조회
 		ProductView productView = productViewBO.generateProductViewById(productId);
 		model.addAttribute("productView", productView);
+		
+		// 후기 목록 (상품 id)
+		List<ProductReviewView> productReviewViewList = productReviewViewBO.generateProductReviewViewListByProductId(productId);
+		model.addAttribute("productReviewViewList", productReviewViewList);
 		
 		model.addAttribute("viewName", "product/productDetail");
 		return "template/layout";

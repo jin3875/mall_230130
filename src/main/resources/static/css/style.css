@@ -13,13 +13,10 @@ footer {height:80px;}
 .logo:hover {color:#000;}
 
 .input-box {width:400px; margin:0 auto;}
-.input-small-box {width:350px;}
 .input-big-box {width:800px; margin:0 auto;}
+.input-small-box {width:350px;}
 
 .my-page-box {width:150px;}
-
-.admin-box {width:800px; margin:0 auto;}
-.admin-small-box {width:350px;}
 
 .product-main-box {overflow:hidden; text-align:justify;}
 .product-small-box {display:inline-block; width:250px; height:300px; margin: 0 10px;}

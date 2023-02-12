@@ -26,6 +26,29 @@
 			`purchaseId` = #{purchaseId}
 	</select>
 	
+	<!-- 구매 상품 목록 (상품 id) -->
+	<select id="selectPurchaseProductListByProductId" parameterType="int" resultType="com.mall.purchase.model.PurchaseProduct">
+		SELECT
+			`id`
+			,`userId`
+			,`purchaseId`
+			,`productId`
+			,`productDetailId`
+			,`amount`
+			,`exchange`
+			,`refund`
+			,`completion`
+			,`star`
+			,`review`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`purchase_product`
+		WHERE
+			`productId` = #{productId}
+	</select>
+	
 	<!-- 구매 상품 조회 -->
 	<select id="selectPurchaseProductById" parameterType="int" resultType="com.mall.purchase.model.PurchaseProduct">
 		SELECT
@@ -105,6 +128,18 @@
 		UPDATE `purchase_product`
 		SET
 			`completion` = 1
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 구매 상품 후기 -->
+	<update id="updatePurchaseProductReview" parameterType="map">
+		UPDATE `purchase_product`
+		SET
+			`star` = #{star}
+			,`review` = #{review}
+			,`imagePath` = #{imagePath}
 			,`updatedAt` = NOW()
 		WHERE
 			`id` = #{id}

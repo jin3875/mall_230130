@@ -124,5 +124,16 @@ public class UserController {
 		model.addAttribute("viewName", "user/userPurchaseList");
 		return "template/layout";
 	}
+	
+	// 후기 목록 화면
+	@GetMapping("/user_review_list_view")
+	public String userReviewListView(HttpSession session, Model model) {
+		// 구매 + 구매 상품 목록
+		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewList((int)session.getAttribute("userId"));
+		model.addAttribute("purchaseViewList", purchaseViewList);
+		
+		model.addAttribute("viewName", "user/userReviewList");
+		return "template/layout";
+	}
 
 }

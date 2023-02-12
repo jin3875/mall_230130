@@ -60,12 +60,40 @@
 	<div class="mt-5">${productView.product.detail}</div>
 </div>
 
-<div class="d-flex justify-content-center mt-5">
-	<div class="col-8 bg-secondary">
-		-- 구매하기 기능 만든 후 --
-		<div>별점</div>
-		<div>리뷰</div>
-	</div>
+<div class="mt-5">
+	<hr>
+	<h3 class="text-center font-weight-bold my-5">Review</h3>
+	<c:forEach var="productReviewView" items="${productReviewViewList}">
+		<c:if test="${not empty productReviewView.purchaseProduct.star}">
+			<div class="input-big-box d-flex align-items-center mt-3 p-3 border border-light rounded">
+				<div class="mr-5">
+					<div class="font-weight-bold">${productReviewView.user.name}</div>
+					<div class="mt-2">
+						<c:set var="star" value="${productReviewView.purchaseProduct.star}" />
+						<c:forEach var="count" begin="0" end="4" step="1">
+							<c:choose>
+								<c:when test="${star > 0}">
+									<img src="https://cdn-icons-png.flaticon.com/512/1828/1828961.png" alt="filled-star" width="15" height="15">
+								</c:when>
+								<c:otherwise>
+									<img src="https://cdn-icons-png.flaticon.com/512/1828/1828970.png" alt="empty-star" width="15" height="15">
+								</c:otherwise>
+							</c:choose>
+							<c:set var="star" value="${star - 1}" />
+						</c:forEach>
+					</div>
+					<div class="mt-3">${productReviewView.purchaseProduct.review}</div>
+					<div class="small text-secondary mt-3">상품 구매일 : <fmt:formatDate value="${productReviewView.purchaseProduct.createdAt}" pattern="yyyy/MM/dd" /></div>
+					<div class="small text-secondary">후기 작성일 : <fmt:formatDate value="${productReviewView.purchaseProduct.updatedAt}" pattern="yyyy/MM/dd" /></div>
+				</div>
+				<div>
+					<c:if test="${not empty productReviewView.purchaseProduct.imagePath}">
+						<img src="${productReviewView.purchaseProduct.imagePath}" alt="review" width="200" height="200">
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
 </div>
 
 <script>

@@ -13,6 +13,9 @@ public interface PurchaseProductDAO {
 	// 구매 상품 목록
 	public List<PurchaseProduct> selectPurchaseProductList(int purchaseId);
 	
+	// 구매 상품 목록 (상품 id)
+	public List<PurchaseProduct> selectPurchaseProductListByProductId(int productId);
+	
 	// 구매 상품 조회
 	public PurchaseProduct selectPurchaseProductById(int id);
 	
@@ -34,5 +37,12 @@ public interface PurchaseProductDAO {
 	
 	// 구매 상품 확정
 	public int updatePurchaseProductComplete(int id);
+	
+	// 구매 상품 후기
+	public int updatePurchaseProductReview(
+			@Param("id") int id,
+			@Param("star") int star,
+			@Param("review") String review,
+			@Param("imagePath") String imagePath);
 
 }

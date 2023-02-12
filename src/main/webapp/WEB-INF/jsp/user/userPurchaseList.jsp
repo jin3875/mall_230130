@@ -143,7 +143,9 @@
 								<c:when test="${purchaseProductView.purchaseProduct.exchange eq 1}">
 									<div class="col-2 text-right">
 										<div class="btn btn-secondary disabled">교환 중</div>
-										<button type="button" class="btn btn-outline-secondary mt-3">배송 조회</button>
+										<button type="button" class="refund-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">환불 신청</button>
+										<button type="button" class="exchange-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">교환 신청</button>
+										<button type="button" class="complete-btn btn btn-outline-secondary mt-2" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">구매 확정</button>
 									</div>
 								</c:when>
 								
@@ -198,36 +200,38 @@
 		$('.complete-btn').on('click', function() {
 			let purchaseProductId = $(this).data('purchase-product-id');
 			
-			$.ajax({
-				type:"PUT"
-				, url:"/purchase/product_complete"
-				, data:{"purchaseProductId":purchaseProductId}
-				
-				, success:function(data) {
-					if (data.code == 1) {
-						alert("구매 확정이 완료되었습니다");
-						location.reload();
-					} else {
-						alert(data.errorMessage);
+			if (confirm("구매를 확정하시겠습니까?")) {
+				$.ajax({
+					type:"PUT"
+					, url:"/purchase/product_complete"
+					, data:{"purchaseProductId":purchaseProductId}
+					
+					, success:function(data) {
+						if (data.code == 1) {
+							alert("구매 확정이 완료되었습니다");
+							location.reload();
+						} else {
+							alert(data.errorMessage);
+						}
 					}
-				}
-				, error:function(jqXHR, textStatus, errorThrown) {
-					let errorMsg = jqXHR.responseJSON.status;
-					alert(errorMsg + ":" + textStatus);
-				}
-			});
+					, error:function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+			}
 		});
 		
 		// 후기 작성 버튼
 		$('.add-review-btn').on('click', function() {
 			let purchaseProductId = $(this).data('purchase-product-id');
-			location.href = "/purchase/product_review_create_view" + purchaseProductId;
+			location.href = "/purchase/product_review_create_view/" + purchaseProductId;
 		});
 		
 		// 후기 수정 버튼
 		$('.edit-review-btn').on('click', function() {
 			let purchaseProductId = $(this).data('purchase-product-id');
-			location.href = "/purchase/product_review_update_view" + purchaseProductId;
+			location.href = "/purchase/product_review_update_view/" + purchaseProductId;
 		});
 	});
 </script>

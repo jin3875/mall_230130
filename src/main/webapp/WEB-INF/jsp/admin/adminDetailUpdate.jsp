@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="admin-box d-flex justify-content-between">
-	<div class="admin-small-box">
+<div class="input-big-box d-flex justify-content-between">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center mt-3">
 			<span>카테고리</span>
 			<div class="form-control col-8 bg-light">${product.category}</div>
@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	
-	<div class="admin-small-box">
+	<div class="input-small-box">
 		<div class="d-flex justify-content-between align-items-center mt-3">
 			<span>색상</span>
 			<input type="text" id="color" class="form-control col-8" value="${productDetail.color}">
@@ -50,7 +50,7 @@
 	</div>
 </div>
 
-<div class="admin-box d-flex justify-content-between mt-5">
+<div class="input-big-box d-flex justify-content-between mt-5">
 	<a href="/admin/admin_detail_list_view?productId=${product.id}" class="btn btn-light">상품 상세 목록</a>
 	<button id="editBtn" class="btn btn-secondary" data-detail-id="${productDetail.id}" data-product-id="${product.id}">상품 상세 수정</button>
 </div>
