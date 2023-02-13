@@ -164,6 +164,19 @@ public class AdminController {
 		return "template/layout2";
 	}
 	
+	// 관리자 - 판매 상세 목록 화면
+	@GetMapping("/admin_sale_detail_list_view")
+	public String adminSaleDetailListView(
+			@RequestParam("purchaseId") int purchaseId,
+			Model model
+	) {
+		
+		
+		model.addAttribute("title", "판매 상세 목록");
+		model.addAttribute("viewName", "admin/adminSaleDetailList");
+		return "template/layout2";
+	}
+	
 	/**
 	 * 관리자 - 후기 목록 화면
 	 * @param model
