@@ -164,16 +164,66 @@ public class AdminController {
 		return "template/layout2";
 	}
 	
-	// 관리자 - 판매 상세 목록 화면
+	/**
+	 * 관리자 - 판매 정보 화면
+	 * @param purchaseId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_sale_view")
+	public String adminSaleView(
+			@RequestParam("purchaseId") int purchaseId,
+			Model model
+	) {
+		// 구매 + 구매 상품 목록 조회
+		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
+		model.addAttribute("purchaseView", purchaseView);
+		
+		model.addAttribute("title", "판매 정보");
+		model.addAttribute("viewName", "admin/adminSale");
+		return "template/layout2";
+	}
+	
+	
+	/**
+	 * 관리자 - 판매 상세 목록 화면
+	 * @param purchaseId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/admin_sale_detail_list_view")
 	public String adminSaleDetailListView(
 			@RequestParam("purchaseId") int purchaseId,
 			Model model
 	) {
-		
+		// 구매 + 구매 상품 목록 조회
+		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
+		model.addAttribute("purchaseView", purchaseView);
 		
 		model.addAttribute("title", "판매 상세 목록");
 		model.addAttribute("viewName", "admin/adminSaleDetailList");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 판매 상세 정보 화면
+	 * @param purchaseId
+	 * @param purchaseProductId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_sale_detail_view")
+	public String adminSaleDetailView(
+			@RequestParam("purchaseId") int purchaseId,
+			@RequestParam("purchaseProductId") int purchaseProductId,
+			Model model
+	) {
+		// 구매 + 구매 상품 조회
+		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseIdPurchaseProductId(purchaseId, purchaseProductId);
+		model.addAttribute("purchaseView", purchaseView);
+		
+		model.addAttribute("title", "판매 상세 정보");
+		model.addAttribute("viewName", "admin/adminSaleDetail");
 		return "template/layout2";
 	}
 	

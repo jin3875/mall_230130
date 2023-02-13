@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mall.purchase.model.Purchase;
+import com.mall.purchase.model.PurchaseProductView;
 import com.mall.purchase.model.PurchaseView;
 
 @Service
@@ -61,14 +62,29 @@ public class PurchaseViewBO {
 	}
 	
 	// 구매 + 구매 상품 목록 조회
-	public PurchaseView generatePurchaseViewByPurchaseId(int purchaseId, int userId) {
+	public PurchaseView generatePurchaseViewByPurchaseId(int purchaseId) {
 		PurchaseView purchaseView = new PurchaseView();
 		
 		// 구매 조회
-		purchaseView.setPurchase(purchaseBO.getPurchaseById(purchaseId, userId));
+		purchaseView.setPurchase(purchaseBO.getPurchaseById(purchaseId));
 		
 		// 구매 상품 카드 목록
 		purchaseView.setPurchaseProductViewList(purchaseProductViewBO.generatePurchaseProductViewList(purchaseId));
+		
+		return purchaseView;
+	}
+	
+	// 구매 + 구매 상품 조회
+	public PurchaseView generatePurchaseViewByPurchaseIdPurchaseProductId(int purchaseId, int purchaseProductId) {
+		PurchaseView purchaseView = new PurchaseView();
+		
+		// 구매 조회
+		purchaseView.setPurchase(purchaseBO.getPurchaseById(purchaseId));
+		
+		// 구매 상품 카드 조회
+		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
+		purchaseProductViewList.add(purchaseProductViewBO.generatePurchaseProductViewById(purchaseProductId));
+		purchaseView.setPurchaseProductViewList(purchaseProductViewList);
 		
 		return purchaseView;
 	}

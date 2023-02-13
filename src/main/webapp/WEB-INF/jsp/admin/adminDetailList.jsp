@@ -20,7 +20,7 @@
 			<td class="align-middle">${productView.product.id}</td>
 			<td class="align-middle">${productView.product.category}</td>
 			<td class="align-middle">${productView.product.name}</td>
-			<td class="align-middle">${productView.product.price}원</td>
+			<td class="align-middle"><fmt:formatNumber value="${productView.product.price}" type="number" />원</td>
 			<td class="align-middle">
 				<c:choose>
 					<c:when test="${productView.product.state eq 1}">

@@ -50,7 +50,7 @@
 	</select>
 	
 	<!-- 구매 조회 -->
-	<select id="selectPurchaseById" parameterType="map" resultType="com.mall.purchase.model.Purchase">
+	<select id="selectPurchaseById" parameterType="int" resultType="com.mall.purchase.model.Purchase">
 		SELECT
 			`id`
 			,`userId`
@@ -70,7 +70,6 @@
 			`purchase`
 		WHERE
 			`id` = #{id}
-			AND `userId` = #{userId}
 	</select>
 	
 	<!-- 구매 추가 -->

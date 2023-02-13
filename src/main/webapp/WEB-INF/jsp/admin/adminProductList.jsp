@@ -23,7 +23,7 @@
 				<td class="align-middle">${product.id}</td>
 				<td class="align-middle">${product.category}</td>
 				<td class="align-middle"><a href="/admin/admin_detail_list_view?productId=${product.id}" class="text-primary">${product.name}</a></td>
-				<td class="align-middle">${product.price}원</td>
+				<td class="align-middle"><fmt:formatNumber value="${product.price}" type="number" />원</td>
 				<td class="align-middle">
 					<c:choose>
 						<c:when test="${product.state eq 1}">

@@ -327,7 +327,10 @@ public class AdminRestController {
 		return result;
 	}
 	
-	// 판매 관리 API
+	// 판매 정보 수정 API
+	
+	
+	// 판매 상세 정보 수정 API
 	
 	
 	/**

@@ -25,8 +25,8 @@ public class PurchaseBO {
 	}
 	
 	// 구매 조회
-	public Purchase getPurchaseById(int id, int userId) {
-		return purchaseDAO.selectPurchaseById(id, userId);
+	public Purchase getPurchaseById(int id) {
+		return purchaseDAO.selectPurchaseById(id);
 	}
 	
 	// 구매 추가

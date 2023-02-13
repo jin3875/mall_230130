@@ -2,7 +2,6 @@ package com.mall.purchase.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mall.purchase.model.Purchase;
@@ -17,9 +16,7 @@ public interface PurchaseDAO {
 	public List<Purchase> selectPurchaseList(int userId);
 	
 	// 구매 조회
-	public Purchase selectPurchaseById(
-			@Param("id") int id,
-			@Param("userId") int userId);
+	public Purchase selectPurchaseById(int id);
 	
 	// 구매 추가
 	public void insertPurchase(Purchase purchase);

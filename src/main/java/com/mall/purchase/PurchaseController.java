@@ -121,18 +121,16 @@ public class PurchaseController {
 	/**
 	 * 구매 취소 화면
 	 * @param purchaseId
-	 * @param session
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/purchase_cancel_view/{purchaseId}")
 	public String purchaseCancelView(
 			@PathVariable("purchaseId") int purchaseId,
-			HttpSession session,
 			Model model
 	) {
 		// 구매 + 구매 상품 목록 조회
-		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId, (int)session.getAttribute("userId"));
+		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
 		model.addAttribute("purchaseView", purchaseView);
 		
 		model.addAttribute("viewName", "purchase/purchaseCancel");
