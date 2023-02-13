@@ -144,4 +144,16 @@
 		WHERE
 			`id` = #{id}
 	</update>
+	
+	<!-- 구매 상품 후기 삭제 -->
+	<update id="updatePurchaseProductReviewNull" parameterType="int">
+		UPDATE `purchase_product`
+		SET
+			`star` = NULL
+			,`review` = NULL
+			,`imagePath` = NULL
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

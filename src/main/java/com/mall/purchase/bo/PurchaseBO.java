@@ -14,6 +14,11 @@ public class PurchaseBO {
 	@Autowired
 	private PurchaseDAO purchaseDAO;
 	
+	// 판매 목록
+	public List<Purchase> getPurchaseListAll() {
+		return purchaseDAO.selectPurchaseListAll();
+	}
+	
 	// 구매 목록
 	public List<Purchase> getPurchaseList(int userId) {
 		return purchaseDAO.selectPurchaseList(userId);

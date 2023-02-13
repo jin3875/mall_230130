@@ -44,5 +44,8 @@ public interface PurchaseProductDAO {
 			@Param("star") int star,
 			@Param("review") String review,
 			@Param("imagePath") String imagePath);
+	
+	// 구매 상품 후기 삭제
+	public int updatePurchaseProductReviewNull(int id);
 
 }

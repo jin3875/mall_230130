@@ -10,6 +10,9 @@ import com.mall.purchase.model.Purchase;
 @Repository
 public interface PurchaseDAO {
 	
+	// 판매 목록
+	public List<Purchase> selectPurchaseListAll();
+	
 	// 구매 목록
 	public List<Purchase> selectPurchaseList(int userId);
 	

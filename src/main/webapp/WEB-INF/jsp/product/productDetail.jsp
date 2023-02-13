@@ -63,13 +63,14 @@
 <div class="mt-5">
 	<hr>
 	<h3 class="text-center font-weight-bold my-5">Review</h3>
-	<c:forEach var="productReviewView" items="${productReviewViewList}">
-		<c:if test="${not empty productReviewView.purchaseProduct.star}">
-			<div class="input-big-box d-flex align-items-center mt-3 p-3 border border-light rounded">
-				<div class="mr-5">
-					<div class="font-weight-bold">${productReviewView.user.name}</div>
+	<c:forEach var="purchaseProductView" items="${purchaseProductViewList}">
+		<c:if test="${not empty purchaseProductView.purchaseProduct.star}">
+			<div class="input-big-box d-flex justify-content-between align-items-center mt-3 p-3 border border-light rounded">
+				<div>
+					<div class="font-weight-bold">${purchaseProductView.user.name}</div>
+					<div class="small text-secondary mt-2">* ${purchaseProductView.productDetail.color} / ${purchaseProductView.productDetail.size} *</div>
 					<div class="mt-2">
-						<c:set var="star" value="${productReviewView.purchaseProduct.star}" />
+						<c:set var="star" value="${purchaseProductView.purchaseProduct.star}" />
 						<c:forEach var="count" begin="0" end="4" step="1">
 							<c:choose>
 								<c:when test="${star > 0}">
@@ -82,15 +83,15 @@
 							<c:set var="star" value="${star - 1}" />
 						</c:forEach>
 					</div>
-					<div class="mt-3">${productReviewView.purchaseProduct.review}</div>
-					<div class="small text-secondary mt-3">상품 구매일 : <fmt:formatDate value="${productReviewView.purchaseProduct.createdAt}" pattern="yyyy/MM/dd" /></div>
-					<div class="small text-secondary">후기 작성일 : <fmt:formatDate value="${productReviewView.purchaseProduct.updatedAt}" pattern="yyyy/MM/dd" /></div>
+					<div class="mt-3">${purchaseProductView.purchaseProduct.review}</div>
+					<div class="small text-secondary mt-3">상품 구매일 : <fmt:formatDate value="${purchaseProductView.purchaseProduct.createdAt}" pattern="yyyy/MM/dd" /></div>
+					<div class="small text-secondary">후기 작성일 : <fmt:formatDate value="${purchaseProductView.purchaseProduct.updatedAt}" pattern="yyyy/MM/dd" /></div>
 				</div>
-				<div>
-					<c:if test="${not empty productReviewView.purchaseProduct.imagePath}">
-						<img src="${productReviewView.purchaseProduct.imagePath}" alt="review" width="200" height="200">
-					</c:if>
-				</div>
+				<c:if test="${not empty purchaseProductView.purchaseProduct.imagePath}">
+					<div class="ml-5">
+						<img src="${purchaseProductView.purchaseProduct.imagePath}" alt="review" width="200" height="200">
+					</div>
+				</c:if>
 			</div>
 		</c:if>
 	</c:forEach>

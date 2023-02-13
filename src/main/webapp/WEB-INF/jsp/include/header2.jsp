@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<h1>관리자 화면 - ${title}</h1>
+<h1 class="m-0">관리자 화면 - ${title}</h1>
 
 <nav>
 	<ul class="nav">

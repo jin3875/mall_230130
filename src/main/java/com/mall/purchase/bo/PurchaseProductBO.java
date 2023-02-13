@@ -79,5 +79,14 @@ public class PurchaseProductBO {
 		
 		return purchaseProductDAO.updatePurchaseProductReview(id, star, review, imagePath);
 	}
+	
+	// 구매 상품 후기 삭제
+	public int updatePurchaseProductReviewNull(int id) {
+		if (getPurchaseProductById(id).getImagePath() != null) {
+			fileManagerService.deleteFile(getPurchaseProductById(id).getImagePath());
+		}
+		
+		return purchaseProductDAO.updatePurchaseProductReviewNull(id);
+	}
 
 }

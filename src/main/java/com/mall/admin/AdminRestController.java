@@ -19,6 +19,7 @@ import com.mall.product.bo.ProductPictureBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductPicture;
+import com.mall.purchase.bo.PurchaseProductBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -34,6 +35,9 @@ public class AdminRestController {
 	
 	@Autowired
 	private ProductDetailBO productDetailBO;
+	
+	@Autowired
+	private PurchaseProductBO purchaseProductBO;
 	
 	/**
 	 * 상품 등록 API
@@ -318,6 +322,32 @@ public class AdminRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 상세 삭제에 실패했습니다");
+		}
+		
+		return result;
+	}
+	
+	// 판매 관리 API
+	
+	
+	/**
+	 * 후기 삭제 API
+	 * @param purchaseProductId
+	 * @return
+	 */
+	@PutMapping("/admin_review_delete")
+	public Map<String, Object> adminReviewDelete(@RequestParam("purchaseProductId") int purchaseProductId) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 후기 삭제
+		int rowCount = purchaseProductBO.updatePurchaseProductReviewNull(purchaseProductId);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "후기 삭제에 실패했습니다");
 		}
 		
 		return result;

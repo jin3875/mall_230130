@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<header class="d-flex justify-content-between mt-5">
+		<header class="d-flex justify-content-between align-items-center mt-5">
 			<jsp:include page="../include/header2.jsp" />
 		</header>
 		<section class="center my-5">

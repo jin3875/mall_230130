@@ -91,6 +91,7 @@ public class UserController {
 	 */
 	@GetMapping("/user_info_view")
 	public String userInfoView(HttpSession session, Model model) {
+		// 유저 조회 (아이디, 비밀번호)
 		User user = userBO.getUserByLoginIdOrPassword((String)session.getAttribute("userLoginId"), null);
 		model.addAttribute("user", user);
 		
@@ -125,7 +126,12 @@ public class UserController {
 		return "template/layout";
 	}
 	
-	// 후기 목록 화면
+	/**
+	 * 후기 목록 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user_review_list_view")
 	public String userReviewListView(HttpSession session, Model model) {
 		// 구매 + 구매 상품 목록

@@ -11,7 +11,7 @@ public class ProductCardView {
 	private ProductPicture productPicture;
 	private ProductDetail productDetail;
 	private int amount;
-	public Integer wishListId;
+	private Integer wishListId;
 	
 	public Product getProduct() {
 		return product;

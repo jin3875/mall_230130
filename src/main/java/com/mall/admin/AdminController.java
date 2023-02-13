@@ -15,6 +15,8 @@ import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductView;
+import com.mall.purchase.bo.PurchaseViewBO;
+import com.mall.purchase.model.PurchaseView;
 
 @RequestMapping("/admin")
 @Controller
@@ -28,6 +30,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductViewBO productViewBO;
+	
+	@Autowired
+	private PurchaseViewBO purchaseViewBO;
 	
 	/**
 	 * 관리자 - 상품 목록 화면
@@ -140,6 +145,38 @@ public class AdminController {
 		
 		model.addAttribute("title", "상품 상세 수정");
 		model.addAttribute("viewName", "admin/adminDetailUpdate");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 판매 목록 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_sale_list_view")
+	public String adminSaleListView(Model model) {
+		// 판매 + 판매 상품 목록
+		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewListAll();
+		model.addAttribute("purchaseViewList", purchaseViewList);
+		
+		model.addAttribute("title", "판매 목록");
+		model.addAttribute("viewName", "admin/adminSaleList");
+		return "template/layout2";
+	}
+	
+	/**
+	 * 관리자 - 후기 목록 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin_review_list_view")
+	public String adminReviewListView(Model model) {
+		// 판매 + 판매 상품 목록
+		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewListAll();
+		model.addAttribute("purchaseViewList", purchaseViewList);
+		
+		model.addAttribute("title", "후기 목록");
+		model.addAttribute("viewName", "admin/adminReviewList");
 		return "template/layout2";
 	}
 

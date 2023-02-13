@@ -5,8 +5,8 @@ import java.util.List;
 // 구매 + 구매 상품
 public class PurchaseView {
 	
-	public Purchase purchase;
-	public List<PurchaseProductView> purchaseProductViewList;
+	private Purchase purchase;
+	private List<PurchaseProductView> purchaseProductViewList;
 	
 	public Purchase getPurchase() {
 		return purchase;
