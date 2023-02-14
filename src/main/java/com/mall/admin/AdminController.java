@@ -186,7 +186,7 @@ public class AdminController {
 	
 	
 	/**
-	 * 관리자 - 판매 상세 목록 화면
+	 * 관리자 - 판매 상품 목록 화면
 	 * @param purchaseId
 	 * @param model
 	 * @return
@@ -200,13 +200,13 @@ public class AdminController {
 		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
 		model.addAttribute("purchaseView", purchaseView);
 		
-		model.addAttribute("title", "판매 상세 목록");
+		model.addAttribute("title", "판매 상품 목록");
 		model.addAttribute("viewName", "admin/adminSaleDetailList");
 		return "template/layout2";
 	}
 	
 	/**
-	 * 관리자 - 판매 상세 정보 화면
+	 * 관리자 - 판매 상품 정보 화면
 	 * @param purchaseId
 	 * @param purchaseProductId
 	 * @param model
@@ -222,7 +222,7 @@ public class AdminController {
 		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseIdPurchaseProductId(purchaseId, purchaseProductId);
 		model.addAttribute("purchaseView", purchaseView);
 		
-		model.addAttribute("title", "판매 상세 정보");
+		model.addAttribute("title", "판매 상품 정보");
 		model.addAttribute("viewName", "admin/adminSaleDetail");
 		return "template/layout2";
 	}

@@ -89,3 +89,34 @@
 	<a href="/admin/admin_sale_list_view" class="btn btn-light">판매 목록</a>
 	<button id="editBtn" class="btn btn-secondary" data-purchase-id="${purchaseView.purchase.id}">수정하기</button>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 수정하기 버튼
+		$('#editBtn').on('click', function() {
+			let purchaseId = $(this).data('purchase-id');
+			let courier = $('#courier').val().trim();
+			let trackingNumber = $('#trackingNumber').val().trim();
+			let cancellation = $('#cancellation').val();
+			
+			$.ajax({
+				type:"PUT"
+				, url:"/admin/admin_sale_update"
+				, data:{"purchaseId":purchaseId, "courier":courier, "trackingNumber":trackingNumber, "cancellation":cancellation}
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("수정이 완료되었습니다");
+						location.href="/admin/admin_sale_list_view";
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(jqXHR, textStatus, errorThrown) {
+					let errorMsg = jqXHR.responseJSON.status;
+					alert(errorMsg + ":" + textStatus);
+				}
+			});
+		});
+	});
+</script>

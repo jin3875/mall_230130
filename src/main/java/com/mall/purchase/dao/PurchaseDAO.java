@@ -2,6 +2,7 @@ package com.mall.purchase.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mall.purchase.model.Purchase;
@@ -23,5 +24,12 @@ public interface PurchaseDAO {
 	
 	// 구매 취소
 	public int updatePurchase(int id);
+	
+	// 구매 정보 수정
+	public int updatePurchaseById(
+			@Param("id") int id,
+			@Param("courier") String courier,
+			@Param("trackingNumber") String trackingNumber,
+			@Param("cancellation") int cancellation);
 
 }

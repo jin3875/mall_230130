@@ -113,4 +113,16 @@
 		WHERE
 			`id` = #{id}
 	</update>
+	
+	<!-- 구매 정보 수정 -->
+	<update id="updatePurchaseById" parameterType="map">
+		UPDATE `purchase`
+		SET
+			`courier` = #{courier}
+			,`trackingNumber` = #{trackingNumber}
+			,`cancellation` = #{cancellation}
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

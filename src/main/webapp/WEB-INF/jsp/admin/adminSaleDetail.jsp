@@ -53,9 +53,9 @@
 			<td class="align-middle">
 				<c:choose>
 					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.completion eq 1}"><span class="text-success">구매 확정</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 1}"><span class="text-danger">환불 중</span></c:when>
+					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 1}"><span class="text-danger">환불 신청</span></c:when>
 					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 2}"><span class="text-danger">환불 완료</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 1}"><span class="text-primary">교환 중</span></c:when>
+					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 1}"><span class="text-primary">교환 신청</span></c:when>
 					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 2}"><span class="text-primary">교환 완료</span></c:when>
 				</c:choose>
 			</td>
@@ -74,7 +74,7 @@
 	</div>
 	
 	<div class="col-4 d-flex justify-content-between align-items-center px-4">
-		<span>취소 여부</span>
+		<span>교환 여부</span>
 		<select id="exchange" class="form-control col-7">
 			<option value="0" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 0}">selected</c:if>>해당 없음</option>
 			<option value="1" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 1}">selected</c:if>>교환 신청</option>
@@ -92,6 +92,38 @@
 </div>
 
 <div class="input-big-box d-flex justify-content-between mt-5">
-	<a href="/admin/admin_sale_detail_list_view?purchaseId=${purchaseView.purchase.id}" class="btn btn-light">판매 상세 목록</a>
-	<button id="editBtn" class="btn btn-secondary" data-purchase-product-id="${purchaseView.purchaseProductViewList[0].purchaseProduct.id}">수정하기</button>
+	<a href="/admin/admin_sale_detail_list_view?purchaseId=${purchaseView.purchase.id}" class="btn btn-light">판매 상품 목록</a>
+	<button id="editBtn" class="btn btn-secondary" data-purchase-id="${purchaseView.purchase.id}" data-purchase-product-id="${purchaseView.purchaseProductViewList[0].purchaseProduct.id}">수정하기</button>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 수정하기 버튼
+		$('#editBtn').on('click', function() {
+			let purchaseId = $(this).data('purchase-id');
+			let purchaseProductId = $(this).data('purchase-product-id');
+			let refund = $('#refund').val();
+			let exchange = $('#exchange').val();
+			let completion = $('#completion').val();
+			
+			$.ajax({
+				type:"PUT"
+				, url:"/admin/admin_sale_detail_update"
+				, data:{"purchaseProductId":purchaseProductId, "refund":refund, "exchange":exchange, "completion":completion}
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("수정이 완료되었습니다");
+						location.href="/admin/admin_sale_detail_list_view?purchaseId=" + purchaseId;
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(jqXHR, textStatus, errorThrown) {
+					let errorMsg = jqXHR.responseJSON.status;
+					alert(errorMsg + ":" + textStatus);
+				}
+			});
+		});
+	});
+</script>

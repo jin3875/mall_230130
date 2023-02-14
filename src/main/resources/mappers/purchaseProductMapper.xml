@@ -145,6 +145,18 @@
 			`id` = #{id}
 	</update>
 	
+	<!-- 구매 상품 정보 수정 -->
+	<update id="updatePurchaseProductById" parameterType="map">
+		UPDATE `purchase_product`
+		SET
+			`refund` = #{refund}
+			,`exchange` = #{exchange}
+			,`completion` = #{completion}
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
 	<!-- 구매 상품 후기 삭제 -->
 	<update id="updatePurchaseProductReviewNull" parameterType="int">
 		UPDATE `purchase_product`

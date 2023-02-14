@@ -19,6 +19,7 @@ import com.mall.product.bo.ProductPictureBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductPicture;
+import com.mall.purchase.bo.PurchaseBO;
 import com.mall.purchase.bo.PurchaseProductBO;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +36,9 @@ public class AdminRestController {
 	
 	@Autowired
 	private ProductDetailBO productDetailBO;
+	
+	@Autowired
+	private PurchaseBO purchaseBO;
 	
 	@Autowired
 	private PurchaseProductBO purchaseProductBO;
@@ -327,11 +331,67 @@ public class AdminRestController {
 		return result;
 	}
 	
-	// 판매 정보 수정 API
+	/**
+	 * 판매 정보 수정 API
+	 * @param purchaseId
+	 * @param courier
+	 * @param trackingNumber
+	 * @param cancellation
+	 * @return
+	 */
+	@PutMapping("/admin_sale_update")
+	public Map<String, Object> adminSaleUpdate(
+			@RequestParam("purchaseId") int purchaseId,
+			@RequestParam("courier") String courier,
+			@RequestParam("trackingNumber") String trackingNumber,
+			@RequestParam("cancellation") int cancellation
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 정보 수정
+		int rowCount = purchaseBO.updatePurchaseById(purchaseId, courier, trackingNumber, cancellation);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "판매 정보 수정에 실패했습니다");
+		}
+		
+		return result;
+	}
 	
-	
-	// 판매 상세 정보 수정 API
-	
+	/**
+	 * 판매 상품 정보 수정 API
+	 * @param purchaseProductId
+	 * @param refund
+	 * @param exchange
+	 * @param completion
+	 * @return
+	 */
+	@PutMapping("/admin_sale_detail_update")
+	public Map<String, Object> adminSaleDetailUpdate(
+			@RequestParam("purchaseProductId") int purchaseProductId,
+			@RequestParam("refund") int refund,
+			@RequestParam("exchange") int exchange,
+			@RequestParam("completion") int completion
+	) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// 구매 상품 정보 수정
+		int rowCount = purchaseProductBO.updatePurchaseProductById(purchaseProductId, refund, exchange, completion);
+		
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "판매 상품 정보 수정에 실패했습니다");
+		}
+		
+		return result;
+	}
 	
 	/**
 	 * 후기 삭제 API

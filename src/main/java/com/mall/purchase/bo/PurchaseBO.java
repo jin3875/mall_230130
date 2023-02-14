@@ -38,5 +38,10 @@ public class PurchaseBO {
 	public int updatePurchase(int id) {
 		return purchaseDAO.updatePurchase(id);
 	}
+	
+	// 구매 정보 수정
+	public int updatePurchaseById(int id, String courier, String trackingNumber, int cancellation) {
+		return purchaseDAO.updatePurchaseById(id, courier, trackingNumber, cancellation);
+	}
 
 }

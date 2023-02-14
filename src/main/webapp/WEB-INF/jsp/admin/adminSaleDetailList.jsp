@@ -55,9 +55,9 @@
 				<td class="align-middle">
 					<c:choose>
 						<c:when test="${purchaseProductView.purchaseProduct.completion eq 1}"><span class="text-success">구매 확정</span></c:when>
-						<c:when test="${purchaseProductView.purchaseProduct.refund eq 1}"><span class="text-danger">환불 중</span></c:when>
+						<c:when test="${purchaseProductView.purchaseProduct.refund eq 1}"><span class="text-danger">환불 신청</span></c:when>
 						<c:when test="${purchaseProductView.purchaseProduct.refund eq 2}"><span class="text-danger">환불 완료</span></c:when>
-						<c:when test="${purchaseProductView.purchaseProduct.exchange eq 1}"><span class="text-primary">교환 중</span></c:when>
+						<c:when test="${purchaseProductView.purchaseProduct.exchange eq 1}"><span class="text-primary">교환 신청</span></c:when>
 						<c:when test="${purchaseProductView.purchaseProduct.exchange eq 2}"><span class="text-primary">교환 완료</span></c:when>
 					</c:choose>
 				</td>
