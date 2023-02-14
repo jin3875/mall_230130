@@ -60,13 +60,15 @@
 	
 	<!-- 장바구니 삭제 -->
 	<delete id="deleteWishList" parameterType="map">
-		<foreach item="id" collection="idList" separator=";" close=";">
 		DELETE
 		FROM
 			`wish_list`
 		WHERE
-			`id` = #{id}
+			`id` in
+			<foreach item="id" collection="idList" open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+			
 			AND `userId` = #{userId}
-		</foreach>
 	</delete>
 </mapper>
