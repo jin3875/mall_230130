@@ -304,6 +304,8 @@
 					if (data.code == 1) {
 						alert('구매가 완료되었습니다');
 						location.href="/user/user_purchase_list_view";
+					} else {
+						alert(data.errorMessage);
 					}
 				}
 				, error:function(jqXHR, textStatus, errorThrown) {

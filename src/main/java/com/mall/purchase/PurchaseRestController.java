@@ -15,10 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.model.ProductDetail;
+import com.mall.purchase.bo.AddPurchaseBO;
 import com.mall.purchase.bo.PurchaseBO;
 import com.mall.purchase.bo.PurchaseProductBO;
 import com.mall.purchase.bo.WishListBO;
-import com.mall.purchase.model.Purchase;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -37,6 +37,9 @@ public class PurchaseRestController {
 	
 	@Autowired
 	private PurchaseProductBO purchaseProductBO;
+	
+	@Autowired
+	private AddPurchaseBO addPurchaseBO;
 	
 	/**
 	 * 장바구니 추가 API
@@ -134,48 +137,21 @@ public class PurchaseRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		Purchase purchase = new Purchase();
-		purchase.setUserId((int)session.getAttribute("userId"));
-		purchase.setTotalPrice(totalPrice);
-		purchase.setName(name);
-		purchase.setPhoneNumber(phoneNumber);
-		purchase.setPostcode(postcode);
-		purchase.setAddress(address);
-		purchase.setDetailAddress(detailAddress);
-		purchase.setMessage(message);
+		boolean process = false;
 		
-		// 구매 추가
-		purchaseBO.addPurchase(purchase);
-		int purchaseId = purchase.getId();
+		try {
+			process = addPurchaseBO.generateAddPurchase(wishList, productList, (int)session.getAttribute("userId"),
+					totalPrice, name, phoneNumber, postcode, address, detailAddress, message);
+		} catch (Exception e) {
+			result.put("code", 500);
+			result.put("errorMessage", "재고 수량이 부족합니다. 판매자에게 문의해주세요");
+			
+			return result;
+		}
 		
-		if (purchaseId > 0) {
-			int count = 0;
-			
-			for (String product : productList) {
-				int productId = Integer.parseInt(product.split("/")[0]);
-				int detailId = Integer.parseInt(product.split("/")[1]);
-				int amount = Integer.parseInt(product.split("/")[2]);
-				
-				// 구매 상품 추가
-				int rowCount = purchaseProductBO.addPurchaseProduct((int)session.getAttribute("userId"), purchaseId, productId, detailId, amount);
-				count += rowCount;
-			}
-			
-			if (count == productList.size()) {
-				if (wishList != null) {
-					// 장바구니 삭제
-					wishListBO.deleteWishList((int)session.getAttribute("userId"), wishList);
-				}
-				
-				result.put("code", 1);
-				result.put("result", "success");
-			} else if (count == 0) {
-				result.put("code", 500);
-				result.put("errorMessage", "상품 구매에 전체 실패했습니다");
-			} else {
-				result.put("code", 500);
-				result.put("errorMessage", "상품 구매에 일부 실패했습니다");
-			}
+		if (process) {
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "구매에 실패했습니다");

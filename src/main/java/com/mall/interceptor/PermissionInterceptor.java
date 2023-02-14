@@ -18,10 +18,10 @@ import jakarta.servlet.http.HttpSession;
 @Component
 public class PermissionInterceptor implements HandlerInterceptor {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private UserBO userBO;
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {

@@ -80,10 +80,16 @@
 	<update id="updateProductDetail" parameterType="map">
 		UPDATE `product_detail`
 		SET
-			color = #{color}
-			,size = #{size}
-			,amount = #{amount}
+			amount = #{amount}
 			,updatedAt = NOW()
+			
+			<if test="color != null">
+			,color = #{color}
+			</if>
+			
+			<if test="size != null">
+			,size = #{size}
+			</if>
 		WHERE
 			`id` = #{id}
 	</update>
