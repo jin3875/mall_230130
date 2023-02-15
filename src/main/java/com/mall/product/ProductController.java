@@ -1,6 +1,9 @@
 package com.mall.product;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.ProductView;
 import com.mall.purchase.bo.PurchaseProductViewBO;
 import com.mall.purchase.model.PurchaseProductView;
+
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/product")
 @Controller
@@ -60,15 +65,20 @@ public class ProductController {
 		return "template/layout";
 	}
 	
+	// 최근 본 상품 목록
+	List<Map<String, Object>> recentList = new ArrayList<>();
+	
 	/**
 	 * 상품 상세 화면
 	 * @param productId
+	 * @param session
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/product_detail_view/{productId}")
 	public String productDetailView(
 			@PathVariable("productId") int productId,
+			HttpSession session,
 			Model model
 	) {
 		// 상품 + 상품 사진 + 상품 상세 조회
@@ -78,6 +88,21 @@ public class ProductController {
 		// 상품 후기 카드 목록
 		List<PurchaseProductView> purchaseProductViewList = purchaseProductViewBO.generatePurchaseProductViewListByProductId(productId);
 		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		
+		// 최근 본 상품 목록 추가
+		Map<String, Object> recent = new HashMap<>();
+		recent.put("imagePath", productView.getProductPictureList().get(0).getImagePath());
+		recent.put("productId", productId);
+		recentList.add(0, recent);
+		
+		for (int i = 1; i < recentList.size(); i++) {
+			if (recentList.get(i).get("productId") == recentList.get(0).get("productId")) {
+				recentList.remove(i);
+				break;
+			}
+		}
+		
+		session.setAttribute("recentList", recentList);
 		
 		model.addAttribute("viewName", "product/productDetail");
 		return "template/layout";
