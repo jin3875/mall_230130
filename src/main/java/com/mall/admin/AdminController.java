@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.product.bo.ProductBO;
-import com.mall.product.bo.ProductDetailBO;
 import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
@@ -24,9 +23,6 @@ public class AdminController {
 	
 	@Autowired
 	private ProductBO productBO;
-	
-	@Autowired
-	private ProductDetailBO productDetailBO;
 	
 	@Autowired
 	private ProductViewBO productViewBO;
@@ -140,7 +136,7 @@ public class AdminController {
 		model.addAttribute("product", product);
 		
 		// 상품 상세 조회
-		ProductDetail productDetail = productDetailBO.getProductDetailById(detailId);
+		ProductDetail productDetail = productBO.getProductDetailById(detailId);
 		model.addAttribute("productDetail", productDetail);
 		
 		model.addAttribute("title", "상품 상세 수정");

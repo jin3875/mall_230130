@@ -150,4 +150,145 @@
 		WHERE
 			`id` = #{id}
 	</delete>
+	
+	<!-- 상품 사진 목록 -->
+	<select id="selectProductPictureListByProductId" parameterType="int" resultType="com.mall.product.model.ProductPicture">
+		SELECT
+			`id`
+			,`productId`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_picture`
+		WHERE
+			`productId` = #{productId}
+	</select>
+	
+	<!-- 상품 사진 추가 -->
+	<insert id="insertProductPicture" parameterType="map">
+		INSERT INTO `product_picture`
+		(
+			`productId`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{productId}
+			, #{imagePath}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<!-- 상품 사진 삭제 -->
+	<delete id="deleteProductPicture" parameterType="int">
+		DELETE
+		FROM
+			`product_picture`
+		WHERE
+			`productId` = #{productId}
+	</delete>
+	
+	<!-- 상품 상세 목록 -->
+	<select id="selectProductDetailList" parameterType="int" resultType="com.mall.product.model.ProductDetail">
+		SELECT
+			`id`
+			,`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_detail`
+		WHERE
+			`productId` = #{productId}
+		ORDER BY `id` DESC
+	</select>
+	
+	<!-- 상품 상세 조회 -->
+	<select id="selectProductDetailById" parameterType="int" resultType="com.mall.product.model.ProductDetail">
+		SELECT
+			`id`
+			,`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_detail`
+		WHERE
+			`id` = #{id}
+	</select>
+	
+	<!-- 상품 상세 조회 (색상, 사이즈) -->
+	<select id="selectProductDetailByProductIdColorSize" parameterType="map" resultType="com.mall.product.model.ProductDetail">
+		SELECT
+			`id`
+			,`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product_detail`
+		WHERE
+			`productId` = #{productId}
+			AND `color` = #{color}
+			AND `size` = #{size}
+	</select>
+	
+	<!-- 상품 상세 추가 -->
+	<insert id="insertProductDetail" parameterType="map">
+		INSERT INTO `product_detail`
+		(
+			`productId`
+			,`color`
+			,`size`
+			,`amount`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{productId}
+			, #{color}
+			, #{size}
+			, #{amount}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<!-- 상품 상세 수정 -->
+	<update id="updateProductDetail" parameterType="map">
+		UPDATE `product_detail`
+		SET
+			amount = #{amount}
+			,updatedAt = NOW()
+			
+			<if test="color != null">
+			,color = #{color}
+			</if>
+			
+			<if test="size != null">
+			,size = #{size}
+			</if>
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<!-- 상품 상세 삭제 -->
+	<delete id="deleteProductDetail" parameterType="int">
+		DELETE
+		FROM
+			`product_detail`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

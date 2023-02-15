@@ -6,23 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mall.product.bo.ProductDetailBO;
+import com.mall.product.bo.ProductBO;
 import com.mall.purchase.model.Purchase;
 
 @Service
 public class AddPurchaseBO {
 	
 	@Autowired
-	private ProductDetailBO productDetailBO;
+	private ProductBO productBO;
 	
 	@Autowired
 	private WishListBO wishListBO;
 	
 	@Autowired
 	private PurchaseBO purchaseBO;
-	
-	@Autowired
-	private PurchaseProductBO purchaseProductBO;
 	
 	// 구매하기
 	@Transactional(rollbackFor = {Exception.class})
@@ -50,15 +47,15 @@ public class AddPurchaseBO {
 			int amount = Integer.parseInt(product.split("/")[2]);
 			
 			// 재고 수량 체크
-			if (productDetailBO.getProductDetailById(detailId).getAmount() < amount) {
+			if (productBO.getProductDetailById(detailId).getAmount() < amount) {
 				throw new Exception();
 			}
 			
 			// 구매 상품 추가
-			purchaseProductBO.addPurchaseProduct(userId, purchaseId, productId, detailId, amount);
+			purchaseBO.addPurchaseProduct(userId, purchaseId, productId, detailId, amount);
 			
 			// 상품 상세 재고 수량 수정
-			productDetailBO.updateProductDetail(detailId, null, null, productDetailBO.getProductDetailById(detailId).getAmount() - amount);
+			productBO.updateProductDetail(detailId, null, null, productBO.getProductDetailById(detailId).getAmount() - amount);
 		}
 		
 		if (wishList != null) {

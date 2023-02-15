@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mall.product.bo.ProductBO;
-import com.mall.product.bo.ProductDetailBO;
-import com.mall.product.bo.ProductPictureBO;
 import com.mall.purchase.model.PurchaseProduct;
 import com.mall.purchase.model.PurchaseProductView;
 import com.mall.user.bo.UserBO;
@@ -23,20 +21,14 @@ public class PurchaseProductViewBO {
 	private ProductBO productBO;
 	
 	@Autowired
-	private ProductPictureBO productPictureBO;
-	
-	@Autowired
-	private ProductDetailBO productDetailBO;
-	
-	@Autowired
-	private PurchaseProductBO purchaseProductBO;
+	private PurchaseBO purchaseBO;
 	
 	// 구매 상품 카드 목록
 	public List<PurchaseProductView> generatePurchaseProductViewList(int purchaseId) {
 		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
 		
 		// 구매 상품 목록
-		List<PurchaseProduct> purchaseProductList = purchaseProductBO.getPurchaseProductList(purchaseId);
+		List<PurchaseProduct> purchaseProductList = purchaseBO.getPurchaseProductList(purchaseId);
 		
 		for (PurchaseProduct purchaseProduct : purchaseProductList) {
 			PurchaseProductView purchaseProductView = new PurchaseProductView();
@@ -44,8 +36,8 @@ public class PurchaseProductViewBO {
 			purchaseProductView.setPurchaseProduct(purchaseProduct);
 			purchaseProductView.setUser(userBO.getUserById(purchaseProduct.getUserId()));
 			purchaseProductView.setProduct(productBO.getProductById(purchaseProduct.getProductId()));
-			purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
-			purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(purchaseProduct.getProductDetailId()));
+			purchaseProductView.setProductPicture(productBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
+			purchaseProductView.setProductDetail(productBO.getProductDetailById(purchaseProduct.getProductDetailId()));
 			
 			purchaseProductViewList.add(purchaseProductView);
 		}
@@ -58,13 +50,13 @@ public class PurchaseProductViewBO {
 		PurchaseProductView purchaseProductView = new PurchaseProductView();
 		
 		// 구매 상품 조회
-		PurchaseProduct purchaseProduct = purchaseProductBO.getPurchaseProductById(purchaseProductId);
+		PurchaseProduct purchaseProduct = purchaseBO.getPurchaseProductById(purchaseProductId);
 		
 		purchaseProductView.setPurchaseProduct(purchaseProduct);
 		purchaseProductView.setUser(userBO.getUserById(purchaseProduct.getUserId()));
 		purchaseProductView.setProduct(productBO.getProductById(purchaseProduct.getProductId()));
-		purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
-		purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(purchaseProduct.getProductDetailId()));
+		purchaseProductView.setProductPicture(productBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
+		purchaseProductView.setProductDetail(productBO.getProductDetailById(purchaseProduct.getProductDetailId()));
 		
 		return purchaseProductView;
 	}
@@ -74,7 +66,7 @@ public class PurchaseProductViewBO {
 		List<PurchaseProductView> purchaseProductViewList = new ArrayList<>();
 		
 		// 구매 상품 목록 (상품 id)
-		List<PurchaseProduct> purchaseProductList = purchaseProductBO.getPurchaseProductListByProductId(productId);
+		List<PurchaseProduct> purchaseProductList = purchaseBO.getPurchaseProductListByProductId(productId);
 		
 		for (PurchaseProduct purchaseProduct : purchaseProductList) {
 			PurchaseProductView purchaseProductView = new PurchaseProductView();
@@ -82,8 +74,8 @@ public class PurchaseProductViewBO {
 			purchaseProductView.setPurchaseProduct(purchaseProduct);
 			purchaseProductView.setUser(userBO.getUserById(purchaseProduct.getUserId()));
 			purchaseProductView.setProduct(productBO.getProductById(purchaseProduct.getProductId()));
-			purchaseProductView.setProductPicture(productPictureBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
-			purchaseProductView.setProductDetail(productDetailBO.getProductDetailById(purchaseProduct.getProductDetailId()));
+			purchaseProductView.setProductPicture(productBO.getProductPictureListByProductId(purchaseProduct.getProductId()).get(0));
+			purchaseProductView.setProductDetail(productBO.getProductDetailById(purchaseProduct.getProductDetailId()));
 			
 			purchaseProductViewList.add(purchaseProductView);
 		}

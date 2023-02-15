@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mall.product.bo.ProductDetailBO;
+import com.mall.product.bo.ProductBO;
 import com.mall.product.model.ProductDetail;
 import com.mall.purchase.bo.ProductCardViewBO;
 import com.mall.purchase.bo.PurchaseProductViewBO;
@@ -34,7 +34,7 @@ public class PurchaseController {
 	private UserBO userBO;
 	
 	@Autowired
-	private ProductDetailBO productDetailBO;
+	private ProductBO productBO;
 	
 	@Autowired
 	private WishListBO wishListBO;
@@ -172,7 +172,7 @@ public class PurchaseController {
 		model.addAttribute("purchaseProductView", purchaseProductView);
 		
 		// 상품 상세 목록
-		List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(purchaseProductView.getProduct().getId());
+		List<ProductDetail> productDetailList = productBO.getProductDetailList(purchaseProductView.getProduct().getId());
 		model.addAttribute("productDetailList", productDetailList);
 		
 		model.addAttribute("viewName", "purchase/productExchange");

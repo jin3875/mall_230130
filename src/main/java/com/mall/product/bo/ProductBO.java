@@ -4,15 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mall.common.FileManagerService;
 import com.mall.product.dao.ProductDAO;
 import com.mall.product.model.Product;
+import com.mall.product.model.ProductDetail;
+import com.mall.product.model.ProductPicture;
 
 @Service
 public class ProductBO {
 	
 	@Autowired
 	ProductDAO productDAO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	// 상품 목록
 	public List<Product> getProductList() {
@@ -52,6 +59,55 @@ public class ProductBO {
 	// 상품 삭제
 	public int deleteProduct(int id) {
 		return productDAO.deleteProduct(id);
+	}
+	
+	// 상품 사진 목록
+	public List<ProductPicture> getProductPictureListByProductId(int productId) {
+		return productDAO.selectProductPictureListByProductId(productId);
+	}
+	
+	// 상품 사진 추가
+	public int addProductPicture(String userLoginId, int productId, MultipartFile file) {
+		String imagePath = fileManagerService.saveFile(userLoginId, file);
+		
+		return productDAO.insertProductPicture(productId, imagePath);
+	}
+	
+	// 상품 사진 삭제
+	public int deleteProductPicture(int productId, String imagePath) {
+		fileManagerService.deleteFile(imagePath);
+		
+		return productDAO.deleteProductPicture(productId);
+	}
+	
+	// 상품 상세 목록
+	public List<ProductDetail> getProductDetailList(int productId) {
+		return productDAO.selectProductDetailList(productId);
+	}
+	
+	// 상품 상세 조회
+	public ProductDetail getProductDetailById(int id) {
+		return productDAO.selectProductDetailById(id);
+	}
+	
+	// 상품 상세 조회 (색상, 사이즈)
+	public ProductDetail getProductDetailByProductIdColorSize(int productId, String color, String size) {
+		return productDAO.selectProductDetailByProductIdColorSize(productId, color, size);
+	}
+	
+	// 상품 상세 추가
+	public int addProductDetail(int productId, String color, String size, int amount) {
+		return productDAO.insertProductDetail(productId, color, size, amount);
+	}
+	
+	// 상품 상세 수정
+	public int updateProductDetail(int id, String color, String size, int amount) {
+		return productDAO.updateProductDetail(id, color, size, amount);
+	}
+	
+	// 상품 상세 삭제
+	public int deleteProductDetail(int id) {
+		return productDAO.deleteProductDetail(id);
 	}
 
 }

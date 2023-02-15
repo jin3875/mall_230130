@@ -17,12 +17,6 @@ public class ProductViewBO {
 	@Autowired
 	private ProductBO productBO;
 	
-	@Autowired
-	private ProductPictureBO productPictureBO;
-	
-	@Autowired
-	private ProductDetailBO productDetailBO;
-	
 	// 상품 + 상품 사진 + 상품 상세 목록 (판매 중)
 	public List<ProductView> generateProductViewListOnSale() {
 		List<ProductView> productViewList = new ArrayList<>();
@@ -36,11 +30,11 @@ public class ProductViewBO {
 			productView.setProduct(product);
 			
 			// 상품 사진 목록
-			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+			List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(product.getId());
 			productView.setProductPictureList(productPictureList);
 			
 			// 상품 상세 목록
-			List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+			List<ProductDetail> productDetailList = productBO.getProductDetailList(product.getId());
 			productView.setProductDetailList(productDetailList);
 			
 			productViewList.add(productView);
@@ -62,11 +56,11 @@ public class ProductViewBO {
 			productView.setProduct(product);
 			
 			// 상품 사진 목록
-			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+			List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(product.getId());
 			productView.setProductPictureList(productPictureList);
 			
 			// 상품 상세 목록
-			List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+			List<ProductDetail> productDetailList = productBO.getProductDetailList(product.getId());
 			productView.setProductDetailList(productDetailList);
 			
 			productViewList.add(productView);
@@ -84,11 +78,11 @@ public class ProductViewBO {
 		productView.setProduct(product);
 		
 		// 상품 사진 목록
-		List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(id);
+		List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(id);
 		productView.setProductPictureList(productPictureList);
 		
 		// 상품 상세 목록
-		List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(id);
+		List<ProductDetail> productDetailList = productBO.getProductDetailList(id);
 		productView.setProductDetailList(productDetailList);
 		
 		return productView;
@@ -109,11 +103,11 @@ public class ProductViewBO {
 					productView.setProduct(product);
 					
 					// 상품 사진 목록
-					List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+					List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(product.getId());
 					productView.setProductPictureList(productPictureList);
 					
 					// 상품 상세 목록
-					List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+					List<ProductDetail> productDetailList = productBO.getProductDetailList(product.getId());
 					productView.setProductDetailList(productDetailList);
 					
 					productViewList.add(productView);
@@ -130,11 +124,11 @@ public class ProductViewBO {
 					productView.setProduct(product);
 					
 					// 상품 사진 목록
-					List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(product.getId());
+					List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(product.getId());
 					productView.setProductPictureList(productPictureList);
 					
 					// 상품 상세 목록
-					List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(product.getId());
+					List<ProductDetail> productDetailList = productBO.getProductDetailList(product.getId());
 					productView.setProductDetailList(productDetailList);
 					
 					productViewList.add(productView);

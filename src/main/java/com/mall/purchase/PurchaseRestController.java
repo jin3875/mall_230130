@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mall.product.bo.ProductDetailBO;
+import com.mall.product.bo.ProductBO;
 import com.mall.product.model.ProductDetail;
 import com.mall.purchase.bo.AddPurchaseBO;
 import com.mall.purchase.bo.PurchaseBO;
-import com.mall.purchase.bo.PurchaseProductBO;
 import com.mall.purchase.bo.WishListBO;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,16 +26,13 @@ import jakarta.servlet.http.HttpSession;
 public class PurchaseRestController {
 	
 	@Autowired
-	private ProductDetailBO productDetailBO;
+	private ProductBO productBO;
 	
 	@Autowired
 	private WishListBO wishListBO;
 	
 	@Autowired
 	private PurchaseBO purchaseBO;
-	
-	@Autowired
-	private PurchaseProductBO purchaseProductBO;
 	
 	@Autowired
 	private AddPurchaseBO addPurchaseBO;
@@ -63,7 +59,7 @@ public class PurchaseRestController {
 		int userId = (int)session.getAttribute("userId");
 		
 		// 상품 상세 조회 (색상, 사이즈)
-		ProductDetail productDetail = productDetailBO.getProductDetailByProductIdColorSize(productId, color, size);
+		ProductDetail productDetail = productBO.getProductDetailByProductIdColorSize(productId, color, size);
 		
 		// 장바구니 추가
 		int rowCount = wishListBO.addWishList(userId, productId, productDetail.getId(), amount);
@@ -193,7 +189,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 환불
-		int rowCount = purchaseProductBO.updatePurchaseProductRefund(purchaseProductId);
+		int rowCount = purchaseBO.updatePurchaseProductRefund(purchaseProductId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -224,10 +220,10 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 상세 조회 (색상, 사이즈)
-		ProductDetail productDetail = productDetailBO.getProductDetailByProductIdColorSize(productId, color, size);
+		ProductDetail productDetail = productBO.getProductDetailByProductIdColorSize(productId, color, size);
 		
 		// 구매 상품 교환
-		int rowCount = purchaseProductBO.updatePurchaseProductExchange(purchaseProductId, productDetail.getId());
+		int rowCount = purchaseBO.updatePurchaseProductExchange(purchaseProductId, productDetail.getId());
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -250,7 +246,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 확정
-		int rowCount = purchaseProductBO.updatePurchaseProductComplete(purchaseProductId);
+		int rowCount = purchaseBO.updatePurchaseProductComplete(purchaseProductId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -283,7 +279,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 작성
-		int rowCount = purchaseProductBO.updatePurchaseProductReview((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		int rowCount = purchaseBO.updatePurchaseProductReview((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -316,7 +312,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 수정
-		int rowCount = purchaseProductBO.updatePurchaseProductReviewAgain((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		int rowCount = purchaseBO.updatePurchaseProductReviewAgain((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);

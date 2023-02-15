@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductBO;
-import com.mall.product.bo.ProductDetailBO;
-import com.mall.product.bo.ProductPictureBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
 import com.mall.product.model.ProductPicture;
 import com.mall.purchase.bo.PurchaseBO;
-import com.mall.purchase.bo.PurchaseProductBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -32,16 +29,7 @@ public class AdminRestController {
 	private ProductBO productBO;
 	
 	@Autowired
-	private ProductPictureBO productPictureBO;
-	
-	@Autowired
-	private ProductDetailBO productDetailBO;
-	
-	@Autowired
 	private PurchaseBO purchaseBO;
-	
-	@Autowired
-	private PurchaseProductBO purchaseProductBO;
 	
 	/**
 	 * 상품 등록 API
@@ -83,7 +71,7 @@ public class AdminRestController {
 				
 				for (MultipartFile file : fileList) {
 					// 상품 사진 추가
-					int rowCount = productPictureBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
+					int rowCount = productBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
 					count += rowCount;
 				}
 				
@@ -143,12 +131,12 @@ public class AdminRestController {
 				int count = 0;
 				
 				// 상품 사진 목록
-				List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(productId);
+				List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(productId);
 				checkCount += productPictureList.size();
 				
 				for (ProductPicture productPicture : productPictureList) {
 					// 상품 사진 삭제
-					int rowCount2 = productPictureBO.deleteProductPicture(productId, productPicture.getImagePath());
+					int rowCount2 = productBO.deleteProductPicture(productId, productPicture.getImagePath());
 					count += rowCount2;
 				}
 				
@@ -156,7 +144,7 @@ public class AdminRestController {
 				
 				for (MultipartFile file : fileList) {
 					// 상품 사진 추가
-					int rowCount2 = productPictureBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
+					int rowCount2 = productBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
 					count += rowCount2;
 				}
 				
@@ -200,10 +188,10 @@ public class AdminRestController {
 		
 		if (rowCount > 0) {
 			// 상품 사진 목록
-			List<ProductPicture> productPictureList = productPictureBO.getProductPictureListByProductId(productId);
+			List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(productId);
 			
 			// 상품 상세 목록
-			List<ProductDetail> productDetailList = productDetailBO.getProductDetailList(productId);
+			List<ProductDetail> productDetailList = productBO.getProductDetailList(productId);
 			
 			if (productPictureList != null || productDetailList != null) {
 				int checkCount = 0;
@@ -214,13 +202,13 @@ public class AdminRestController {
 				
 				for (ProductPicture productPicture : productPictureList) {
 					// 상품 사진 삭제
-					int rowCount2 = productPictureBO.deleteProductPicture(productId, productPicture.getImagePath());
+					int rowCount2 = productBO.deleteProductPicture(productId, productPicture.getImagePath());
 					count += rowCount2;
 				}
 				
 				for (ProductDetail productDetail : productDetailList) {
 					// 상품 상세 삭제
-					int rowCount2 = productDetailBO.deleteProductDetail(productDetail.getId());
+					int rowCount2 = productBO.deleteProductDetail(productDetail.getId());
 					count += rowCount2;
 				}
 				
@@ -264,7 +252,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 상세 추가
-		int rowCount = productDetailBO.addProductDetail(productId, color, size, amount);
+		int rowCount = productBO.addProductDetail(productId, color, size, amount);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -295,7 +283,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 상세 수정
-		int rowCount = productDetailBO.updateProductDetail(detailId, color, size, amount);
+		int rowCount = productBO.updateProductDetail(detailId, color, size, amount);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -318,7 +306,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 상세 삭제
-		int rowCount = productDetailBO.deleteProductDetail(detailId);
+		int rowCount = productBO.deleteProductDetail(detailId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -380,7 +368,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 정보 수정
-		int rowCount = purchaseProductBO.updatePurchaseProductById(purchaseProductId, refund, exchange, completion);
+		int rowCount = purchaseBO.updatePurchaseProductById(purchaseProductId, refund, exchange, completion);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -403,7 +391,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 삭제
-		int rowCount = purchaseProductBO.updatePurchaseProductReviewNull(purchaseProductId);
+		int rowCount = purchaseBO.updatePurchaseProductReviewNull(purchaseProductId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
