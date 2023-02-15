@@ -20,7 +20,7 @@ public class PurchaseBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
-	// 판매 목록
+	// 구매 목록 전체
 	public List<Purchase> getPurchaseListAll() {
 		return purchaseDAO.selectPurchaseListAll();
 	}
@@ -106,6 +106,8 @@ public class PurchaseBO {
 			if (imagePath != null && getPurchaseProductById(id).getImagePath() != null) {
 				fileManagerService.deleteFile(getPurchaseProductById(id).getImagePath());
 			}
+		} else {
+			imagePath = getPurchaseProductById(id).getImagePath();
 		}
 		
 		return purchaseDAO.updatePurchaseProductReview(id, star, review, imagePath);

@@ -15,15 +15,15 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td class="align-middle">${purchaseView.purchase.id}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].user.loginId}</td>
-			<td class="align-middle"><fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</td>
-			<td class="align-middle"><fmt:formatDate value="${purchaseView.purchase.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+			<td class="align-middle">${purchaseCardView.purchase.id}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].user.loginId}</td>
+			<td class="align-middle"><fmt:formatNumber value="${purchaseCardView.purchase.totalPrice}" type="number" />원</td>
+			<td class="align-middle"><fmt:formatDate value="${purchaseCardView.purchase.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 			<td class="align-middle">
 				<c:choose>
-					<c:when test="${purchaseView.purchase.cancellation eq 1}"><span class="text-danger">취소 신청</span></c:when>
-					<c:when test="${purchaseView.purchase.cancellation eq 2}"><span class="text-danger">취소 완료</span></c:when>
-					<c:when test="${empty purchaseView.purchase.trackingNumber}"><span class="text-success">배송 전</span></c:when>
+					<c:when test="${purchaseCardView.purchase.cancellation eq 1}"><span class="text-danger">취소 신청</span></c:when>
+					<c:when test="${purchaseCardView.purchase.cancellation eq 2}"><span class="text-danger">취소 완료</span></c:when>
+					<c:when test="${empty purchaseCardView.purchase.trackingNumber}"><span class="text-success">배송 전</span></c:when>
 				</c:choose>
 			</td>
 		</tr>
@@ -44,19 +44,19 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].purchaseProduct.id}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].product.category}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].product.name}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].productDetail.color}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].productDetail.size}</td>
-			<td class="align-middle">${purchaseView.purchaseProductViewList[0].purchaseProduct.amount}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.id}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.product.category}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.product.name}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.productDetail.color}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.productDetail.size}</td>
+			<td class="align-middle">${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.amount}</td>
 			<td class="align-middle">
 				<c:choose>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.completion eq 1}"><span class="text-success">구매 확정</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 1}"><span class="text-danger">환불 신청</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 2}"><span class="text-danger">환불 완료</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 1}"><span class="text-primary">교환 신청</span></c:when>
-					<c:when test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 2}"><span class="text-primary">교환 완료</span></c:when>
+					<c:when test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.completion eq 1}"><span class="text-success">구매 확정</span></c:when>
+					<c:when test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.refund eq 1}"><span class="text-danger">환불 신청</span></c:when>
+					<c:when test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.refund eq 2}"><span class="text-danger">환불 완료</span></c:when>
+					<c:when test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.exchange eq 1}"><span class="text-primary">교환 신청</span></c:when>
+					<c:when test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.exchange eq 2}"><span class="text-primary">교환 완료</span></c:when>
 				</c:choose>
 			</td>
 		</tr>
@@ -67,33 +67,33 @@
 	<div class="col-4 d-flex justify-content-between align-items-center pl-0 pr-4">
 		<span>환불 여부</span>
 		<select id="refund" class="form-control col-7">
-			<option value="0" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 0}">selected</c:if>>해당 없음</option>
-			<option value="1" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 1}">selected</c:if>>환불 신청</option>
-			<option value="2" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.refund eq 2}">selected</c:if>>환불 완료</option>
+			<option value="0" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.refund eq 0}">selected</c:if>>해당 없음</option>
+			<option value="1" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.refund eq 1}">selected</c:if>>환불 신청</option>
+			<option value="2" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.refund eq 2}">selected</c:if>>환불 완료</option>
 		</select>
 	</div>
 	
 	<div class="col-4 d-flex justify-content-between align-items-center px-4">
 		<span>교환 여부</span>
 		<select id="exchange" class="form-control col-7">
-			<option value="0" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 0}">selected</c:if>>해당 없음</option>
-			<option value="1" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 1}">selected</c:if>>교환 신청</option>
-			<option value="2" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.exchange eq 2}">selected</c:if>>교환 완료</option>
+			<option value="0" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.exchange eq 0}">selected</c:if>>해당 없음</option>
+			<option value="1" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.exchange eq 1}">selected</c:if>>교환 신청</option>
+			<option value="2" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.exchange eq 2}">selected</c:if>>교환 완료</option>
 		</select>
 	</div>
 	
 	<div class="col-4 d-flex justify-content-between align-items-center pl-4 pr-0">
 		<span>확정 여부</span>
 		<select id="completion" class="form-control col-7">
-			<option value="0" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.completion eq 0}">selected</c:if>>해당 없음</option>
-			<option value="1" <c:if test="${purchaseView.purchaseProductViewList[0].purchaseProduct.completion eq 1}">selected</c:if>>구매 확정</option>
+			<option value="0" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.completion eq 0}">selected</c:if>>해당 없음</option>
+			<option value="1" <c:if test="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.completion eq 1}">selected</c:if>>구매 확정</option>
 		</select>
 	</div>
 </div>
 
 <div class="input-big-box d-flex justify-content-between mt-5">
-	<a href="/admin/admin_sale_detail_list_view?purchaseId=${purchaseView.purchase.id}" class="btn btn-light">판매 상품 목록</a>
-	<button id="editBtn" class="btn btn-secondary" data-purchase-id="${purchaseView.purchase.id}" data-purchase-product-id="${purchaseView.purchaseProductViewList[0].purchaseProduct.id}">수정하기</button>
+	<a href="/admin/admin_sale_detail_list_view?purchaseId=${purchaseCardView.purchase.id}" class="btn btn-light">판매 상품 목록</a>
+	<button id="editBtn" class="btn btn-secondary" data-purchase-id="${purchaseCardView.purchase.id}" data-purchase-product-id="${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.id}">수정하기</button>
 </div>
 
 <script>

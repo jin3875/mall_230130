@@ -16,22 +16,22 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="purchaseView" items="${purchaseViewList}">
-			<c:forEach var="purchaseProductView" items="${purchaseView.purchaseProductViewList}">
-				<c:if test="${not empty purchaseProductView.purchaseProduct.star}">
+		<c:forEach var="purchaseCardView" items="${purchaseCardViewList}">
+			<c:forEach var="purchaseProductCardView" items="${purchaseCardView.purchaseProductCardViewList}">
+				<c:if test="${not empty purchaseProductCardView.purchaseProduct.star}">
 					<tr>
-						<td class="align-middle">${purchaseProductView.purchaseProduct.id}</td>
-						<td class="align-middle">${purchaseProductView.product.category}</td>
-						<td class="align-middle">${purchaseProductView.product.name}</td>
-						<td class="align-middle">${purchaseProductView.user.loginId}</td>
-						<td class="align-middle">${purchaseProductView.purchaseProduct.star}</td>
-						<td class="align-middle col-5">${purchaseProductView.purchaseProduct.review}</td>
+						<td class="align-middle">${purchaseProductCardView.purchaseProduct.id}</td>
+						<td class="align-middle">${purchaseProductCardView.productDetailCardView.product.category}</td>
+						<td class="align-middle">${purchaseProductCardView.productDetailCardView.product.name}</td>
+						<td class="align-middle">${purchaseProductCardView.user.loginId}</td>
+						<td class="align-middle">${purchaseProductCardView.purchaseProduct.star}</td>
+						<td class="align-middle col-5">${purchaseProductCardView.purchaseProduct.review}</td>
 						<td class="align-middle">
-							<c:if test="${not empty purchaseProductView.purchaseProduct.imagePath}">
-								<a href="${purchaseProductView.purchaseProduct.imagePath}" target="_blank" class="text-primary">사진</a>
+							<c:if test="${not empty purchaseProductCardView.purchaseProduct.imagePath}">
+								<a href="${purchaseProductCardView.purchaseProduct.imagePath}" target="_blank" class="text-primary">사진</a>
 							</c:if>
 						</td>
-						<td class="align-middle"><button class="delete-btn btn btn-sm btn-outline-danger" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">삭제</button></td>
+						<td class="align-middle"><button class="delete-btn btn btn-sm btn-outline-danger" data-purchase-product-id="${purchaseProductCardView.purchaseProduct.id}">삭제</button></td>
 					</tr>
 				</c:if>
 			</c:forEach>

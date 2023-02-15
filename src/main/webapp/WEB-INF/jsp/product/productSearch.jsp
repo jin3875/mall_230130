@@ -26,19 +26,19 @@
 
 <div>
 	<div class="product-main-box">
-		<c:forEach var="productView" items="${productViewList}">
+		<c:forEach var="productCardView" items="${productCardViewList}">
 			<div class="product-small-box mt-5">
-				<a href="/product/product_detail_view/${productView.product.id}">
+				<a href="/product/product_detail_view/${productCardView.product.id}">
 					<div class="text-center">
-						<img src="${productView.productPictureList[0].imagePath}" alt="product" width="200" height="200">
+						<img src="${productCardView.productPictureList[0].imagePath}" alt="product" width="200" height="200">
 					</div>
-					<div class="font-weight-bold ml-4 mt-2">${productView.product.name}</div>
-					<div class="ml-4"><fmt:formatNumber value="${productView.product.price}" type="number" />원</div>
+					<div class="font-weight-bold ml-4 mt-2">${productCardView.product.name}</div>
+					<div class="ml-4"><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</div>
 				</a>
 			</div>
 		</c:forEach>
 		
-		<c:if test="${empty productViewList}">
+		<c:if test="${empty productCardViewList}">
 			<h2 class="text-center font-weight-bold mt-5">조건에 해당하는 상품이 없습니다</h2>
 		</c:if>
 	</div>

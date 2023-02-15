@@ -5,37 +5,37 @@
 
 <h3 class="font-weight-bold">장바구니</h3>
 
-<c:forEach var="productCardView" items="${productCardViewList}">
+<c:forEach var="wishCardView" items="${wishCardViewList}">
 	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 		<div class="col-3">
-			<img src="${productCardView.productPicture.imagePath}" alt="product" width="150" height="150">
+			<img src="${wishCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 		</div>
 		<div class="col-5">
-			<big class="font-weight-bold">${productCardView.product.name}</big>
+			<big class="font-weight-bold">${wishCardView.productDetailCardView.product.name}</big>
 			<div class="text-secondary mt-3">
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>가격</span>
-					<span><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</span>
+					<span><fmt:formatNumber value="${wishCardView.productDetailCardView.product.price}" type="number" />원</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>색상</span>
-					<span>${productCardView.productDetail.color}</span>
+					<span>${wishCardView.productDetailCardView.productDetail.color}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>사이즈</span>
-					<span>${productCardView.productDetail.size}</span>
+					<span>${wishCardView.productDetailCardView.productDetail.size}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>수량</span>
-					<span>${productCardView.amount}</span>
+					<span>${wishCardView.amount}</span>
 				</div>
 			</div>
 		</div>
-		<h4 class="col-3"><fmt:formatNumber value="${productCardView.product.price * productCardView.amount}" type="number" />원</h4>
-		<input type="checkbox" class="check col-1" value="${productCardView.wishListId}">
+		<h4 class="col-3"><fmt:formatNumber value="${wishCardView.productDetailCardView.product.price * wishCardView.amount}" type="number" />원</h4>
+		<input type="checkbox" class="check col-1" value="${wishCardView.wishListId}">
 	</div>
 </c:forEach>
 

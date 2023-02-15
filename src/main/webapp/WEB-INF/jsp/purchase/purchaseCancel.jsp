@@ -19,46 +19,46 @@
 	<div class="w-100 ml-5">
 		<h3 class="font-weight-bold">구매 취소</h3>
 		
-		<c:forEach var="purchaseProductView" items="${purchaseView.purchaseProductViewList}" varStatus="status">
+		<c:forEach var="purchaseProductCardView" items="${purchaseCardView.purchaseProductCardViewList}" varStatus="status">
 			<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 				<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
 				<div class="col-3">
-					<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
+					<img src="${purchaseProductCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 				</div>
 				<div class="col-6">
-					<big class="font-weight-bold">${purchaseProductView.product.name}</big>
+					<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
 					<div class="text-secondary mt-3">
 						<div class="col-4 d-flex justify-content-between p-0">
 							<span>가격</span>
-							<span><fmt:formatNumber value="${purchaseProductView.product.price}" type="number" />원</span>
+							<span><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price}" type="number" />원</span>
 						</div>
 						
 						<div class="col-4 d-flex justify-content-between p-0">
 							<span>색상</span>
-							<span>${purchaseProductView.productDetail.color}</span>
+							<span>${purchaseProductCardView.productDetailCardView.productDetail.color}</span>
 						</div>
 						
 						<div class="col-4 d-flex justify-content-between p-0">
 							<span>사이즈</span>
-							<span>${purchaseProductView.productDetail.size}</span>
+							<span>${purchaseProductCardView.productDetailCardView.productDetail.size}</span>
 						</div>
 						
 						<div class="col-4 d-flex justify-content-between p-0">
 							<span>수량</span>
-							<span>${purchaseProductView.purchaseProduct.amount}</span>
+							<span>${purchaseProductCardView.purchaseProduct.amount}</span>
 						</div>
 					</div>
 				</div>
-				<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.purchaseProduct.amount}" type="number" />원</h4>
+				<h4 class="col-2"><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" type="number" />원</h4>
 			</div>
 		</c:forEach>
 		
 		<div class="d-flex justify-content-end mt-4 mr-5">
-			<h3 id="totalPrice" class="font-weight-bold">총 <fmt:formatNumber value="${purchaseView.purchase.totalPrice}" type="number" />원</h3>
+			<h3 id="totalPrice" class="font-weight-bold">총 <fmt:formatNumber value="${purchaseCardView.purchase.totalPrice}" type="number" />원</h3>
 		</div>
 		
 		<div class="d-flex justify-content-end mt-5 mr-5">
-			<button type="button" id="cancelBtn" class="btn btn-secondary" data-purchase-id="${purchaseView.purchase.id}">취소하기</button>
+			<button type="button" id="cancelBtn" class="btn btn-secondary" data-purchase-id="${purchaseCardView.purchase.id}">취소하기</button>
 		</div>
 	</div>
 </div>

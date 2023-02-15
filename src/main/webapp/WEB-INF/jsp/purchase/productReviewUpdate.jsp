@@ -21,44 +21,44 @@
 		
 		<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 			<div class="col-3">
-				<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
+				<img src="${purchaseProductCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 			</div>
 			<div class="col-7">
-				<big class="font-weight-bold">${purchaseProductView.product.name}</big>
+				<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
 				<div class="text-secondary mt-3">
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>가격</span>
-						<span><fmt:formatNumber value="${purchaseProductView.product.price}" type="number" />원</span>
+						<span><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price}" type="number" />원</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>색상</span>
-						<span>${purchaseProductView.productDetail.color}</span>
+						<span>${purchaseProductCardView.productDetailCardView.productDetail.color}</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>사이즈</span>
-						<span>${purchaseProductView.productDetail.size}</span>
+						<span>${purchaseProductCardView.productDetailCardView.productDetail.size}</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>수량</span>
-						<span>${purchaseProductView.purchaseProduct.amount}</span>
+						<span>${purchaseProductCardView.purchaseProduct.amount}</span>
 					</div>
 				</div>
 			</div>
-			<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.purchaseProduct.amount}" type="number" />원</h4>
+			<h4 class="col-2"><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" type="number" />원</h4>
 		</div>
 		
 		<div class="d-flex justify-content-between align-items-center mt-5 mr-5">
 			<h4 class="font-weight-bold m-0">별점</h4>
 			<select id="star" class="form-control col-3">
 				<option value="" selected>-- 별점 --</option>
-				<option value="5" <c:if test="${purchaseProductView.purchaseProduct.star == 5}">selected</c:if>>★★★★★</option>
-				<option value="4" <c:if test="${purchaseProductView.purchaseProduct.star == 4}">selected</c:if>>★★★★</option>
-				<option value="3" <c:if test="${purchaseProductView.purchaseProduct.star == 3}">selected</c:if>>★★★</option>
-				<option value="2" <c:if test="${purchaseProductView.purchaseProduct.star == 2}">selected</c:if>>★★</option>
-				<option value="1" <c:if test="${purchaseProductView.purchaseProduct.star == 1}">selected</c:if>>★</option>
+				<option value="5" <c:if test="${purchaseProductCardView.purchaseProduct.star == 5}">selected</c:if>>★★★★★</option>
+				<option value="4" <c:if test="${purchaseProductCardView.purchaseProduct.star == 4}">selected</c:if>>★★★★</option>
+				<option value="3" <c:if test="${purchaseProductCardView.purchaseProduct.star == 3}">selected</c:if>>★★★</option>
+				<option value="2" <c:if test="${purchaseProductCardView.purchaseProduct.star == 2}">selected</c:if>>★★</option>
+				<option value="1" <c:if test="${purchaseProductCardView.purchaseProduct.star == 1}">selected</c:if>>★</option>
 			</select>
 		</div>
 		
@@ -69,8 +69,8 @@
 				<div class="small text-secondary ">* 변경할 사진을 선택하지 않으면 기존 사진이 유지됩니다 *</div>
 			</div>
 			<div class="col-2 p-0 d-flex justify-content-center align-items-center">
-				<c:if test="${not empty purchaseProductView.purchaseProduct.imagePath}">
-					<a href="${purchaseProductView.purchaseProduct.imagePath}" target="_blank" class="text-primary">기존 후기 사진</a>
+				<c:if test="${not empty purchaseProductCardView.purchaseProduct.imagePath}">
+					<a href="${purchaseProductCardView.purchaseProduct.imagePath}" target="_blank" class="text-primary">기존 후기 사진</a>
 				</c:if>
 			</div>
 			<div class="col-5 p-0 d-flex justify-content-end align-items-center">
@@ -82,11 +82,11 @@
 		
 		<div class="d-flex justify-content-between mt-5 mr-5">
 			<h4 class="font-weight-bold m-0">후기</h4>
-			<textarea id="review" class="form-control col-10" rows="5">${purchaseProductView.purchaseProduct.review}</textarea>
+			<textarea id="review" class="form-control col-10" rows="5">${purchaseProductCardView.purchaseProduct.review}</textarea>
 		</div>
 		
 		<div class="d-flex justify-content-end mt-5 mr-5">
-			<button type="button" id="reviewEditBtn" class="btn btn-secondary" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">수정하기</button>
+			<button type="button" id="reviewEditBtn" class="btn btn-secondary" data-purchase-product-id="${purchaseProductCardView.purchaseProduct.id}">수정하기</button>
 		</div>
 	</div>
 </div>

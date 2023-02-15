@@ -20,17 +20,17 @@
 	<div class="w-100 ml-5">
 		<h3 class="font-weight-bold">후기 목록</h3>
 		
-		<c:forEach var="purchaseView" items="${purchaseViewList}">
-			<c:forEach var="purchaseProductView" items="${purchaseView.purchaseProductViewList}">
-				<c:if test="${not empty purchaseProductView.purchaseProduct.star}">
+		<c:forEach var="purchaseCardView" items="${purchaseCardViewList}">
+			<c:forEach var="purchaseProductCardView" items="${purchaseCardView.purchaseProductCardViewList}">
+				<c:if test="${not empty purchaseProductCardView.purchaseProduct.star}">
 					<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 						<div class="col-3">
-							<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
+							<img src="${purchaseProductCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 						</div>
 						<div class="col-4">
-							<big class="font-weight-bold">${purchaseProductView.product.name}</big>
+							<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
 							<div class="mt-3">
-								<c:set var="star" value="${purchaseProductView.purchaseProduct.star}" />
+								<c:set var="star" value="${purchaseProductCardView.purchaseProduct.star}" />
 								<c:forEach var="count" begin="0" end="4" step="1">
 									<c:choose>
 										<c:when test="${star > 0}">
@@ -43,26 +43,26 @@
 									<c:set var="star" value="${star - 1}" />
 								</c:forEach>
 							</div>
-							<c:if test="${not empty purchaseProductView.purchaseProduct.review}">
+							<c:if test="${not empty purchaseProductCardView.purchaseProduct.review}">
 								<div class="mt-3">
 									<c:choose>
-										<c:when test="${fn:length(purchaseProductView.purchaseProduct.review) > 15}">
-											${fn:substring(purchaseProductView.purchaseProduct.review, 0, 15)}...
+										<c:when test="${fn:length(purchaseProductCardView.purchaseProduct.review) > 15}">
+											${fn:substring(purchaseProductCardView.purchaseProduct.review, 0, 15)}...
 										</c:when>
 										<c:otherwise>
-											${purchaseProductView.purchaseProduct.review}
+											${purchaseProductCardView.purchaseProduct.review}
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</c:if>
 						</div>
 						<div class="col-3">
-							<c:if test="${not empty purchaseProductView.purchaseProduct.imagePath}">
-								<img src="${purchaseProductView.purchaseProduct.imagePath}" alt="review" width="150" height="150">
+							<c:if test="${not empty purchaseProductCardView.purchaseProduct.imagePath}">
+								<img src="${purchaseProductCardView.purchaseProduct.imagePath}" alt="review" width="150" height="150">
 							</c:if>
 						</div>
 						<div class="col-2 text-right">
-							<button type="button" class="edit-review-btn btn btn-secondary" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">후기 수정</button>
+							<button type="button" class="edit-review-btn btn btn-secondary" data-purchase-product-id="${purchaseProductCardView.purchaseProduct.id}">후기 수정</button>
 						</div>
 					</div>
 				</c:if>

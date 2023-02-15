@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mall.product.bo.ProductViewBO;
-import com.mall.product.model.ProductView;
-import com.mall.purchase.bo.PurchaseProductViewBO;
-import com.mall.purchase.model.PurchaseProductView;
+import com.mall.cardView.bo.CardViewBO;
+import com.mall.cardView.model.ProductCardView;
+import com.mall.cardView.model.PurchaseProductCardView;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,10 +24,7 @@ import jakarta.servlet.http.HttpSession;
 public class ProductController {
 	
 	@Autowired
-	private ProductViewBO productViewBO;
-	
-	@Autowired
-	private PurchaseProductViewBO purchaseProductViewBO;
+	private CardViewBO cardViewBO;
 	
 	/**
 	 * 메인 화면
@@ -37,9 +33,9 @@ public class ProductController {
 	 */
 	@GetMapping("/product_main_view")
 	public String productMainView(Model model) {
-		// 상품 + 상품 사진 + 상품 상세 목록 (판매 중)
-		List<ProductView> productViewList = productViewBO.generateProductViewListOnSale();
-		model.addAttribute("productViewList", productViewList);
+		// 상품 목록 (판매 중)
+		List<ProductCardView> productCardViewList = cardViewBO.generateProductCardViewListOnSale();
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		model.addAttribute("viewName", "product/productMain");
 		return "template/layout";
@@ -56,9 +52,9 @@ public class ProductController {
 			@RequestParam("category") String category,
 			Model model
 	) {
-		// 카테고리 상품 + 상품 사진 + 상품 상세 목록 (판매 중)
-		List<ProductView> productViewList = productViewBO.generateProductViewListOnSaleByCategory(category);
-		model.addAttribute("productViewList", productViewList);
+		// 카테고리 상품 목록 (판매 중)
+		List<ProductCardView> productCardViewList = cardViewBO.generateProductCardViewListOnSaleByCategory(category);
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		model.addAttribute("category", category);
 		model.addAttribute("viewName", "product/productCategory");
@@ -81,17 +77,17 @@ public class ProductController {
 			HttpSession session,
 			Model model
 	) {
-		// 상품 + 상품 사진 + 상품 상세 조회
-		ProductView productView = productViewBO.generateProductViewById(productId);
-		model.addAttribute("productView", productView);
+		// 상품 조회
+		ProductCardView productCardView = cardViewBO.generateProductCardViewByProductId(productId);
+		model.addAttribute("productCardView", productCardView);
 		
-		// 상품 후기 카드 목록
-		List<PurchaseProductView> purchaseProductViewList = purchaseProductViewBO.generatePurchaseProductViewListByProductId(productId);
-		model.addAttribute("purchaseProductViewList", purchaseProductViewList);
+		// 구매 상품 목록 (상품 id)
+		List<PurchaseProductCardView> purchaseProductCardViewList = cardViewBO.generatePurchaseProductCardViewListByProductId(productId);
+		model.addAttribute("purchaseProductCardViewList", purchaseProductCardViewList);
 		
 		// 최근 본 상품 목록 추가
 		Map<String, Object> recent = new HashMap<>();
-		recent.put("imagePath", productView.getProductPictureList().get(0).getImagePath());
+		recent.put("imagePath", productCardView.getProductPictureList().get(0).getImagePath());
 		recent.put("productId", productId);
 		recentList.add(0, recent);
 		
@@ -123,9 +119,9 @@ public class ProductController {
 			@RequestParam(value="maxPrice", required=false) Integer maxPrice,
 			Model model
 	) {
-		// 상품 + 상품 사진 + 상품 상세 검색
-		List<ProductView> productViewList = productViewBO.generateProductViewListBySearch(keyword, minPrice, maxPrice);
-		model.addAttribute("productViewList", productViewList);
+		// 상품 검색
+		List<ProductCardView> productCardViewList = cardViewBO.generateProductCardViewListBySearch(keyword, minPrice, maxPrice);
+		model.addAttribute("productCardViewList", productCardViewList);
 		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("minPrice", minPrice);

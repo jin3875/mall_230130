@@ -5,20 +5,20 @@
 
 <div id="userCheck" class="d-none">${userId}</div>
 <div class="d-flex ml-3">
-	<div><img src="${productView.productPictureList[0].imagePath}" width="400" height="400"></div>
+	<div><img src="${productCardView.productPictureList[0].imagePath}" width="400" height="400"></div>
 	<div class="col-4 mt-3 ml-5">
-		<h2 class="font-weight-bold">${productView.product.name}</h2>
+		<h2 class="font-weight-bold">${productCardView.product.name}</h2>
 		<div>
 			<div class="d-flex justify-content-between align-items-center mt-5">
 				<span>가격</span>
-				<span><fmt:formatNumber value="${productView.product.price}" type="number" />원</span>
+				<span><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</span>
 			</div>
 			
 			<div class="d-flex justify-content-between align-items-center mt-4">
 				<span>옵션</span>
 				<select id="colorAndSize" class="form-control col-8">
 					<option value="" selected>-- 색상 / 사이즈 --</option>
-					<c:forEach var="productDetail" items="${productView.productDetailList}">
+					<c:forEach var="productDetail" items="${productCardView.productDetailList}">
 						<c:choose>
 								<c:when test="${productDetail.amount ne 0}">
 									<option>${productDetail.color} / ${productDetail.size}</option>
@@ -43,8 +43,8 @@
 		</div>
 		
 		<div class="d-flex justify-content-between mt-5">
-			<button type="button" id="wishListBtn" class="btn btn-light" data-product-id="${productView.product.id}">장바구니</button>
-			<button type="button" id="purchaseBtn" class="btn btn-secondary" data-product-id="${productView.product.id}">구매하기</button>
+			<button type="button" id="wishListBtn" class="btn btn-light" data-product-id="${productCardView.product.id}">장바구니</button>
+			<button type="button" id="purchaseBtn" class="btn btn-secondary" data-product-id="${productCardView.product.id}">구매하기</button>
 		</div>
 	</div>
 </div>
@@ -52,25 +52,25 @@
 <div class="mt-5 text-center">
 	<hr>
 	<h3 class="font-weight-bold my-5">Info</h3>
-	<c:forEach var="productPicture" items="${productView.productPictureList}">
+	<c:forEach var="productPicture" items="${productCardView.productPictureList}">
 		<div class="mt-5">
 			<img src="${productPicture.imagePath}" width="400" height="400">
 		</div>
 	</c:forEach>
-	<div class="mt-5">${productView.product.detail}</div>
+	<div class="mt-5">${productCardView.product.detail}</div>
 </div>
 
 <div class="mt-5">
 	<hr>
 	<h3 class="text-center font-weight-bold my-5">Review</h3>
-	<c:forEach var="purchaseProductView" items="${purchaseProductViewList}">
-		<c:if test="${not empty purchaseProductView.purchaseProduct.star}">
+	<c:forEach var="purchaseProductCardView" items="${purchaseProductCardViewList}">
+		<c:if test="${not empty purchaseProductCardView.purchaseProduct.star}">
 			<div class="input-big-box d-flex justify-content-between align-items-center mt-3 p-3 border border-light rounded">
 				<div>
-					<div class="font-weight-bold">${purchaseProductView.user.name}</div>
-					<div class="small text-secondary mt-2">* ${purchaseProductView.productDetail.color} / ${purchaseProductView.productDetail.size} *</div>
+					<div class="font-weight-bold">${purchaseProductCardView.user.name}</div>
+					<div class="small text-secondary mt-2">* ${purchaseProductCardView.productDetailCardView.productDetail.color} / ${purchaseProductCardView.productDetailCardView.productDetail.size} *</div>
 					<div class="mt-2">
-						<c:set var="star" value="${purchaseProductView.purchaseProduct.star}" />
+						<c:set var="star" value="${purchaseProductCardView.purchaseProduct.star}" />
 						<c:forEach var="count" begin="0" end="4" step="1">
 							<c:choose>
 								<c:when test="${star > 0}">
@@ -83,13 +83,13 @@
 							<c:set var="star" value="${star - 1}" />
 						</c:forEach>
 					</div>
-					<div class="mt-3">${purchaseProductView.purchaseProduct.review}</div>
-					<div class="small text-secondary mt-3">상품 구매일 : <fmt:formatDate value="${purchaseProductView.purchaseProduct.createdAt}" pattern="yyyy/MM/dd" /></div>
-					<div class="small text-secondary">후기 작성일 : <fmt:formatDate value="${purchaseProductView.purchaseProduct.updatedAt}" pattern="yyyy/MM/dd" /></div>
+					<div class="mt-3">${purchaseProductCardView.purchaseProduct.review}</div>
+					<div class="small text-secondary mt-3">상품 구매일 : <fmt:formatDate value="${purchaseProductCardView.purchaseProduct.createdAt}" pattern="yyyy/MM/dd" /></div>
+					<div class="small text-secondary">후기 작성일 : <fmt:formatDate value="${purchaseProductCardView.purchaseProduct.updatedAt}" pattern="yyyy/MM/dd" /></div>
 				</div>
-				<c:if test="${not empty purchaseProductView.purchaseProduct.imagePath}">
+				<c:if test="${not empty purchaseProductCardView.purchaseProduct.imagePath}">
 					<div class="ml-5">
-						<img src="${purchaseProductView.purchaseProduct.imagePath}" alt="review" width="200" height="200">
+						<img src="${purchaseProductCardView.purchaseProduct.imagePath}" alt="review" width="200" height="200">
 					</div>
 				</c:if>
 			</div>
@@ -104,8 +104,6 @@
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
-			let color = colorAndSize.split('/')[0].trim();
-			let size = colorAndSize.split('/')[1].trim();
 			
 			if (colorAndSize == '') {
 				alert('옵션을 선택하세요');
@@ -116,6 +114,9 @@
 				alert('수량을 선택하세요');
 				return;
 			}
+			
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
 			
 			if ($('#userCheck').text() == '') {
 				if (confirm("로그인 후 이용 가능합니다")) {
@@ -151,8 +152,6 @@
 			let productId = $(this).data('product-id');
 			let colorAndSize = $('#colorAndSize').val();
 			let amount = $('#amount').val();
-			let color = colorAndSize.split('/')[0].trim();
-			let size = colorAndSize.split('/')[1].trim();
 			
 			if (colorAndSize == '') {
 				alert('옵션을 선택하세요');
@@ -163,6 +162,9 @@
 				alert('수량을 선택하세요');
 				return;
 			}
+			
+			let color = colorAndSize.split('/')[0].trim();
+			let size = colorAndSize.split('/')[1].trim();
 			
 			if ($('#userCheck').text() == '') {
 				if (confirm("로그인 후 이용 가능합니다")) {

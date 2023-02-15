@@ -9,11 +9,11 @@
 			<span>카테고리</span>
 			<select id="category" class="form-control col-8">
 				<option value="">-- 카테고리 --</option>
-				<option <c:if test="${productView.product.category == 'Outer'}">selected</c:if>>Outer</option>
-				<option <c:if test="${productView.product.category == 'Top'}">selected</c:if>>Top</option>
-				<option <c:if test="${productView.product.category == 'Pants'}">selected</c:if>>Pants</option>
-				<option <c:if test="${productView.product.category == 'Skirt'}">selected</c:if>>Skirt</option>
-				<option <c:if test="${productView.product.category == 'Shoes'}">selected</c:if>>Shoes</option>
+				<option <c:if test="${productCardView.product.category == 'Outer'}">selected</c:if>>Outer</option>
+				<option <c:if test="${productCardView.product.category == 'Top'}">selected</c:if>>Top</option>
+				<option <c:if test="${productCardView.product.category == 'Pants'}">selected</c:if>>Pants</option>
+				<option <c:if test="${productCardView.product.category == 'Skirt'}">selected</c:if>>Skirt</option>
+				<option <c:if test="${productCardView.product.category == 'Shoes'}">selected</c:if>>Shoes</option>
 			</select>
 		</div>
 		
@@ -23,7 +23,7 @@
 		
 		<div class="d-flex justify-content-between align-items-center mt-3">
 			<span>이름</span>
-			<input type="text" id="name" class="form-control col-8" value="${productView.product.name}">
+			<input type="text" id="name" class="form-control col-8" value="${productCardView.product.name}">
 		</div>
 		
 		<div>
@@ -32,7 +32,7 @@
 		
 		<div class="d-flex justify-content-between align-items-center mt-3">
 			<span>가격</span>
-			<input type="text" id="price" class="form-control col-8" value="${productView.product.price}">
+			<input type="text" id="price" class="form-control col-8" value="${productCardView.product.price}">
 		</div>
 		
 		<div>
@@ -44,8 +44,8 @@
 			<span>판매 여부</span>
 			<select id="state" class="form-control col-8">
 				<option value="">-- 판매 여부 --</option>
-				<option value="1" <c:if test="${productView.product.state == 1}">selected</c:if>>판매 중</option>
-				<option value="0" <c:if test="${productView.product.state == 0}">selected</c:if>>판매 대기</option>
+				<option value="1" <c:if test="${productCardView.product.state == 1}">selected</c:if>>판매 중</option>
+				<option value="0" <c:if test="${productCardView.product.state == 0}">selected</c:if>>판매 대기</option>
 			</select>
 		</div>
 		
@@ -65,7 +65,7 @@
 		
 		<div class="mt-3">
 			<div>기존 사진</div>
-			<c:forEach var="productPicture" items="${productView.productPictureList}">
+			<c:forEach var="productPicture" items="${productCardView.productPictureList}">
 				<div class="ml-3">
 					<a href="${productPicture.imagePath}" target="_blank" class="text-primary">${fn:split(productPicture.imagePath, "/")[2]}</a>
 				</div>
@@ -78,14 +78,14 @@
 		
 		<div class="d-flex justify-content-between mt-4">
 			<span class="mt-2">상품 상세 설명</span>
-			<textarea id="detail" class="form-control col-8" rows="4">${productView.product.detail}</textarea>
+			<textarea id="detail" class="form-control col-8" rows="4">${productCardView.product.detail}</textarea>
 		</div>
 	</div>
 </div>
 
 <div class="input-big-box d-flex justify-content-between mt-5">
 	<a href="/admin/admin_product_list_view" class="btn btn-light">상품 목록</a>
-	<button id="editBtn" class="btn btn-secondary" data-product-id="${productView.product.id}">상품 수정</button>
+	<button id="editBtn" class="btn btn-secondary" data-product-id="${productCardView.product.id}">상품 수정</button>
 </div>
 
 <script>

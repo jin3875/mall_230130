@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mall.cardView.bo.CardViewBO;
+import com.mall.cardView.model.ProductCardView;
+import com.mall.cardView.model.PurchaseCardView;
 import com.mall.product.bo.ProductBO;
-import com.mall.product.bo.ProductViewBO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductDetail;
-import com.mall.product.model.ProductView;
-import com.mall.purchase.bo.PurchaseViewBO;
-import com.mall.purchase.model.PurchaseView;
 
 @RequestMapping("/admin")
 @Controller
@@ -25,10 +24,7 @@ public class AdminController {
 	private ProductBO productBO;
 	
 	@Autowired
-	private ProductViewBO productViewBO;
-	
-	@Autowired
-	private PurchaseViewBO purchaseViewBO;
+	private CardViewBO cardViewBO;
 	
 	/**
 	 * 관리자 - 상품 목록 화면
@@ -69,9 +65,9 @@ public class AdminController {
 			@RequestParam("productId") int productId,
 			Model model
 	) {
-		// 상품 + 상품 사진 + 상품 상세 조회
-		ProductView productView = productViewBO.generateProductViewById(productId);
-		model.addAttribute("productView", productView);
+		// 상품 조회
+		ProductCardView productCardView = cardViewBO.generateProductCardViewByProductId(productId);
+		model.addAttribute("productCardView", productCardView);
 		
 		model.addAttribute("title", "상품 수정");
 		model.addAttribute("viewName", "admin/adminProductUpdate");
@@ -89,9 +85,9 @@ public class AdminController {
 			@RequestParam("productId") int productId,
 			Model model
 	) {
-		// 상품 + 상품 사진 + 상품 상세 조회
-		ProductView productView = productViewBO.generateProductViewById(productId);
-		model.addAttribute("productView", productView);
+		// 상품 조회
+		ProductCardView productCardView = cardViewBO.generateProductCardViewByProductId(productId);
+		model.addAttribute("productCardView", productCardView);
 		
 		model.addAttribute("title", "상품 상세 목록");
 		model.addAttribute("viewName", "admin/adminDetailList");
@@ -151,9 +147,9 @@ public class AdminController {
 	 */
 	@GetMapping("/admin_sale_list_view")
 	public String adminSaleListView(Model model) {
-		// 판매 + 판매 상품 목록
-		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewListAll();
-		model.addAttribute("purchaseViewList", purchaseViewList);
+		// 구매 + 구매 상품 목록 전체
+		List<PurchaseCardView> purchaseCardViewList = cardViewBO.generatePurchaseCardViewListAll();
+		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("title", "판매 목록");
 		model.addAttribute("viewName", "admin/adminSaleList");
@@ -172,8 +168,8 @@ public class AdminController {
 			Model model
 	) {
 		// 구매 + 구매 상품 목록 조회
-		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
-		model.addAttribute("purchaseView", purchaseView);
+		PurchaseCardView purchaseCardView = cardViewBO.generatePurchaseCardViewByPurchaseId(purchaseId);
+		model.addAttribute("purchaseCardView", purchaseCardView);
 		
 		model.addAttribute("title", "판매 정보");
 		model.addAttribute("viewName", "admin/adminSale");
@@ -193,8 +189,8 @@ public class AdminController {
 			Model model
 	) {
 		// 구매 + 구매 상품 목록 조회
-		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseId(purchaseId);
-		model.addAttribute("purchaseView", purchaseView);
+		PurchaseCardView purchaseCardView = cardViewBO.generatePurchaseCardViewByPurchaseId(purchaseId);
+		model.addAttribute("purchaseCardView", purchaseCardView);
 		
 		model.addAttribute("title", "판매 상품 목록");
 		model.addAttribute("viewName", "admin/adminSaleDetailList");
@@ -215,8 +211,8 @@ public class AdminController {
 			Model model
 	) {
 		// 구매 + 구매 상품 조회
-		PurchaseView purchaseView = purchaseViewBO.generatePurchaseViewByPurchaseIdPurchaseProductId(purchaseId, purchaseProductId);
-		model.addAttribute("purchaseView", purchaseView);
+		PurchaseCardView purchaseCardView = cardViewBO.generatePurchaseCardViewByPurchaseIdPurchaseProductId(purchaseId, purchaseProductId);
+		model.addAttribute("purchaseCardView", purchaseCardView);
 		
 		model.addAttribute("title", "판매 상품 정보");
 		model.addAttribute("viewName", "admin/adminSaleDetail");
@@ -230,9 +226,9 @@ public class AdminController {
 	 */
 	@GetMapping("/admin_review_list_view")
 	public String adminReviewListView(Model model) {
-		// 판매 + 판매 상품 목록
-		List<PurchaseView> purchaseViewList = purchaseViewBO.generatePurchaseViewListAll();
-		model.addAttribute("purchaseViewList", purchaseViewList);
+		// 구매 + 구매 상품 목록 전체
+		List<PurchaseCardView> purchaseCardViewList = cardViewBO.generatePurchaseCardViewListAll();
+		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("title", "후기 목록");
 		model.addAttribute("viewName", "admin/adminReviewList");

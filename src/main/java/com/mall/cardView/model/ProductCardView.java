@@ -1,9 +1,12 @@
-package com.mall.product.model;
+package com.mall.cardView.model;
 
 import java.util.List;
 
-// 상품 + 상품 사진 + 상품 상세
-public class ProductView {
+import com.mall.product.model.Product;
+import com.mall.product.model.ProductDetail;
+import com.mall.product.model.ProductPicture;
+
+public class ProductCardView {
 	
 	private Product product;
 	private List<ProductPicture> productPictureList;

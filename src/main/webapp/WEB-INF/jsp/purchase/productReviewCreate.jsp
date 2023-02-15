@@ -20,33 +20,33 @@
 		
 		<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 			<div class="col-3">
-				<img src="${purchaseProductView.productPicture.imagePath}" alt="product" width="150" height="150">
+				<img src="${purchaseProductCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 			</div>
 			<div class="col-7">
-				<big class="font-weight-bold">${purchaseProductView.product.name}</big>
+				<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
 				<div class="text-secondary mt-3">
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>가격</span>
-						<span><fmt:formatNumber value="${purchaseProductView.product.price}" type="number" />원</span>
+						<span><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price}" type="number" />원</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>색상</span>
-						<span>${purchaseProductView.productDetail.color}</span>
+						<span>${purchaseProductCardView.productDetailCardView.productDetail.color}</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>사이즈</span>
-						<span>${purchaseProductView.productDetail.size}</span>
+						<span>${purchaseProductCardView.productDetailCardView.productDetail.size}</span>
 					</div>
 					
 					<div class="col-4 d-flex justify-content-between p-0">
 						<span>수량</span>
-						<span>${purchaseProductView.purchaseProduct.amount}</span>
+						<span>${purchaseProductCardView.purchaseProduct.amount}</span>
 					</div>
 				</div>
 			</div>
-			<h4 class="col-2"><fmt:formatNumber value="${purchaseProductView.product.price * purchaseProductView.purchaseProduct.amount}" type="number" />원</h4>
+			<h4 class="col-2"><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" type="number" />원</h4>
 		</div>
 		
 		<div class="d-flex justify-content-between align-items-center mt-5 mr-5">
@@ -79,7 +79,7 @@
 		</div>
 		
 		<div class="d-flex justify-content-end mt-5 mr-5">
-			<button type="button" id="reviewAddBtn" class="btn btn-secondary" data-purchase-product-id="${purchaseProductView.purchaseProduct.id}">작성하기</button>
+			<button type="button" id="reviewAddBtn" class="btn btn-secondary" data-purchase-product-id="${purchaseProductCardView.purchaseProduct.id}">작성하기</button>
 		</div>
 	</div>
 </div>
