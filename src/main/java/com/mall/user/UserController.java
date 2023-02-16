@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mall.cardView.bo.CardViewBO;
-import com.mall.cardView.model.PurchaseCardView;
+import com.mall.purchase.bo.PurchaseServiceBO;
+import com.mall.purchase.model.PurchaseCardView;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
 
@@ -23,7 +23,7 @@ public class UserController {
 	private UserBO userBO;
 	
 	@Autowired
-	private CardViewBO cardViewBO;
+	private PurchaseServiceBO purchaseServiceBO;
 	
 	/**
 	 * 회원가입 화면
@@ -119,7 +119,7 @@ public class UserController {
 	@GetMapping("/user_purchase_list_view")
 	public String userPurchaseListView(HttpSession session, Model model) {
 		// 구매 + 구매 상품 목록
-		List<PurchaseCardView> purchaseCardViewList = cardViewBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
+		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
 		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("viewName", "user/userPurchaseList");
@@ -135,7 +135,7 @@ public class UserController {
 	@GetMapping("/user_review_list_view")
 	public String userReviewListView(HttpSession session, Model model) {
 		// 구매 + 구매 상품 목록
-		List<PurchaseCardView> purchaseCardViewList = cardViewBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
+		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
 		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("viewName", "user/userReviewList");

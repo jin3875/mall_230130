@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mall.purchase.dao.WishListDAO">
+<mapper namespace="com.mall.wishList.dao.WishListDAO">
 	<!-- 장바구니 목록 -->
-	<select id="selectWishListList" parameterType="int" resultType="com.mall.purchase.model.WishList">
+	<select id="selectWishListList" parameterType="int" resultType="com.mall.wishList.model.WishList">
 		SELECT
 			`id`
 			,`userId`
@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- 장바구니 조회 -->
-	<select id="selectWishListById" parameterType="int" resultType="com.mall.purchase.model.WishList">
+	<select id="selectWishListById" parameterType="int" resultType="com.mall.wishList.model.WishList">
 		SELECT
 			`id`
 			,`userId`

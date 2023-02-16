@@ -1,12 +1,12 @@
-package com.mall.purchase.bo;
+package com.mall.wishList.bo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mall.purchase.dao.WishListDAO;
-import com.mall.purchase.model.WishList;
+import com.mall.wishList.dao.WishListDAO;
+import com.mall.wishList.model.WishList;
 
 @Service
 public class WishListBO {

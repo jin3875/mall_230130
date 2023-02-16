@@ -15,9 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductBO;
 import com.mall.product.model.ProductDetail;
-import com.mall.purchase.bo.AddPurchaseBO;
 import com.mall.purchase.bo.PurchaseBO;
-import com.mall.purchase.bo.WishListBO;
+import com.mall.purchase.bo.PurchaseServiceBO;
+import com.mall.wishList.bo.WishListBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,7 +35,7 @@ public class PurchaseRestController {
 	private PurchaseBO purchaseBO;
 	
 	@Autowired
-	private AddPurchaseBO addPurchaseBO;
+	private PurchaseServiceBO purchaseServiceBO;
 	
 	/**
 	 * 장바구니 추가 API
@@ -56,13 +56,11 @@ public class PurchaseRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		int userId = (int)session.getAttribute("userId");
-		
 		// 상품 상세 조회 (색상, 사이즈)
 		ProductDetail productDetail = productBO.getProductDetailByProductIdColorSize(productId, color, size);
 		
 		// 장바구니 추가
-		int rowCount = wishListBO.addWishList(userId, productId, productDetail.getId(), amount);
+		int rowCount = wishListBO.addWishList((int)session.getAttribute("userId"), productId, productDetail.getId(), amount);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -88,10 +86,8 @@ public class PurchaseRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		int userId = (int)session.getAttribute("userId");
-		
 		// 장바구니 삭제
-		int rowCount = wishListBO.deleteWishList(userId, idList);
+		int rowCount = wishListBO.deleteWishList((int)session.getAttribute("userId"), idList);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -136,7 +132,8 @@ public class PurchaseRestController {
 		boolean process = false;
 		
 		try {
-			process = addPurchaseBO.generateAddPurchase(wishList, productList, (int)session.getAttribute("userId"),
+			// 구매하기
+			process = purchaseServiceBO.generateAddPurchase(wishList, productList, (int)session.getAttribute("userId"),
 					totalPrice, name, phoneNumber, postcode, address, detailAddress, message);
 		} catch (Exception e) {
 			result.put("code", 500);

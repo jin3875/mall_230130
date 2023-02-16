@@ -1,11 +1,11 @@
-package com.mall.purchase.dao;
+package com.mall.wishList.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.mall.purchase.model.WishList;
+import com.mall.wishList.model.WishList;
 
 @Repository
 public interface WishListDAO {

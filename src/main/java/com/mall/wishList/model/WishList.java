@@ -1,4 +1,4 @@
-package com.mall.purchase.model;
+package com.mall.wishList.model;
 
 import java.util.Date;
 

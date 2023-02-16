@@ -33,10 +33,8 @@ public class UserBO {
 	}
 	
 	// 유저 추가
-	public int addUser(String loginId, String password, String name, String phoneNumber,
-			String email, String postcode, String address, String detailAddress) {
-		return userDAO.insertUser(loginId, password, name, phoneNumber,
-				email, postcode, address, detailAddress);
+	public int addUser(String loginId, String password, String name, String phoneNumber, String email, String postcode, String address, String detailAddress) {
+		return userDAO.insertUser(loginId, password, name, phoneNumber, email, postcode, address, detailAddress);
 	}
 	
 	// 비밀번호 수정

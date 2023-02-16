@@ -35,7 +35,7 @@ public class UserRestController {
 	public Map<String, Object> isDuplicatedId(@RequestParam("loginId") String loginId) {
 		Map<String, Object> result = new HashMap<>();
 		
-		boolean isDuplicated;
+		boolean isDuplicated = false;
 		
 		try {
 			// 아이디 존재 유무
@@ -84,23 +84,19 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 비밀번호 암호화
-		String hashedPassword = EncryptUtils.md5(password);
-		
 		// 유저 추가
-		int rowCount = userBO.addUser(loginId, hashedPassword, name, phoneNumber,
-				email, postcode, address, detailAddress);
+		int rowCount = userBO.addUser(loginId, EncryptUtils.md5(password), name, phoneNumber, email, postcode, address, detailAddress);
 		
 		if (rowCount > 0) {
-			result.put("code", 1);
-			result.put("result", "success");
-			
 			// 유저 조회 (아이디, 비밀번호)
-			User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
+			User user = userBO.getUserByLoginIdOrPassword(loginId, EncryptUtils.md5(password));
 			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName", user.getName());
+			
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "회원가입에 실패했습니다");
@@ -124,16 +120,10 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 비밀번호 암호화
-		String hashedPassword = EncryptUtils.md5(password);
-		
 		// 유저 조회 (아이디, 비밀번호)
-		User user = userBO.getUserByLoginIdOrPassword(loginId, hashedPassword);
+		User user = userBO.getUserByLoginIdOrPassword(loginId, EncryptUtils.md5(password));
 		
 		if (user != null) {
-			result.put("code", 1);
-			result.put("result", "success");
-			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName", user.getName());
@@ -143,6 +133,9 @@ public class UserRestController {
 			} else {
 				result.put("type", "admin");
 			}
+			
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "아이디 또는 비밀번호가 일치하지 않습니다");
@@ -202,11 +195,8 @@ public class UserRestController {
 			// 임시 비밀번호 생성
 			String tempPassword = MakePassword.randomPassword(10);
 			
-			// 비밀번호 암호화
-			String hashedPassword = EncryptUtils.md5(tempPassword);
-			
 			// 비밀번호 수정
-			int rowCount = userBO.updateUserPasswordById(user.getId(), hashedPassword);
+			int rowCount = userBO.updateUserPasswordById(user.getId(), EncryptUtils.md5(tempPassword));
 			
 			if (rowCount > 0) {
 				result.put("code", 1);
@@ -238,11 +228,8 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 비밀번호 암호화
-		String hashedPassword = EncryptUtils.md5(password);
-		
 		// 비밀번호 수정
-		int rowCount = userBO.updateUserPasswordById((int)session.getAttribute("userId"), hashedPassword);
+		int rowCount = userBO.updateUserPasswordById((int)session.getAttribute("userId"), EncryptUtils.md5(password));
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -277,8 +264,7 @@ public class UserRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 회원 정보 수정
-		int rowCount = userBO.updateUserInfoById((int)session.getAttribute("userId"), phoneNumber,
-				email, postcode, address, detailAddress);
+		int rowCount = userBO.updateUserInfoById((int)session.getAttribute("userId"), phoneNumber, email, postcode, address, detailAddress);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -306,11 +292,8 @@ public class UserRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 비밀번호 암호화
-		String hashedPassword = EncryptUtils.md5(password);
-		
 		// 회원 탈퇴
-		int rowCount = userBO.deleteUserByIdLoginIdPassword((int)session.getAttribute("userId"), loginId, hashedPassword);
+		int rowCount = userBO.deleteUserByIdLoginIdPassword((int)session.getAttribute("userId"), loginId, EncryptUtils.md5(password));
 		
 		if (rowCount > 0) {
 			result.put("code", 1);

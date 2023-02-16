@@ -1,6 +1,6 @@
-package com.mall.cardView.model;
+package com.mall.purchase.model;
 
-import com.mall.purchase.model.PurchaseProduct;
+import com.mall.product.model.ProductDetailCardView;
 import com.mall.user.model.User;
 
 public class PurchaseProductCardView {

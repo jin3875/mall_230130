@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mall.product.bo.ProductBO;
-import com.mall.product.model.Product;
-import com.mall.product.model.ProductDetail;
-import com.mall.product.model.ProductPicture;
+import com.mall.product.bo.ProductServiceBO;
 import com.mall.purchase.bo.PurchaseBO;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +25,9 @@ public class AdminRestController {
 	
 	@Autowired
 	private ProductBO productBO;
+	
+	@Autowired
+	private ProductServiceBO productServiceBO;
 	
 	@Autowired
 	private PurchaseBO purchaseBO;
@@ -54,41 +55,14 @@ public class AdminRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		Product product = new Product();
-		product.setCategory(category);
-		product.setName(name);
-		product.setPrice(price);
-		product.setDetail(detail);
-		product.setState(state);
+		boolean process = false;
 		
 		// 상품 추가
-		productBO.addProduct(product);
-		int productId = product.getId();
+		process = productServiceBO.generateAddProduct((String)session.getAttribute("userLoginId"), category, name, price, detail, state, fileList);
 		
-		if (productId > 0) {
-			if (fileList != null) {
-				int count = 0;
-				
-				for (MultipartFile file : fileList) {
-					// 상품 사진 추가
-					int rowCount = productBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
-					count += rowCount;
-				}
-				
-				if (count == fileList.size()) {
-					result.put("code", 1);
-					result.put("result", "success");
-				} else if (count == 0) {
-					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 등록에 전체 실패했습니다");
-				} else {
-					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 등록에 일부 실패했습니다");
-				}
-			} else {
-				result.put("code", 1);
-				result.put("result", "success");
-			}
+		if (process) {
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 등록에 실패했습니다");
@@ -122,46 +96,14 @@ public class AdminRestController {
 	) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 상품 수정
-		int rowCount = productBO.updateProduct(productId, category, name, price, detail, state);
+		boolean process = false;
 		
-		if (rowCount > 0) {
-			if (fileList != null) {
-				int checkCount = 0;
-				int count = 0;
-				
-				// 상품 사진 목록
-				List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(productId);
-				checkCount += productPictureList.size();
-				
-				for (ProductPicture productPicture : productPictureList) {
-					// 상품 사진 삭제
-					int rowCount2 = productBO.deleteProductPicture(productId, productPicture.getImagePath());
-					count += rowCount2;
-				}
-				
-				checkCount += fileList.size();
-				
-				for (MultipartFile file : fileList) {
-					// 상품 사진 추가
-					int rowCount2 = productBO.addProductPicture((String)session.getAttribute("userLoginId"), productId, file);
-					count += rowCount2;
-				}
-				
-				if (count == checkCount) {
-					result.put("code", 1);
-					result.put("result", "success");
-				} else if (count == 0) {
-					result.put("code", 500);
-					result.put("errorMessage", "기존 상품 사진 삭제 및 변경된 상품 사진 등록에 전체 실패했습니다");
-				} else {
-					result.put("code", 500);
-					result.put("errorMessage", "기존 상품 사진 삭제 및 변경된 상품 사진 등록에 일부 실패했습니다");
-				}
-			} else {
-				result.put("code", 1);
-				result.put("result", "success");
-			}
+		// 상품 수정
+		process = productServiceBO.generateUpdateProduct((String)session.getAttribute("userLoginId"), productId, category, name, price, detail, state, fileList);
+		
+		if (process) {
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 수정에 실패했습니다");
@@ -173,59 +115,20 @@ public class AdminRestController {
 	/**
 	 * 상품 삭제 API
 	 * @param productId
-	 * @param session
 	 * @return
 	 */
 	@DeleteMapping("/admin_product_delete")
-	public Map<String, Object> adminProductDelete(
-			@RequestParam("productId") int productId,
-			HttpSession session
-	) {
+	public Map<String, Object> adminProductDelete(@RequestParam("productId") int productId) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// 상품 삭제
-		int rowCount = productBO.deleteProduct(productId);
+		boolean process = false;
 		
-		if (rowCount > 0) {
-			// 상품 사진 목록
-			List<ProductPicture> productPictureList = productBO.getProductPictureListByProductId(productId);
-			
-			// 상품 상세 목록
-			List<ProductDetail> productDetailList = productBO.getProductDetailList(productId);
-			
-			if (productPictureList != null || productDetailList != null) {
-				int checkCount = 0;
-				int count = 0;
-				
-				checkCount += productPictureList.size();
-				checkCount += productDetailList.size();
-				
-				for (ProductPicture productPicture : productPictureList) {
-					// 상품 사진 삭제
-					int rowCount2 = productBO.deleteProductPicture(productId, productPicture.getImagePath());
-					count += rowCount2;
-				}
-				
-				for (ProductDetail productDetail : productDetailList) {
-					// 상품 상세 삭제
-					int rowCount2 = productBO.deleteProductDetail(productDetail.getId());
-					count += rowCount2;
-				}
-				
-				if (count == checkCount) {
-					result.put("code", 1);
-					result.put("result", "success");
-				} else if (count == 0) {
-					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 삭제와 상품 상세 삭제에 전체 실패했습니다");
-				} else {
-					result.put("code", 500);
-					result.put("errorMessage", "상품 사진 삭제와 상품 상세 삭제에 일부 실패했습니다");
-				}
-			} else {
-				result.put("code", 1);
-				result.put("result", "success");
-			}
+		// 상품 삭제
+		process = productServiceBO.generateDeleteProduct(productId);
+		
+		if (process) {
+			result.put("code", 1);
+			result.put("result", "success");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 삭제에 실패했습니다");

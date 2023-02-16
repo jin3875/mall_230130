@@ -1,6 +1,8 @@
-package com.mall.cardView.model;
+package com.mall.wishList.model;
 
-public class WishCardView {
+import com.mall.product.model.ProductDetailCardView;
+
+public class WishListCardView {
 	
 	private ProductDetailCardView productDetailCardView;
 	private int amount;

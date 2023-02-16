@@ -1,8 +1,6 @@
-package com.mall.cardView.model;
+package com.mall.purchase.model;
 
 import java.util.List;
-
-import com.mall.purchase.model.Purchase;
 
 public class PurchaseCardView {
 	

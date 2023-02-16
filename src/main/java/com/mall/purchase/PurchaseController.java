@@ -1,6 +1,5 @@
 package com.mall.purchase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mall.cardView.bo.CardViewBO;
-import com.mall.cardView.model.PurchaseCardView;
-import com.mall.cardView.model.PurchaseProductCardView;
-import com.mall.cardView.model.WishCardView;
 import com.mall.product.bo.ProductBO;
 import com.mall.product.model.ProductDetail;
-import com.mall.purchase.bo.WishListBO;
-import com.mall.purchase.model.WishList;
+import com.mall.purchase.bo.PurchaseServiceBO;
+import com.mall.purchase.model.PurchaseCardView;
+import com.mall.purchase.model.PurchaseProductCardView;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
+import com.mall.wishList.bo.WishListServiceBO;
+import com.mall.wishList.model.WishListCardView;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,10 +33,10 @@ public class PurchaseController {
 	private ProductBO productBO;
 	
 	@Autowired
-	private WishListBO wishListBO;
+	private WishListServiceBO wishListServiceBO;
 	
 	@Autowired
-	private CardViewBO cardViewBO;
+	private PurchaseServiceBO purchaseServiceBO;
 	
 	/**
 	 * 장바구니 화면
@@ -48,16 +46,8 @@ public class PurchaseController {
 	 */
 	@GetMapping("/wish_list_view")
 	public String wishListView(HttpSession session, Model model) {
-		List<WishCardView> wishCardViewList = new ArrayList<>();
-		
 		// 장바구니 목록
-		List<WishList> wishListList = wishListBO.getWishListList((int)session.getAttribute("userId"));
-		
-		for (WishList wishList : wishListList) {
-			// 구매할 상품 (장바구니)
-			wishCardViewList.add(cardViewBO.generateWishCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), wishList.getId()));
-		}
-		
+		List<WishListCardView> wishCardViewList = wishListServiceBO.generateWishListCardViewListForWishList((int)session.getAttribute("userId"));
 		model.addAttribute("wishCardViewList", wishCardViewList);
 		
 		model.addAttribute("viewName", "purchase/wishList");
@@ -85,21 +75,8 @@ public class PurchaseController {
 			HttpSession session,
 			Model model
 	) {
-		List<WishCardView> wishCardViewList = new ArrayList<>();
-		
-		if (idList == null) {
-			// 구매할 상품 (장바구니 X)
-			wishCardViewList.add(cardViewBO.generateWishCardViewByColorSize(productId, color, size, amount));
-		} else {
-			for (int id : idList) {
-				// 장바구니 조회
-				WishList wishList = wishListBO.getWishListById(id);
-				
-				// 구매할 상품 (장바구니)
-				wishCardViewList.add(cardViewBO.generateWishCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), id));
-			}
-		}
-		
+		// 구매하기 목록
+		List<WishListCardView> wishCardViewList = wishListServiceBO.generateWishListCardViewListForPurchase(productId, color, size, amount, idList);
 		model.addAttribute("wishCardViewList", wishCardViewList);
 		
 		// 유저 조회
@@ -122,7 +99,7 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매 + 구매 상품 목록 조회
-		PurchaseCardView purchaseCardView = cardViewBO.generatePurchaseCardViewByPurchaseId(purchaseId);
+		PurchaseCardView purchaseCardView = purchaseServiceBO.generatePurchaseCardViewByPurchaseId(purchaseId);
 		model.addAttribute("purchaseCardView", purchaseCardView);
 		
 		model.addAttribute("viewName", "purchase/purchaseCancel");
@@ -141,7 +118,7 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매 상품 조회
-		PurchaseProductCardView purchaseProductCardView = cardViewBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
+		PurchaseProductCardView purchaseProductCardView = purchaseServiceBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
 		model.addAttribute("purchaseProductCardView", purchaseProductCardView);
 		
 		model.addAttribute("viewName", "purchase/productRefund");
@@ -160,7 +137,7 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매 상품 카드 조회
-		PurchaseProductCardView purchaseProductCardView = cardViewBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
+		PurchaseProductCardView purchaseProductCardView = purchaseServiceBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
 		model.addAttribute("purchaseProductCardView", purchaseProductCardView);
 		
 		// 상품 상세 목록
@@ -183,7 +160,7 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매 상품 조회
-		PurchaseProductCardView purchaseProductCardView = cardViewBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
+		PurchaseProductCardView purchaseProductCardView = purchaseServiceBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
 		model.addAttribute("purchaseProductCardView", purchaseProductCardView);
 		
 		model.addAttribute("viewName", "purchase/productReviewCreate");
@@ -202,7 +179,7 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매 상품 조회
-		PurchaseProductCardView purchaseProductCardView = cardViewBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
+		PurchaseProductCardView purchaseProductCardView = purchaseServiceBO.generatePurchaseProductCardViewByPurchaseProductId(purchaseProductId);
 		model.addAttribute("purchaseProductCardView", purchaseProductCardView);
 		
 		model.addAttribute("viewName", "purchase/productReviewUpdate");

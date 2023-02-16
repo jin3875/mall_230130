@@ -1,10 +1,6 @@
-package com.mall.cardView.model;
+package com.mall.product.model;
 
 import java.util.List;
-
-import com.mall.product.model.Product;
-import com.mall.product.model.ProductDetail;
-import com.mall.product.model.ProductPicture;
 
 public class ProductCardView {
 	

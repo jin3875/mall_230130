@@ -1,8 +1,4 @@
-package com.mall.cardView.model;
-
-import com.mall.product.model.Product;
-import com.mall.product.model.ProductDetail;
-import com.mall.product.model.ProductPicture;
+package com.mall.product.model;
 
 public class ProductDetailCardView {
 	
