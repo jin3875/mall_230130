@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mall.common.FileManagerService;
+import com.mall.product.dao.ProductDAO;
 import com.mall.product.model.Product;
 import com.mall.product.model.ProductCardView;
 import com.mall.product.model.ProductDetail;
@@ -19,6 +21,12 @@ public class ProductServiceBO {
 	
 	@Autowired
 	private ProductBO productBO;
+	
+	@Autowired
+	private ProductDAO productDAO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	// 상품 목록 (판매 중)
 	public List<ProductCardView> generateProductCardViewListOnSale() {
@@ -110,17 +118,6 @@ public class ProductServiceBO {
 		return productCardViewList;
 	}
 	
-	// 상품 상세 조회
-	public ProductDetailCardView generateProductDetailCardViewByProductIdProductDetailId(int productId, int productDetailId) {
-		ProductDetailCardView productDetailCardView = new ProductDetailCardView();
-		
-		productDetailCardView.setProduct(productBO.getProductById(productId));
-		productDetailCardView.setProductPicture(productBO.getProductPictureListByProductId(productId).get(0));
-		productDetailCardView.setProductDetail(productBO.getProductDetailById(productDetailId));
-		
-		return productDetailCardView;
-	}
-	
 	// 상품 추가
 	@Transactional
 	public boolean generateAddProduct(String loginId, String category, String name, int price, String detail, int state, List<MultipartFile> fileList) {
@@ -138,7 +135,7 @@ public class ProductServiceBO {
 		if (fileList != null) {
 			for (MultipartFile file : fileList) {
 				// 상품 사진 추가
-				productBO.addProductPicture(loginId, productId, file);
+				addProductPicture(loginId, productId, file);
 			}
 		}
 		
@@ -157,12 +154,12 @@ public class ProductServiceBO {
 			
 			for (ProductPicture productPicture : productPictureList) {
 				// 상품 사진 삭제
-				productBO.deleteProductPicture(productId, productPicture.getImagePath());
+				deleteProductPicture(productId, productPicture.getImagePath());
 			}
 			
 			for (MultipartFile file : fileList) {
 				// 상품 사진 추가
-				productBO.addProductPicture(loginId, productId, file);
+				addProductPicture(loginId, productId, file);
 			}
 		}
 		
@@ -180,7 +177,7 @@ public class ProductServiceBO {
 		
 		for (ProductPicture productPicture : productPictureList) {
 			// 상품 사진 삭제
-			productBO.deleteProductPicture(productId, productPicture.getImagePath());
+			deleteProductPicture(productId, productPicture.getImagePath());
 		}
 		
 		// 상품 상세 목록
@@ -192,6 +189,31 @@ public class ProductServiceBO {
 		}
 		
 		return true;
+	}
+	
+	// 상품 사진 추가
+	public int addProductPicture(String userLoginId, int productId, MultipartFile file) {
+		String imagePath = fileManagerService.saveFile(userLoginId, file);
+		
+		return productDAO.insertProductPicture(productId, imagePath);
+	}
+	
+	// 상품 사진 삭제
+	public int deleteProductPicture(int productId, String imagePath) {
+		fileManagerService.deleteFile(imagePath);
+		
+		return productDAO.deleteProductPicture(productId);
+	}
+	
+	// 상품 상세 조회
+	public ProductDetailCardView generateProductDetailCardViewByProductIdProductDetailId(int productId, int productDetailId) {
+		ProductDetailCardView productDetailCardView = new ProductDetailCardView();
+		
+		productDetailCardView.setProduct(productBO.getProductById(productId));
+		productDetailCardView.setProductPicture(productBO.getProductPictureListByProductId(productId).get(0));
+		productDetailCardView.setProductDetail(productBO.getProductDetailById(productDetailId));
+		
+		return productDetailCardView;
 	}
 
 }

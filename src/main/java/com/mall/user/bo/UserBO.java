@@ -43,8 +43,7 @@ public class UserBO {
 	}
 	
 	// 회원 정보 수정
-	public int updateUserInfoById(int id, String phoneNumber, String email,
-			String postcode, String address, String detailAddress) {
+	public int updateUserInfoById(int id, String phoneNumber, String email, String postcode, String address, String detailAddress) {
 		return userDAO.updateUserInfoById(id, phoneNumber, email, postcode, address, detailAddress);
 	}
 	

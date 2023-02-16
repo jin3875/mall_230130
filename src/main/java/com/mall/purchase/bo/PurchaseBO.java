@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.mall.common.FileManagerService;
 import com.mall.purchase.dao.PurchaseDAO;
 import com.mall.purchase.model.Purchase;
 import com.mall.purchase.model.PurchaseProduct;
@@ -16,9 +14,6 @@ public class PurchaseBO {
 	
 	@Autowired
 	private PurchaseDAO purchaseDAO;
-	
-	@Autowired
-	private FileManagerService fileManagerService;
 	
 	// 구매 목록 전체
 	public List<Purchase> getPurchaseListAll() {
@@ -85,46 +80,9 @@ public class PurchaseBO {
 		return purchaseDAO.updatePurchaseProductComplete(id);
 	}
 	
-	// 구매 상품 후기 작성
-	public int updatePurchaseProductReview(String userLoginId, int id, int star, String review, MultipartFile file) {
-		String imagePath = null;
-		
-		if (file != null) {
-			imagePath = fileManagerService.saveFile(userLoginId, file);
-		}
-		
-		return purchaseDAO.updatePurchaseProductReview(id, star, review, imagePath);
-	}
-	
-	// 구매 상품 후기 수정
-	public int updatePurchaseProductReviewAgain(String userLoginId, int id, int star, String review, MultipartFile file) {
-		String imagePath = null;
-		
-		if (file != null) {
-			imagePath = fileManagerService.saveFile(userLoginId, file);
-			
-			if (imagePath != null && getPurchaseProductById(id).getImagePath() != null) {
-				fileManagerService.deleteFile(getPurchaseProductById(id).getImagePath());
-			}
-		} else {
-			imagePath = getPurchaseProductById(id).getImagePath();
-		}
-		
-		return purchaseDAO.updatePurchaseProductReview(id, star, review, imagePath);
-	}
-	
 	// 구매 상품 정보 수정
 	public int updatePurchaseProductById(int id, int refund, int exchange, int completion) {
 		return purchaseDAO.updatePurchaseProductById(id, refund, exchange, completion);
-	}
-	
-	// 구매 상품 후기 삭제
-	public int updatePurchaseProductReviewNull(int id) {
-		if (getPurchaseProductById(id).getImagePath() != null) {
-			fileManagerService.deleteFile(getPurchaseProductById(id).getImagePath());
-		}
-		
-		return purchaseDAO.updatePurchaseProductReviewNull(id);
 	}
 
 }

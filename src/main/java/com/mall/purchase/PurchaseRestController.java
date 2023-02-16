@@ -276,7 +276,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 작성
-		int rowCount = purchaseBO.updatePurchaseProductReview((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		int rowCount = purchaseServiceBO.updatePurchaseProductReview((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -309,7 +309,7 @@ public class PurchaseRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 수정
-		int rowCount = purchaseBO.updatePurchaseProductReviewAgain((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
+		int rowCount = purchaseServiceBO.updatePurchaseProductReviewAgain((String)session.getAttribute("userLoginId"), purchaseProductId, star, review, file);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);

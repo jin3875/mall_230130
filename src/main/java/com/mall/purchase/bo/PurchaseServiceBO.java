@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mall.common.FileManagerService;
 import com.mall.product.bo.ProductBO;
 import com.mall.product.bo.ProductServiceBO;
+import com.mall.purchase.dao.PurchaseDAO;
 import com.mall.purchase.model.Purchase;
 import com.mall.purchase.model.PurchaseCardView;
 import com.mall.purchase.model.PurchaseProduct;
@@ -33,6 +36,12 @@ public class PurchaseServiceBO {
 	
 	@Autowired
 	private PurchaseBO purchaseBO;
+	
+	@Autowired
+	private PurchaseDAO purchaseDAO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	// 구매하기
 	@Transactional(rollbackFor = {Exception.class})
@@ -192,6 +201,43 @@ public class PurchaseServiceBO {
 		purchaseCardView.setPurchaseProductCardViewList(purchaseProductCardViewList);
 		
 		return purchaseCardView;
+	}
+	
+	// 구매 상품 후기 작성
+	public int updatePurchaseProductReview(String userLoginId, int id, int star, String review, MultipartFile file) {
+		String imagePath = null;
+		
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(userLoginId, file);
+		}
+		
+		return purchaseDAO.updatePurchaseProductReview(id, star, review, imagePath);
+	}
+	
+	// 구매 상품 후기 수정
+	public int updatePurchaseProductReviewAgain(String userLoginId, int id, int star, String review, MultipartFile file) {
+		String imagePath = null;
+		
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(userLoginId, file);
+			
+			if (imagePath != null && purchaseBO.getPurchaseProductById(id).getImagePath() != null) {
+				fileManagerService.deleteFile(purchaseBO.getPurchaseProductById(id).getImagePath());
+			}
+		} else {
+			imagePath = purchaseBO.getPurchaseProductById(id).getImagePath();
+		}
+		
+		return purchaseDAO.updatePurchaseProductReview(id, star, review, imagePath);
+	}
+	
+	// 구매 상품 후기 삭제
+	public int updatePurchaseProductReviewNull(int id) {
+		if (purchaseBO.getPurchaseProductById(id).getImagePath() != null) {
+			fileManagerService.deleteFile(purchaseBO.getPurchaseProductById(id).getImagePath());
+		}
+		
+		return purchaseDAO.updatePurchaseProductReviewNull(id);
 	}
 
 }

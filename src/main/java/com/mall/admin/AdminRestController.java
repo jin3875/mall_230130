@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mall.product.bo.ProductBO;
 import com.mall.product.bo.ProductServiceBO;
 import com.mall.purchase.bo.PurchaseBO;
+import com.mall.purchase.bo.PurchaseServiceBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,6 +32,9 @@ public class AdminRestController {
 	
 	@Autowired
 	private PurchaseBO purchaseBO;
+	
+	@Autowired
+	private PurchaseServiceBO purchaseServiceBO;
 	
 	/**
 	 * 상품 등록 API
@@ -294,7 +298,7 @@ public class AdminRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 구매 상품 후기 삭제
-		int rowCount = purchaseBO.updatePurchaseProductReviewNull(purchaseProductId);
+		int rowCount = purchaseServiceBO.updatePurchaseProductReviewNull(purchaseProductId);
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
