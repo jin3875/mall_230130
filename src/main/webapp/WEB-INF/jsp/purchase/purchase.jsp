@@ -6,39 +6,39 @@
 <h3 class="font-weight-bold">구매하기</h3>
 
 <c:set var="totalPrice" value="0" />
-<c:forEach var="wishCardView" items="${wishCardViewList}" varStatus="status">
-	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light" data-product-id="${wishCardView.productDetailCardView.product.id}" data-detail-id="${wishCardView.productDetailCardView.productDetail.id}" data-amount="${wishCardView.amount}">
-		<div class="wish-list-id d-none">${wishCardView.wishListId}</div>
+<c:forEach var="wishListCardView" items="${wishListCardViewList}" varStatus="status">
+	<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light" data-product-id="${wishListCardView.productDetailCardView.product.id}" data-detail-id="${wishListCardView.productDetailCardView.productDetail.id}" data-amount="${wishListCardView.amount}">
+		<div class="wish-list-id d-none">${wishListCardView.wishListId}</div>
 		<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
 		<div class="col-3">
-			<img src="${wishCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
+			<img src="${wishListCardView.productDetailCardView.productPicture.imagePath}" alt="product" width="150" height="150">
 		</div>
 		<div class="col-6">
-			<big class="font-weight-bold">${wishCardView.productDetailCardView.product.name}</big>
+			<big class="font-weight-bold">${wishListCardView.productDetailCardView.product.name}</big>
 			<div class="text-secondary mt-3">
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>가격</span>
-					<span><fmt:formatNumber value="${wishCardView.productDetailCardView.product.price}" type="number" />원</span>
+					<span><fmt:formatNumber value="${wishListCardView.productDetailCardView.product.price}" type="number" />원</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>색상</span>
-					<span>${wishCardView.productDetailCardView.productDetail.color}</span>
+					<span>${wishListCardView.productDetailCardView.productDetail.color}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>사이즈</span>
-					<span>${wishCardView.productDetailCardView.productDetail.size}</span>
+					<span>${wishListCardView.productDetailCardView.productDetail.size}</span>
 				</div>
 				
 				<div class="col-4 d-flex justify-content-between p-0">
 					<span>수량</span>
-					<span>${wishCardView.amount}</span>
+					<span>${wishListCardView.amount}</span>
 				</div>
 			</div>
 		</div>
-		<h4 class="col-2"><fmt:formatNumber value="${wishCardView.productDetailCardView.product.price * wishCardView.amount}" type="number" />원</h4>
-		<c:set var="totalPrice" value="${totalPrice + wishCardView.productDetailCardView.product.price * wishCardView.amount}" />
+		<h4 class="col-2"><fmt:formatNumber value="${wishListCardView.productDetailCardView.product.price * wishListCardView.amount}" type="number" />원</h4>
+		<c:set var="totalPrice" value="${totalPrice + wishListCardView.productDetailCardView.product.price * wishListCardView.amount}" />
 	</div>
 </c:forEach>
 

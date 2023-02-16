@@ -47,8 +47,8 @@ public class PurchaseController {
 	@GetMapping("/wish_list_view")
 	public String wishListView(HttpSession session, Model model) {
 		// 장바구니 목록
-		List<WishListCardView> wishCardViewList = wishListServiceBO.generateWishListCardViewListForWishList((int)session.getAttribute("userId"));
-		model.addAttribute("wishCardViewList", wishCardViewList);
+		List<WishListCardView> wishListCardViewList = wishListServiceBO.generateWishListCardViewListForWishList((int)session.getAttribute("userId"));
+		model.addAttribute("wishListCardViewList", wishListCardViewList);
 		
 		model.addAttribute("viewName", "purchase/wishList");
 		return "template/layout";
@@ -76,8 +76,8 @@ public class PurchaseController {
 			Model model
 	) {
 		// 구매하기 목록
-		List<WishListCardView> wishCardViewList = wishListServiceBO.generateWishListCardViewListForPurchase(productId, color, size, amount, idList);
-		model.addAttribute("wishCardViewList", wishCardViewList);
+		List<WishListCardView> wishListCardViewList = wishListServiceBO.generateWishListCardViewListForPurchase(productId, color, size, amount, idList);
+		model.addAttribute("wishListCardViewList", wishListCardViewList);
 		
 		// 유저 조회
 		User user = userBO.getUserById((int)session.getAttribute("userId"));
