@@ -52,37 +52,37 @@ public class WishListServiceBO {
 	
 	// 장바구니 목록
 	public List<WishListCardView> generateWishListCardViewListForWishList(int userId) {
-		List<WishListCardView> wishCardViewList = new ArrayList<>();
+		List<WishListCardView> wishListCardViewList = new ArrayList<>();
 		
 		// 장바구니 목록
 		List<WishList> wishListList = wishListBO.getWishListList(userId);
 		
 		for (WishList wishList : wishListList) {
 			// 구매할 상품 (장바구니)
-			wishCardViewList.add(generateWishListCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), wishList.getId()));
+			wishListCardViewList.add(generateWishListCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), wishList.getId()));
 		}
 		
-		return wishCardViewList;
+		return wishListCardViewList;
 	}
 	
 	// 구매하기 목록
 	public List<WishListCardView> generateWishListCardViewListForPurchase(Integer productId, String color, String size, Integer amount, List<Integer> idList) {
-		List<WishListCardView> wishCardViewList = new ArrayList<>();
+		List<WishListCardView> wishListCardViewList = new ArrayList<>();
 		
 		if (idList == null) {
 			// 구매할 상품 (장바구니 X)
-			wishCardViewList.add(generateWishListCardViewByColorSize(productId, color, size, amount));
+			wishListCardViewList.add(generateWishListCardViewByColorSize(productId, color, size, amount));
 		} else {
 			for (int id : idList) {
 				// 장바구니 조회
 				WishList wishList = wishListBO.getWishListById(id);
 				
 				// 구매할 상품 (장바구니)
-				wishCardViewList.add(generateWishListCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), id));
+				wishListCardViewList.add(generateWishListCardViewByDetailId(wishList.getProductId(), wishList.getProductDetailId(), wishList.getAmount(), id));
 			}
 		}
 		
-		return wishCardViewList;
+		return wishListCardViewList;
 	}
 
 }

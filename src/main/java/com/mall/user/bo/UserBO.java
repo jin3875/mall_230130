@@ -13,8 +13,8 @@ public class UserBO {
 	private UserDAO userDAO;
 	
 	// 아이디 존재 유무
-	public boolean existLoginId(String LoginId) {
-		return userDAO.existLoginId(LoginId);
+	public boolean existLoginId(String loginId) {
+		return userDAO.existLoginId(loginId);
 	}
 	
 	// 유저 조회

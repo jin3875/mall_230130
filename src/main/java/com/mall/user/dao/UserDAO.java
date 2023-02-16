@@ -15,7 +15,7 @@ public interface UserDAO {
 	public List<Map<String, Object>> selectUserListTEST();
 	
 	// 아이디 존재 유무
-	public boolean existLoginId(String LoginId);
+	public boolean existLoginId(String loginId);
 	
 	// 유저 조회
 	public User selectUserById(int id);
