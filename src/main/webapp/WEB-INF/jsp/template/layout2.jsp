@@ -21,7 +21,7 @@
 		<header class="d-flex justify-content-between align-items-center mt-5">
 			<jsp:include page="../include/header2.jsp" />
 		</header>
-		<section class="center my-5">
+		<section class="contents my-5">
 			<jsp:include page="../${viewName}.jsp" />
 		</section>
 		<footer class="d-flex justify-content-center align-items-end">

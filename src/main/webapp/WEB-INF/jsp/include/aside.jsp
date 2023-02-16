@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="w-100">
+<div class="recent-list w-100">
 	<div class="text-center font-weight-bold">최근 본 상품</div>
 	<c:forEach var="recent" items="${recentList}" varStatus="status">
 		<c:if test="${status.index < 5}">

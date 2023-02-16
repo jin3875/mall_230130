@@ -24,7 +24,7 @@
 		<header class="d-flex align-items-center">
 			<jsp:include page="../include/header.jsp" />
 		</header>
-		<div class="center d-flex my-5">
+		<div class="d-flex my-5">
 			<section class="contents">
 				<jsp:include page="../${viewName}.jsp" />
 			</section>

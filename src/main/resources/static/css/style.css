@@ -5,12 +5,13 @@ a:hover {color:#666; text-decoration:none;}
 
 #wrap {width:1200px; margin:0 auto;}
 header {height:80px;}
-.center{height:auto;}
-.contents {width:1100px;}
-aside {width:100px;}
+.contents {width:1200px; height:auto;}
+aside {position:fixed; width:100px; right:30px;}
 footer {height:80px;}
 
 .logo:hover {color:#000;}
+
+.recent-list{position:absolute;}
 
 .input-box {width:400px; margin:0 auto;}
 .input-big-box {width:800px; margin:0 auto;}
@@ -19,7 +20,7 @@ footer {height:80px;}
 .my-page-box {width:150px;}
 
 .product-main-box {overflow:hidden; text-align:justify;}
-.product-small-box {display:inline-block; width:250px; height:300px; margin: 0 10px;}
-.product-big-box {display:inline-block; width:330px; height:500px; margin: 0 15px;}
+.product-small-box {display:inline-block; width:265px; height:330px; margin: 0 15px;}
+.product-big-box {display:inline-block; width:365px; height:500px; margin: 0 15px;}
 
 .purchase-box {height:200px;}
