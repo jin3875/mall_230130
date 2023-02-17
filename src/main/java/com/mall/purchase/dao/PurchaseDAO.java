@@ -15,7 +15,10 @@ public interface PurchaseDAO {
 	public List<Purchase> selectPurchaseListAll();
 	
 	// 구매 목록
-	public List<Purchase> selectPurchaseList(int userId);
+	public List<Purchase> selectPurchaseList(
+			@Param("userId") int userId,
+			@Param("startDate") String startDate,
+			@Param("endDate") String endDate);
 	
 	// 구매 조회
 	public Purchase selectPurchaseById(int id);

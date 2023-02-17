@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mall.purchase.bo.PurchaseServiceBO;
 import com.mall.purchase.model.PurchaseCardView;
@@ -112,14 +113,29 @@ public class UserController {
 	
 	/**
 	 * 구매 목록 화면
+	 * @param startDate
+	 * @param endDate
 	 * @param session
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/user_purchase_list_view")
-	public String userPurchaseListView(HttpSession session, Model model) {
+	public String userPurchaseListView(
+			@RequestParam(value="startDate", required=false) String startDate,
+			@RequestParam(value="endDate", required=false) String endDate,
+			HttpSession session,
+			Model model
+	) {
+		if (startDate != null) {
+			model.addAttribute("startDate", startDate);
+			model.addAttribute("endDate", endDate);
+			
+			startDate = startDate + " 00:00:00";
+			endDate = endDate + " 23:59:59";
+		}
+		
 		// 구매 + 구매 상품 목록
-		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
+		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"), startDate, endDate);
 		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("viewName", "user/userPurchaseList");
@@ -135,7 +151,7 @@ public class UserController {
 	@GetMapping("/user_review_list_view")
 	public String userReviewListView(HttpSession session, Model model) {
 		// 구매 + 구매 상품 목록
-		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"));
+		List<PurchaseCardView> purchaseCardViewList = purchaseServiceBO.generatePurchaseCardViewList((int)session.getAttribute("userId"), null, null);
 		model.addAttribute("purchaseCardViewList", purchaseCardViewList);
 		
 		model.addAttribute("viewName", "user/userReviewList");

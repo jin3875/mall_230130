@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 구매 목록 -->
-	<select id="selectPurchaseList" parameterType="int" resultType="com.mall.purchase.model.Purchase">
+	<select id="selectPurchaseList" parameterType="map" resultType="com.mall.purchase.model.Purchase">
 		SELECT
 			`id`
 			,`userId`
@@ -46,6 +46,14 @@
 			`purchase`
 		WHERE
 			`userId` = #{userId}
+			
+			<if test="startDate != null">
+			<![CDATA[
+			AND `createdAt` >= #{startDate}
+			AND `createdAt` <= #{endDate}
+			]]>
+			</if>
+			
 		ORDER BY `id` DESC
 	</select>
 	

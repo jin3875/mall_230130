@@ -18,7 +18,16 @@
 	</div>
 	
 	<div class="w-100 ml-5">
-		<h3 class="font-weight-bold">구매 목록</h3>
+		<div class="d-flex justify-content-between mr-5">
+			<a href="/user/user_purchase_list_view"><h3 class="font-weight-bold">구매 목록</h3></a>
+			
+			<div class="d-flex justify-content-end align-items-center">
+				<input type="text" id="startDate" class="form-control col-3" value="${startDate}">
+				<span class="mx-3">~</span>
+				<input type="text" id="endDate" class="form-control col-3 mr-3" value="${endDate}">
+				<a href="#" id="searchDate"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="search" width="20" height="20"></a>
+			</div>
+		</div>
 		
 		<c:forEach var="purchaseCardView" items="${purchaseCardViewList}">
 			<c:choose>
@@ -34,24 +43,29 @@
 								<small>( + 상품 ${fn:length(purchaseCardView.purchaseProductCardViewList) - 1}개 )</small>
 							</c:if>
 							<div class="text-secondary mt-3">
-								<div class="col-4 d-flex justify-content-between p-0">
+								<div class="col-5 d-flex justify-content-between p-0">
 									<span>가격</span>
 									<span><fmt:formatNumber value="${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.product.price}" type="number" />원</span>
 								</div>
 								
-								<div class="col-4 d-flex justify-content-between p-0">
+								<div class="col-5 d-flex justify-content-between p-0">
 									<span>색상</span>
 									<span>${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.productDetail.color}</span>
 								</div>
 								
-								<div class="col-4 d-flex justify-content-between p-0">
+								<div class="col-5 d-flex justify-content-between p-0">
 									<span>사이즈</span>
 									<span>${purchaseCardView.purchaseProductCardViewList[0].productDetailCardView.productDetail.size}</span>
 								</div>
 								
-								<div class="col-4 d-flex justify-content-between p-0">
+								<div class="col-5 d-flex justify-content-between p-0">
 									<span>수량</span>
 									<span>${purchaseCardView.purchaseProductCardViewList[0].purchaseProduct.amount}</span>
+								</div>
+								
+								<div class="col-5 d-flex justify-content-between p-0">
+									<span>구매일</span>
+									<span><fmt:formatDate value="${purchaseCardView.purchase.createdAt}" pattern="yyyy-MM-dd" /></span>
 								</div>
 							</div>
 						</div>
@@ -87,24 +101,29 @@
 							<div class="col-5">
 								<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
 								<div class="text-secondary mt-3">
-									<div class="col-4 d-flex justify-content-between p-0">
+									<div class="col-5 d-flex justify-content-between p-0">
 										<span>가격</span>
 										<span><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price}" type="number" />원</span>
 									</div>
 									
-									<div class="col-4 d-flex justify-content-between p-0">
+									<div class="col-5 d-flex justify-content-between p-0">
 										<span>색상</span>
 										<span>${purchaseProductCardView.productDetailCardView.productDetail.color}</span>
 									</div>
 									
-									<div class="col-4 d-flex justify-content-between p-0">
+									<div class="col-5 d-flex justify-content-between p-0">
 										<span>사이즈</span>
 										<span>${purchaseProductCardView.productDetailCardView.productDetail.size}</span>
 									</div>
 									
-									<div class="col-4 d-flex justify-content-between p-0">
+									<div class="col-5 d-flex justify-content-between p-0">
 										<span>수량</span>
 										<span>${purchaseProductCardView.purchaseProduct.amount}</span>
+									</div>
+									
+									<div class="col-5 d-flex justify-content-between p-0">
+										<span>구매일</span>
+										<span><fmt:formatDate value="${purchaseProductCardView.purchaseProduct.createdAt}" pattern="yyyy-MM-dd" /></span>
 									</div>
 								</div>
 							</div>
@@ -178,6 +197,46 @@
 
 <script>
 	$(document).ready(function() {
+		$.datepicker.setDefaults({
+			dateFormat : "yy-mm-dd"
+			, showMonthAfterYear : true
+			, showOtherMonths : true
+			, yearSuffix : '년'
+			, monthNames : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+			, dayNamesMin : ['일', '월', '화', '수', '목', '금', '토']
+			, maxDate : 0
+		});
+		
+		$("#startDate").datepicker();
+		$("#endDate").datepicker();
+		
+		$('#startDate').datepicker("option", "onClose", function (selectedDate) {
+			$("#endDate").datepicker("option", "minDate", selectedDate);
+		});
+		$('#endDate').datepicker("option", "onClose", function (selectedDate) {
+			if (selectedDate != "") {
+				$("#startDate").datepicker("option", "maxDate", selectedDate);
+			}
+		});
+		
+		// 검색 버튼
+		$('#searchDate').on('click', function() {
+			let startDate = $('#startDate').val();
+			let endDate = $('#endDate').val();
+			
+			if (startDate == '') {
+				alert('시작일을 입력해주세요');
+				return;
+			}
+			
+			if (endDate == '') {
+				alert('종료일을 입력해주세요');
+				return;
+			}
+			
+			location.href="/user/user_purchase_list_view?startDate=" + startDate + "&endDate=" + endDate;
+		});
+		
 		// 구매 취소 버튼
 		$('.cancel-btn').on('click', function() {
 			let purchaseId = $(this).data('purchase-id');

@@ -21,8 +21,8 @@ public class PurchaseBO {
 	}
 	
 	// 구매 목록
-	public List<Purchase> getPurchaseList(int userId) {
-		return purchaseDAO.selectPurchaseList(userId);
+	public List<Purchase> getPurchaseList(int userId, String startDate, String endDate) {
+		return purchaseDAO.selectPurchaseList(userId, startDate, endDate);
 	}
 	
 	// 구매 조회

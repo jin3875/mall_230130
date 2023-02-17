@@ -29,7 +29,7 @@
 						</div>
 						<div class="col-4">
 							<big class="font-weight-bold">${purchaseProductCardView.productDetailCardView.product.name}</big>
-							<div class="mt-3">
+							<div class="mt-2">
 								<c:set var="star" value="${purchaseProductCardView.purchaseProduct.star}" />
 								<c:forEach var="count" begin="0" end="4" step="1">
 									<c:choose>
@@ -55,6 +55,10 @@
 									</c:choose>
 								</div>
 							</c:if>
+							<div class="mt-3">
+								<div class="small text-secondary">상품 구매 : <fmt:formatDate value="${purchaseProductCardView.purchaseProduct.createdAt}" pattern="yyyy-MM-dd" /></div>
+								<div class="small text-secondary">후기 작성 : <fmt:formatDate value="${purchaseProductCardView.purchaseProduct.updatedAt}" pattern="yyyy-MM-dd" /></div>
+							</div>
 						</div>
 						<div class="col-3">
 							<c:if test="${not empty purchaseProductCardView.purchaseProduct.imagePath}">

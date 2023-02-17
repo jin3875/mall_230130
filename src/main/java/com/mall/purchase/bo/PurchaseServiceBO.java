@@ -162,11 +162,11 @@ public class PurchaseServiceBO {
 	}
 	
 	// 구매 + 구매 상품 목록
-	public List<PurchaseCardView> generatePurchaseCardViewList(int userId) {
+	public List<PurchaseCardView> generatePurchaseCardViewList(int userId, String startDate, String endDate) {
 		List<PurchaseCardView> purchaseCardViewList = new ArrayList<>();
 		
 		// 구매 목록
-		List<Purchase> purchaseList = purchaseBO.getPurchaseList(userId);
+		List<Purchase> purchaseList = purchaseBO.getPurchaseList(userId, startDate, endDate);
 		
 		for (Purchase purchase : purchaseList) {
 			PurchaseCardView purchaseCardView = new PurchaseCardView();
