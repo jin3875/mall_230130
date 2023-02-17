@@ -5,7 +5,7 @@
 
 <div id="userCheck" class="d-none">${userId}</div>
 <div class="d-flex ml-3">
-	<div class="product-img-box text-center">
+	<div class="product-img-box">
 		<ul class="slider">
 			<c:forEach var="productPicture" items="${productCardView.productPictureList}">
 				<li><img src="${productPicture.imagePath}" alt="product" width="400" height="400"></li>
@@ -18,7 +18,7 @@
 		<div>
 			<div class="d-flex justify-content-between align-items-center mt-5">
 				<span>가격</span>
-				<span><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</span>
+				<h5><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</h5>
 			</div>
 			
 			<div class="d-flex justify-content-between align-items-center mt-4">
@@ -106,6 +106,7 @@
 
 <script>
 	$(document).ready(function() {
+		// 사진 슬라이드
 		$('.slider').bxSlider();
 		
 		// 장바구니 버튼
