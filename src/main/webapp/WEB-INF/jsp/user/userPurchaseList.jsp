@@ -21,9 +21,10 @@
 		<div class="d-flex justify-content-between mr-5">
 			<a href="/user/user_purchase_list_view"><h3 class="font-weight-bold">구매 목록</h3></a>
 			
-			<div class="d-flex justify-content-end align-items-center">
-				<input type="text" id="startDate" class="form-control col-3" value="${startDate}">
-				<span class="mx-3">~</span>
+			<div class="col-6 d-flex justify-content-end align-items-center">
+				<span class="mr-3">날짜 검색</span>
+				<input type="text" id="startDate" class="form-control col-3 mr-3" value="${startDate}">
+				<span class="mr-3">~</span>
 				<input type="text" id="endDate" class="form-control col-3 mr-3" value="${endDate}">
 				<a href="#" id="searchDate"><img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="search" width="20" height="20"></a>
 			</div>
