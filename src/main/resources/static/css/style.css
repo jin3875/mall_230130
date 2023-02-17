@@ -20,7 +20,8 @@ footer {height:80px;}
 .my-page-box {width:150px;}
 
 .product-main-box {overflow:hidden; text-align:justify;}
-.product-small-box {display:inline-block; width:265px; height:330px; margin: 0 15px;}
 .product-big-box {display:inline-block; width:365px; height:500px; margin: 0 15px;}
+.product-small-box {display:inline-block; width:265px; height:330px; margin: 0 15px;}
+.product-img-box {width:410px;}
 
 .purchase-box {height:200px;}

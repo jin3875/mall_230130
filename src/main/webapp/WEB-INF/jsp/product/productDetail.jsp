@@ -5,7 +5,14 @@
 
 <div id="userCheck" class="d-none">${userId}</div>
 <div class="d-flex ml-3">
-	<div><img src="${productCardView.productPictureList[0].imagePath}" width="400" height="400"></div>
+	<div class="product-img-box text-center">
+		<ul class="slider">
+			<c:forEach var="productPicture" items="${productCardView.productPictureList}">
+				<li><img src="${productPicture.imagePath}" alt="product" width="400" height="400"></li>
+			</c:forEach>
+		</ul>
+	</div>
+	
 	<div class="col-4 mt-3 ml-5">
 		<h2 class="font-weight-bold">${productCardView.product.name}</h2>
 		<div>
@@ -54,7 +61,7 @@
 	<h3 class="font-weight-bold my-5">Info</h3>
 	<c:forEach var="productPicture" items="${productCardView.productPictureList}">
 		<div class="mt-5">
-			<img src="${productPicture.imagePath}" width="400" height="400">
+			<img src="${productPicture.imagePath}" alt="product" width="400" height="400">
 		</div>
 	</c:forEach>
 	<div class="mt-5">${productCardView.product.detail}</div>
@@ -99,6 +106,8 @@
 
 <script>
 	$(document).ready(function() {
+		$('.slider').bxSlider();
+		
 		// 장바구니 버튼
 		$('#wishListBtn').on('click', function() {
 			let productId = $(this).data('product-id');
