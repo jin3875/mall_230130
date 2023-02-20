@@ -21,7 +21,7 @@
 				<h5><fmt:formatNumber value="${productCardView.product.price}" type="number" />원</h5>
 			</div>
 			
-			<div class="d-flex justify-content-between align-items-center mt-4">
+			<div class="d-flex justify-content-between align-items-center mt-3">
 				<span>옵션</span>
 				<select id="colorAndSize" class="form-control col-8">
 					<option value="" selected>-- 색상 / 사이즈 --</option>
@@ -47,6 +47,16 @@
 					</c:forEach>
 				</select>
 			</div>
+			
+			<c:if test="${productCardView.product.price < 30000}">
+				<div class="d-flex justify-content-between mt-4">
+					<div>
+						<span>배송비</span><br>
+						<small class="text-secondary">* 30,000원 이상 구매시 무료 *</small>
+					</div>
+					<h5>3,000원</h5>
+				</div>
+			</c:if>
 		</div>
 		
 		<div class="d-flex justify-content-between mt-5">

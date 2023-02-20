@@ -42,6 +42,13 @@
 	</div>
 </c:forEach>
 
+<c:if test="${totalPrice < 30000}">
+	<div class="d-flex justify-content-end mt-4 mr-5">
+		<h5 class="mr-5">배송비 : 3,000원</h5>
+		<c:set var="totalPrice" value="${totalPrice + 3000}" />
+	</div>
+</c:if>
+
 <div class="d-flex justify-content-end mt-4 mr-5">
 	<h2 id="totalPrice" class="font-weight-bold mr-5" data-total-price="${totalPrice}">총 <fmt:formatNumber value="${totalPrice}" type="number" />원</h2>
 </div>

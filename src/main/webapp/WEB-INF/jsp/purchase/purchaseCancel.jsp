@@ -19,6 +19,7 @@
 	<div class="w-100 ml-5">
 		<h3 class="font-weight-bold">구매 취소</h3>
 		
+		<c:set var="totalPrice" value="0" />
 		<c:forEach var="purchaseProductCardView" items="${purchaseCardView.purchaseProductCardViewList}" varStatus="status">
 			<div class="purchase-box d-flex align-items-center mt-5 mr-5 bg-light">
 				<h3 class="col-1 d-flex justify-content-center">${status.count}</h3>
@@ -49,12 +50,19 @@
 						</div>
 					</div>
 				</div>
-				<h4 class="col-2"><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" type="number" />원</h4>
+				<h4 class="col-2 p-0"><fmt:formatNumber value="${purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" type="number" />원</h4>
+				<c:set var="totalPrice" value="${totalPrice + purchaseProductCardView.productDetailCardView.product.price * purchaseProductCardView.purchaseProduct.amount}" />
 			</div>
 		</c:forEach>
 		
+		<c:if test="${totalPrice < 30000}">
+			<div class="d-flex justify-content-end mt-4 mr-5">
+				<h5 class="mr-5">배송비 : 3,000원</h5>
+			</div>
+		</c:if>
+		
 		<div class="d-flex justify-content-end mt-4 mr-5">
-			<h3 id="totalPrice" class="font-weight-bold">총 <fmt:formatNumber value="${purchaseCardView.purchase.totalPrice}" type="number" />원</h3>
+			<h2 id="totalPrice" class="font-weight-bold mr-5">총 <fmt:formatNumber value="${purchaseCardView.purchase.totalPrice}" type="number" />원</h2>
 		</div>
 		
 		<div class="d-flex justify-content-end mt-5 mr-5">
