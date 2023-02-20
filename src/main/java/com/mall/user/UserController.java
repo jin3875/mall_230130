@@ -143,6 +143,17 @@ public class UserController {
 	}
 	
 	/**
+	 * 구매 달력 화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/user_purchase_calendar_view")
+	public String userPurchaseCalendarView(Model model) {
+		model.addAttribute("viewName", "user/userPurchaseCalendar");
+		return "template/layout";
+	}
+	
+	/**
 	 * 후기 목록 화면
 	 * @param session
 	 * @param model

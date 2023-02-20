@@ -19,7 +19,10 @@
 	
 	<div class="w-100 ml-5">
 		<div class="d-flex justify-content-between mr-5">
-			<a href="/user/user_purchase_list_view"><h3 class="font-weight-bold">구매 목록</h3></a>
+			<div class="d-flex align-items-center">
+				<a href="/user/user_purchase_list_view"><h3 class="font-weight-bold m-0 mr-4">구매 목록</h3></a>
+				<a href="/user/user_purchase_calendar_view"><img src="https://cdn-icons-png.flaticon.com/512/2098/2098602.png" alt="calendar" width="30" height="30"></a>
+			</div>
 			
 			<div class="col-6 d-flex justify-content-end align-items-center">
 				<span class="mr-3">날짜 검색</span>
