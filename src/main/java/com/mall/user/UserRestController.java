@@ -1,14 +1,9 @@
 package com.mall.user;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mall.common.EncryptUtils;
 import com.mall.common.MakePassword;
-import com.mall.purchase.bo.PurchaseBO;
-import com.mall.purchase.model.Purchase;
+import com.mall.purchase.bo.PurchaseServiceBO;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
 
@@ -35,7 +29,7 @@ public class UserRestController {
 	private UserBO userBO;
 	
 	@Autowired
-	private PurchaseBO purchaseBO;
+	private PurchaseServiceBO purchaseServiceBO;
 	
 	/**
 	 * 아이디 중복 확인 API
@@ -326,30 +320,10 @@ public class UserRestController {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@PostMapping("/user_purchase_calendar")
 	public List<Map<String, Object>> userPurchaseCalendar(HttpSession session) {
-		// 구매 목록
-		List<Purchase> purchaseList = purchaseBO.getPurchaseList((int)session.getAttribute("userId"), null, null);
-		
-		JSONArray jsonArr = new JSONArray();
-		JSONObject jsonObj = new JSONObject();
-		Map<String, Object> hash = new HashMap<>();
-		
-		DateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		DecimalFormat money = new DecimalFormat("###,###,###원");
-		
-		for (int i = 0; i < purchaseList.size(); i++) {
-			hash.put("start", date.format(purchaseList.get(i).getCreatedAt()));
-			hash.put("title", money.format(purchaseList.get(i).getTotalPrice()));
-			hash.put("textColor", "#FFF");
-			hash.put("color", "#555");
-			
-			jsonObj = new JSONObject(hash);
-			jsonArr.add(jsonObj);
-		}
-		
-		return jsonArr;
+		// 구매 달력
+		return purchaseServiceBO.generatePurchaseCalendar((int)session.getAttribute("userId"));
 	}
 
 }

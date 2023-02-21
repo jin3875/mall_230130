@@ -1,8 +1,14 @@
 package com.mall.purchase.bo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -238,6 +244,37 @@ public class PurchaseServiceBO {
 		}
 		
 		return purchaseDAO.updatePurchaseProductReviewNull(id);
+	}
+	
+	// 구매 달력
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> generatePurchaseCalendar(int userId) {
+		// 구매 + 구매 상품 목록
+		List<PurchaseCardView> purchaseCardViewList = generatePurchaseCardViewList(userId, null, null);
+		
+		JSONArray jsonArr = new JSONArray();
+		Map<String, Object> hash = new HashMap<>();
+		
+		DateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (int i = 0; i < purchaseCardViewList.size(); i++) {
+			if (purchaseCardViewList.get(i).getPurchase().getCancellation() == 0) {
+				for (int j = 0; j < purchaseCardViewList.get(i).getPurchaseProductCardViewList().size(); j++) {
+					if (purchaseCardViewList.get(i).getPurchaseProductCardViewList().get(j).getPurchaseProduct().getCompletion() == 1) {
+						hash.put("start", date.format(purchaseCardViewList.get(i).getPurchase().getCreatedAt()));
+						hash.put("title", purchaseCardViewList.get(i).getPurchaseProductCardViewList().get(j).getProductDetailCardView().getProduct().getName());
+						hash.put("url", "/product/product_detail_view/" + purchaseCardViewList.get(i).getPurchaseProductCardViewList().get(j).getProductDetailCardView().getProduct().getId());
+						hash.put("textColor", "#FFF");
+						hash.put("color", "#666");
+						
+						JSONObject jsonObj = new JSONObject(hash);
+						jsonArr.add(jsonObj);
+					}
+				}
+			}
+		}
+		
+		return jsonArr;
 	}
 
 }
