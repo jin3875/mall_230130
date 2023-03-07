@@ -2,6 +2,8 @@ package com.mall.user;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +15,6 @@ import com.mall.purchase.bo.PurchaseServiceBO;
 import com.mall.purchase.model.PurchaseCardView;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
-
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
 @Controller

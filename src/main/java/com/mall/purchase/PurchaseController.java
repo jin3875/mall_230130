@@ -2,6 +2,8 @@ package com.mall.purchase;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +21,6 @@ import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
 import com.mall.wishList.bo.WishListServiceBO;
 import com.mall.wishList.model.WishListCardView;
-
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/purchase")
 @Controller

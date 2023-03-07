@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,6 @@ import com.mall.product.model.ProductDetail;
 import com.mall.purchase.bo.PurchaseBO;
 import com.mall.purchase.bo.PurchaseServiceBO;
 import com.mall.wishList.bo.WishListBO;
-
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/purchase")
 @RestController

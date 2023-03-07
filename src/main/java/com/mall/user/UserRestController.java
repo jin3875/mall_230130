@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,6 @@ import com.mall.common.MakePassword;
 import com.mall.purchase.bo.PurchaseServiceBO;
 import com.mall.user.bo.UserBO;
 import com.mall.user.model.User;
-
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
 @RestController
