@@ -30,6 +30,8 @@ http://15.164.48.138:8080/product/product_main_view
 
 ## 화면
 
+0. 시연동영상 : https://youtu.be/cpB-NnIL_vQ  <br><br>
+
 1. 상품 상세 화면 <br><br><br>
 ![상품 상세 화면](https://user-images.githubusercontent.com/119337523/224994166-abf20f59-824f-4f71-a91b-ee05afdbca5a.jpg) <br><br><br>
 
